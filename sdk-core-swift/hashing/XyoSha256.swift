@@ -19,9 +19,7 @@ struct XyoSha256 : XyoHasher {
         }
         
         let digestBytes = XyoBuffer(data: digest.map { $0 })
-        
-        print(digestBytes.getSize())
-        
+                
         return XyoObjectStructure.newInstance(schema: XyoSchemas.SHA_256, bytes: digestBytes)
     }
 }
