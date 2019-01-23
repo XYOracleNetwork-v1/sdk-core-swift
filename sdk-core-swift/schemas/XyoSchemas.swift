@@ -45,6 +45,7 @@ public struct XyoSchemas {
     public static let LNG =                     XyoObjectSchema(id: 29, encodingCatalogue: 0x80)
     
     // custum
+    public static let STUB_PRIVATE_KEY =        XyoObjectSchema(id: 0xff, encodingCatalogue: 0x80)
     public static let EC_PRIVATE_KEY =          XyoObjectSchema(id: 0xff, encodingCatalogue: 0x80)
     public static let RSA_PRIVATE_KEY =         XyoObjectSchema(id: 0xff, encodingCatalogue: 0x80)
     public static let BLOB =                    XyoObjectSchema(id: 0xff, encodingCatalogue: 0x80)

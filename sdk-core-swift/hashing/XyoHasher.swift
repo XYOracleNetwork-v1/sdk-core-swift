@@ -9,6 +9,6 @@
 import Foundation
 import sdk_objectmodel_swift
 
-protocol XyoHasher {
-    static func hash(data : [UInt8]) -> XyoObjectStructure
+public protocol XyoHasher {
+    func hash(data : [UInt8]) -> XyoObjectStructure
 }

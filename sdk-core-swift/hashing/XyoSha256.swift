@@ -10,8 +10,8 @@ import Foundation
 import CommonCrypto
 import sdk_objectmodel_swift
 
-struct XyoSha256 : XyoHasher {
-    static func hash(data: [UInt8]) -> XyoObjectStructure {
+public struct XyoSha256 : XyoHasher {
+    public func hash(data: [UInt8]) -> XyoObjectStructure {
         var digest = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
         
         _ = digest.withUnsafeMutableBytes { (digestBytes) in
@@ -19,7 +19,7 @@ struct XyoSha256 : XyoHasher {
         }
         
         let digestBytes = XyoBuffer(data: digest.map { $0 })
-                
+        
         return XyoObjectStructure.newInstance(schema: XyoSchemas.SHA_256, bytes: digestBytes)
     }
 }

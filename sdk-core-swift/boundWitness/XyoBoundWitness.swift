@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public class XyoBoundWitness : XyoIterableStructure {
+open class XyoBoundWitness : XyoIterableStructure {
     
     public func getIsCompleted () throws -> Bool {
         if (try self.get(id: XyoSchemas.WITNESS.id).count > 0) {
@@ -25,6 +25,18 @@ public class XyoBoundWitness : XyoIterableStructure {
     
     public func getNumberOfWitnesses () throws -> Int {
         return try self.get(id: XyoSchemas.WITNESS.id).count
+    }
+    
+    public func getHash (hasher : XyoHasher) throws -> XyoObjectStructure {
+        return try hasher.hash(data: getSigningData())
+    }
+    
+    public func signCurrent(signer : XyoSigner) throws -> XyoObjectStructure {
+        return try signer.sign(data: getSigningData())
+    }
+    
+    internal func getSigningData () throws -> [UInt8] {
+        return try getValueCopy().copyRangeOf(from: 0, to: getWitnessFetterBoundry()).toByteArray()
     }
     
     public func getNumberOfParties () throws -> Int? {
@@ -73,5 +85,19 @@ public class XyoBoundWitness : XyoIterableStructure {
         }
         
         return offsetIndex
+    }
+    
+    static func createFetter (payload: [XyoObjectStructure], publicKeys: [XyoObjectStructure]) throws -> XyoObjectStructure {
+        let keyset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.KEY_SET, values: publicKeys)
+        var itemsInFetter = payload
+        itemsInFetter.append(keyset)
+        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.FETTER, values: itemsInFetter)
+    }
+    
+    static func createWitness (unsignedPayload: [XyoObjectStructure], publicKeys: [XyoObjectStructure]) throws -> XyoObjectStructure {
+        let keyset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.SIGNATURE_SET, values: publicKeys)
+        var itemsInWitness = unsignedPayload
+        itemsInWitness.append(keyset)
+        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: itemsInWitness)
     }
 }

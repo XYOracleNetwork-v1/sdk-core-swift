@@ -15,6 +15,9 @@
 		8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542B421F7E97F00124CB0 /* XyoSha256.swift */; };
 		8C6542B721F7EF8B00124CB0 /* XyoSha256Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542B621F7EF8B00124CB0 /* XyoSha256Test.swift */; };
 		8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542BA21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift */; };
+		8C6542BF21F7FB0800124CB0 /* XyoSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542BE21F7FB0800124CB0 /* XyoSigner.swift */; };
+		8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C321F7FC3600124CB0 /* XyoStubSigner.swift */; };
+		8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */; };
 		8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6B21F7D31B0005A57F /* XyoError.swift */; };
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
 		8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */; };
@@ -43,6 +46,9 @@
 		8C6542B421F7E97F00124CB0 /* XyoSha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSha256.swift; sourceTree = "<group>"; };
 		8C6542B621F7EF8B00124CB0 /* XyoSha256Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSha256Test.swift; sourceTree = "<group>"; };
 		8C6542BA21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoHexStringToUInt8Array.swift; sourceTree = "<group>"; };
+		8C6542BE21F7FB0800124CB0 /* XyoSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSigner.swift; sourceTree = "<group>"; };
+		8C6542C321F7FC3600124CB0 /* XyoStubSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStubSigner.swift; sourceTree = "<group>"; };
+		8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessTest.swift; sourceTree = "<group>"; };
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
 		8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_objectmodel_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,8 +105,9 @@
 		8C42B7B821F7C5CC006F6F86 /* sdk-core-swift */ = {
 			isa = PBXGroup;
 			children = (
-				8C6542B121F7E85B00124CB0 /* hashing */,
 				8C6542AE21F7E35300124CB0 /* boundWitness */,
+				8C6542BC21F7FAC000124CB0 /* crypto */,
+				8C6542B121F7E85B00124CB0 /* hashing */,
 				8CA10E6D21F7D3690005A57F /* schemas */,
 				8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */,
 				8C42B7BA21F7C5CC006F6F86 /* Info.plist */,
@@ -112,6 +119,7 @@
 		8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				8C6542C521F8022100124CB0 /* boundWitness */,
 				8C6542B921F7F06E00124CB0 /* testing */,
 				8C6542B821F7EF9000124CB0 /* hashing */,
 				8C42B7C621F7C5CC006F6F86 /* Info.plist */,
@@ -160,6 +168,55 @@
 				8C6542BA21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift */,
 			);
 			path = testing;
+			sourceTree = "<group>";
+		};
+		8C6542BC21F7FAC000124CB0 /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542BD21F7FAD200124CB0 /* signing */,
+			);
+			path = crypto;
+			sourceTree = "<group>";
+		};
+		8C6542BD21F7FAD200124CB0 /* signing */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542C221F7FC2000124CB0 /* stub */,
+				8C6542C121F7FC1700124CB0 /* rsa */,
+				8C6542C021F7FBD500124CB0 /* ecdsa */,
+				8C6542BE21F7FB0800124CB0 /* XyoSigner.swift */,
+			);
+			path = signing;
+			sourceTree = "<group>";
+		};
+		8C6542C021F7FBD500124CB0 /* ecdsa */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ecdsa;
+			sourceTree = "<group>";
+		};
+		8C6542C121F7FC1700124CB0 /* rsa */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = rsa;
+			sourceTree = "<group>";
+		};
+		8C6542C221F7FC2000124CB0 /* stub */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542C321F7FC3600124CB0 /* XyoStubSigner.swift */,
+			);
+			path = stub;
+			sourceTree = "<group>";
+		};
+		8C6542C521F8022100124CB0 /* boundWitness */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */,
+			);
+			path = boundWitness;
 			sourceTree = "<group>";
 		};
 		8CA10E6D21F7D3690005A57F /* schemas */ = {
@@ -366,9 +423,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6542BF21F7FB0800124CB0 /* XyoSigner.swift in Sources */,
 				8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
+				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
 				8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */,
 				8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */,
 			);
@@ -379,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */,
+				8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */,
 				8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */,
 				8C6542B721F7EF8B00124CB0 /* XyoSha256Test.swift in Sources */,
 			);
