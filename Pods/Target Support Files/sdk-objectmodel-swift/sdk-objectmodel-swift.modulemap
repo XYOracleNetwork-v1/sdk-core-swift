@@ -1,0 +1,6 @@
+framework module sdk_objectmodel_swift {
+  umbrella header "sdk-objectmodel-swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
