@@ -81,7 +81,7 @@ open class XyoBoundWitness : XyoIterableStructure {
         var offsetIndex = 0
         
         for fetter in fetters {
-            offsetIndex += fetter.getSize() + 2
+            offsetIndex += try fetter.getSize() + 2
         }
         
         return offsetIndex

@@ -11,8 +11,8 @@ import sdk_objectmodel_swift
 
 public class XyoUnixTime : XyoObjectStructure {
     
-    public func getUnixTime() -> UInt64 {
-        return getValueCopy().getUInt64(offset: 0)
+    public func getUnixTime() throws -> UInt64 {
+        return try getValueCopy().getUInt64(offset: 0)
     }
     
     public static func createNow () -> XyoUnixTime {

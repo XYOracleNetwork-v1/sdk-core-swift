@@ -21,6 +21,10 @@
 		8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */; };
 		8C6542CC21F8092E00124CB0 /* XyoUnixTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */; };
 		8C6542CE21F80BFB00124CB0 /* XyoUnixTimeGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */; };
+		8C6542D121F9180A00124CB0 /* XyoUnixTimeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D021F9180A00124CB0 /* XyoUnixTimeTest.swift */; };
+		8C6542D321F9190000124CB0 /* XyoUnixTimeGetterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D221F9190000124CB0 /* XyoUnixTimeGetterTest.swift */; };
+		8C6542D521F91A0E00124CB0 /* XyoBoundWitnessUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D421F91A0E00124CB0 /* XyoBoundWitnessUtil.swift */; };
+		8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D621F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift */; };
 		8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6B21F7D31B0005A57F /* XyoError.swift */; };
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
 		8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */; };
@@ -55,6 +59,10 @@
 		8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoHueresticGetter.swift; sourceTree = "<group>"; };
 		8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTime.swift; sourceTree = "<group>"; };
 		8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTimeGetter.swift; sourceTree = "<group>"; };
+		8C6542D021F9180A00124CB0 /* XyoUnixTimeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTimeTest.swift; sourceTree = "<group>"; };
+		8C6542D221F9190000124CB0 /* XyoUnixTimeGetterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTimeGetterTest.swift; sourceTree = "<group>"; };
+		8C6542D421F91A0E00124CB0 /* XyoBoundWitnessUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessUtil.swift; sourceTree = "<group>"; };
+		8C6542D621F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessUtilTest.swift; sourceTree = "<group>"; };
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
 		8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_objectmodel_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +134,7 @@
 		8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				8C6542CF21F917C500124CB0 /* heuristics */,
 				8C6542C521F8022100124CB0 /* boundWitness */,
 				8C6542B921F7F06E00124CB0 /* testing */,
 				8C6542B821F7EF9000124CB0 /* hashing */,
@@ -148,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6542AF21F7E36200124CB0 /* XyoBoundWitness.swift */,
+				8C6542D421F91A0E00124CB0 /* XyoBoundWitnessUtil.swift */,
 			);
 			path = boundWitness;
 			sourceTree = "<group>";
@@ -222,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */,
+				8C6542D621F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift */,
 			);
 			path = boundWitness;
 			sourceTree = "<group>";
@@ -232,6 +243,15 @@
 				8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */,
 				8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */,
 				8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */,
+			);
+			path = heuristics;
+			sourceTree = "<group>";
+		};
+		8C6542CF21F917C500124CB0 /* heuristics */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542D021F9180A00124CB0 /* XyoUnixTimeTest.swift */,
+				8C6542D221F9190000124CB0 /* XyoUnixTimeGetterTest.swift */,
 			);
 			path = heuristics;
 			sourceTree = "<group>";
@@ -447,6 +467,7 @@
 				8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
+				8C6542D521F91A0E00124CB0 /* XyoBoundWitnessUtil.swift in Sources */,
 				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
 				8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */,
 				8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */,
@@ -457,10 +478,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */,
 				8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */,
 				8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */,
 				8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */,
 				8C6542B721F7EF8B00124CB0 /* XyoSha256Test.swift in Sources */,
+				8C6542D321F9190000124CB0 /* XyoUnixTimeGetterTest.swift in Sources */,
+				8C6542D121F9180A00124CB0 /* XyoUnixTimeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
