@@ -41,4 +41,39 @@ public struct XyoBoundWitnessUtil {
         
         return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger)
     }
+    
+    public static func getPartyNumberFromPublicKey (publickey : XyoObjectStructure, boundWitness : XyoBoundWitness) throws -> Int? {
+        for i in 0...(try boundWitness.getNumberOfParties() ?? 0) {
+            
+            guard let fetter = try boundWitness.getFetterOfParty(partyIndex: i) else {
+                return nil
+            }
+            
+            if (try checkPartyForPublicKey(fetter: fetter, publicKey: publickey)) {
+                return i
+            }
+        }
+        
+        return nil
+    }
+    
+    private static func checkPartyForPublicKey (fetter : XyoIterableStructure, publicKey : XyoObjectStructure) throws -> Bool {
+        for keySet in (try fetter.get(id: XyoSchemas.KEY_SET.id)) {
+            
+            guard let typedKeyset = keySet as? XyoIterableStructure else {
+                return false
+            }
+            
+            let it = try typedKeyset.getNewIterator()
+            
+            while (try it.hasNext()) {
+                if (try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray()) {
+                    return true
+                }
+            }
+        }
+        
+        
+        return false
+    }
 }
