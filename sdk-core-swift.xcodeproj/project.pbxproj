@@ -27,6 +27,9 @@
 		8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D621F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift */; };
 		8C6542DB21F9644700124CB0 /* XyoZigZagBoundWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DA21F9644700124CB0 /* XyoZigZagBoundWitness.swift */; };
 		8C6542DD21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */; };
+		8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */; };
+		8C6542E321FAA39900124CB0 /* XyoNetworkPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */; };
+		8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */; };
 		8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6B21F7D31B0005A57F /* XyoError.swift */; };
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
 		8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */; };
@@ -67,6 +70,9 @@
 		8C6542D621F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessUtilTest.swift; sourceTree = "<group>"; };
 		8C6542DA21F9644700124CB0 /* XyoZigZagBoundWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZagBoundWitness.swift; sourceTree = "<group>"; };
 		8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZigBoundWitnessTest.swift; sourceTree = "<group>"; };
+		8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkPipe.swift; sourceTree = "<group>"; };
+		8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkPeer.swift; sourceTree = "<group>"; };
+		8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZagBoundWitnessSession.swift; sourceTree = "<group>"; };
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
 		8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_objectmodel_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +129,7 @@
 		8C42B7B821F7C5CC006F6F86 /* sdk-core-swift */ = {
 			isa = PBXGroup;
 			children = (
+				8C6542DE21FAA34200124CB0 /* network */,
 				8C6542C821F808A300124CB0 /* heuristics */,
 				8C6542AE21F7E35300124CB0 /* boundWitness */,
 				8C6542BC21F7FAC000124CB0 /* crypto */,
@@ -138,6 +145,7 @@
 		8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				8C6542E121FAA37500124CB0 /* network */,
 				8C6542CF21F917C500124CB0 /* heuristics */,
 				8C6542C521F8022100124CB0 /* boundWitness */,
 				8C6542B921F7F06E00124CB0 /* testing */,
@@ -163,6 +171,7 @@
 				8C6542AF21F7E36200124CB0 /* XyoBoundWitness.swift */,
 				8C6542D421F91A0E00124CB0 /* XyoBoundWitnessUtil.swift */,
 				8C6542DA21F9644700124CB0 /* XyoZigZagBoundWitness.swift */,
+				8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */,
 			);
 			path = boundWitness;
 			sourceTree = "<group>";
@@ -260,6 +269,22 @@
 				8C6542D221F9190000124CB0 /* XyoUnixTimeGetterTest.swift */,
 			);
 			path = heuristics;
+			sourceTree = "<group>";
+		};
+		8C6542DE21FAA34200124CB0 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */,
+				8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		8C6542E121FAA37500124CB0 /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = network;
 			sourceTree = "<group>";
 		};
 		8CA10E6D21F7D3690005A57F /* schemas */ = {
@@ -473,8 +498,11 @@
 				8C6542CC21F8092E00124CB0 /* XyoUnixTime.swift in Sources */,
 				8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
+				8C6542E321FAA39900124CB0 /* XyoNetworkPeer.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
 				8C6542D521F91A0E00124CB0 /* XyoBoundWitnessUtil.swift in Sources */,
+				8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */,
+				8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */,
 				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
 				8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */,
 				8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */,
