@@ -20,26 +20,30 @@ public struct XyoBoundWitnessUtil {
         newBoundWitnessLedger.append(contentsOf: fetters)
         
         for witness in witnesses {
-            var newWitnessContents : [XyoObjectStructure] = []
-            
-            guard let typedWitness = witness as? XyoIterableStructure else {
-                throw XyoObjectError.NOT_ITERABLE
-            }
-            
-            let it = try typedWitness.getNewIterator()
-            
-            while (try it.hasNext()) {
-                let item = try it.next()
-                
-                if (try item.getSchema().id != id) {
-                    newWitnessContents.append(item)
-                }
-            }
-            
-            newBoundWitnessLedger.append(try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: newWitnessContents))
+            newBoundWitnessLedger.append(try removeTypeFromWitness(witness: witness, id: id))
         }
         
         return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger)
+    }
+    
+    private static func removeTypeFromWitness (witness : XyoObjectStructure, id: UInt8) throws -> XyoIterableStructure {
+        var newWitnessContents : [XyoObjectStructure] = []
+        
+        guard let typedWitness = witness as? XyoIterableStructure else {
+            throw XyoObjectError.NOT_ITERABLE
+        }
+        
+        let it = try typedWitness.getNewIterator()
+        
+        while (try it.hasNext()) {
+            let item = try it.next()
+            
+            if (try item.getSchema().id != id) {
+                newWitnessContents.append(item)
+            }
+        }
+        
+        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: newWitnessContents)
     }
     
     public static func getPartyNumberFromPublicKey (publickey : XyoObjectStructure, boundWitness : XyoBoundWitness) throws -> Int? {
@@ -59,20 +63,28 @@ public struct XyoBoundWitnessUtil {
     
     private static func checkPartyForPublicKey (fetter : XyoIterableStructure, publicKey : XyoObjectStructure) throws -> Bool {
         for keySet in (try fetter.get(id: XyoSchemas.KEY_SET.id)) {
-            
             guard let typedKeyset = keySet as? XyoIterableStructure else {
                 return false
             }
             
-            let it = try typedKeyset.getNewIterator()
-            
-            while (try it.hasNext()) {
-                if (try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray()) {
-                    return true
-                }
+            if ((try checkKeySetForPublicKey(keyset: typedKeyset, publicKey: publicKey))) {
+                return true
             }
+            
         }
         
+        return false
+    }
+    
+    private static func checkKeySetForPublicKey (keyset : XyoIterableStructure, publicKey : XyoObjectStructure) throws -> Bool {
+        
+        let it = try keyset.getNewIterator()
+        
+        while (try it.hasNext()) {
+            if (try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray()) {
+                return true
+            }
+        }
         
         return false
     }

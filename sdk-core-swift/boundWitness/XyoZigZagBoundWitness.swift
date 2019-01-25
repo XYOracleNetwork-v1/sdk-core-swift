@@ -93,6 +93,10 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
             }
         }
         
+        return try encodeFettersAndWitnessesForTransfer(fetters: fetters, witnesses: witnesses, items: items)
+    }
+    
+    private func encodeFettersAndWitnessesForTransfer (fetters: [XyoObjectStructure], witnesses: [XyoObjectStructure], items: [XyoObjectStructure]) throws -> XyoIterableStructure {
         if (fetters.count == 0 && witnesses.count != 0) {
             return try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.WITNESS_SET, values: witnesses)
         } else if (fetters.count != 0 && witnesses.count == 0) {

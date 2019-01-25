@@ -96,16 +96,17 @@ open class XyoBoundWitness : XyoIterableStructure {
     }
     
     static func createFetter (payload: [XyoObjectStructure], publicKeys: [XyoObjectStructure]) throws -> XyoObjectStructure {
-        let keyset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.KEY_SET, values: publicKeys)
-        var itemsInFetter = payload
-        itemsInFetter.append(keyset)
-        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.FETTER, values: itemsInFetter)
+         return try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.FETTER, subSchema: XyoSchemas.KEY_SET, masterItems: payload, subItems: publicKeys)
     }
     
     static func createWitness (unsignedPayload: [XyoObjectStructure], signatures: [XyoObjectStructure]) throws -> XyoObjectStructure {
-        let sigset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.SIGNATURE_SET, values: signatures)
-        var itemsInWitness = unsignedPayload
-        itemsInWitness.append(sigset)
-        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: itemsInWitness)
+        return try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS, subSchema: XyoSchemas.SIGNATURE_SET, masterItems: unsignedPayload, subItems: signatures)
+    }
+    
+    private static func createMasterArrayWithSubArray (masterSchema : XyoObjectSchema, subSchema : XyoObjectSchema, masterItems: [XyoObjectStructure], subItems: [XyoObjectStructure]) throws -> XyoObjectStructure {
+        let sub = try XyoIterableStructure.createUntypedIterableObject(schema: subSchema, values: subItems)
+        var itemsInMaster = masterItems
+        itemsInMaster.append(sub)
+        return try XyoIterableStructure.createUntypedIterableObject(schema: masterSchema, values: itemsInMaster)
     }
 }

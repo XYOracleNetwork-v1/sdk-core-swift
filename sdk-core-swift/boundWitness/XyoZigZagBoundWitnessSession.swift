@@ -43,8 +43,10 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             buffer.put(bits: UInt8(choice.count))
             buffer.put(bytes: choice)
             buffer.put(bytes: try returnData.getValueCopy().toByteArray())
-            guard let response = 
+//            guard let response =
         }
+        
+        return nil
     }
     
 }
