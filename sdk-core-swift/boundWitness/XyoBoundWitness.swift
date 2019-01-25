@@ -35,6 +35,14 @@ open class XyoBoundWitness : XyoIterableStructure {
         return try signer.sign(data: getSigningData())
     }
     
+    public func addToLedger (item : XyoObjectStructure) throws {
+        if (try getIsCompleted()) {
+            throw XyoError.BW_IS_COMPLETED
+        }
+        
+        try addElement(element: item)
+    }
+    
     internal func getSigningData () throws -> [UInt8] {
         return try getValueCopy().copyRangeOf(from: 0, to: getWitnessFetterBoundry()).toByteArray()
     }
@@ -94,10 +102,10 @@ open class XyoBoundWitness : XyoIterableStructure {
         return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.FETTER, values: itemsInFetter)
     }
     
-    static func createWitness (unsignedPayload: [XyoObjectStructure], publicKeys: [XyoObjectStructure]) throws -> XyoObjectStructure {
-        let keyset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.SIGNATURE_SET, values: publicKeys)
+    static func createWitness (unsignedPayload: [XyoObjectStructure], signatures: [XyoObjectStructure]) throws -> XyoObjectStructure {
+        let sigset = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.SIGNATURE_SET, values: signatures)
         var itemsInWitness = unsignedPayload
-        itemsInWitness.append(keyset)
+        itemsInWitness.append(sigset)
         return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: itemsInWitness)
     }
 }

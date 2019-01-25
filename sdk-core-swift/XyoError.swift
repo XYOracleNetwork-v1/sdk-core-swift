@@ -10,5 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 enum XyoError : Error {
-    case EXTREME_TESTING_ERROR
+    case EXTREME_TESTING_ERROR // used for testing
+    case MUST_BE_FETTER_OR_WITNESS // thrown when an item is added to a bound witness that is not a witness or a fetter
+    case BW_IS_COMPLETED // thrown when a bound wittness is completed and you are trying to change it
 }

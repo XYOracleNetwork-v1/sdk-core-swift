@@ -15,9 +15,9 @@ public class XyoStubSigner : XyoSigner {
     private let stubPrivateKeyValue : [UInt8]
     
     public init () {
-        self.stubKeyValue = [0x00]
-        self.stubSignatureValue = [0x00]
-        self.stubPrivateKeyValue = [0x00]
+        self.stubKeyValue = [0x00, 0x00]
+        self.stubSignatureValue = [0x00, 0x00]
+        self.stubPrivateKeyValue = [0x00, 0x00]
     }
     
     public init (stubKeyValue : [UInt8], stubSignatureValue: [UInt8], stubPrivateKeyValue: [UInt8]) {
