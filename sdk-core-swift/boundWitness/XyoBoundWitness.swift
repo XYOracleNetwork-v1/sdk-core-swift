@@ -95,24 +95,11 @@ open class XyoBoundWitness : XyoIterableStructure {
         return offsetIndex
     }
     
-    static func createFetter (payload: [XyoObjectStructure], publicKeys: [XyoObjectStructure]) throws -> XyoObjectStructure {
-         return try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.FETTER,
-                                                                  subSchema: XyoSchemas.KEY_SET,
-                                                                  masterItems: payload,
-                                                                  subItems: publicKeys)
-    }
-    
-    static func createWitness (unsignedPayload: [XyoObjectStructure], signatures: [XyoObjectStructure]) throws -> XyoObjectStructure {
-        return try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS,
-                                                                 subSchema: XyoSchemas.SIGNATURE_SET,
-                                                                 masterItems: unsignedPayload,
-                                                                 subItems: signatures)
-    }
-    
-    private static func createMasterArrayWithSubArray (masterSchema : XyoObjectSchema,
-                                                       subSchema : XyoObjectSchema,
-                                                       masterItems: [XyoObjectStructure],
-                                                       subItems: [XyoObjectStructure]) throws -> XyoObjectStructure {
+
+    static func createMasterArrayWithSubArray (masterSchema : XyoObjectSchema,
+                                               subSchema : XyoObjectSchema,
+                                               masterItems: [XyoObjectStructure],
+                                               subItems: [XyoObjectStructure]) throws -> XyoObjectStructure {
         let sub = try XyoIterableStructure.createUntypedIterableObject(schema: subSchema, values: subItems)
         var itemsInMaster = masterItems
         itemsInMaster.append(sub)

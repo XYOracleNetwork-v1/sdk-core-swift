@@ -29,7 +29,12 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         }
         
         if (!hasSentFetter) {
-            try addToLedger(item: try XyoBoundWitness.createFetter(payload: signedPayload, publicKeys: try getPublicKeysFromSigner()))
+            let fetter = try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.FETTER,
+                                                                           subSchema: XyoSchemas.KEY_SET,
+                                                                           masterItems: signedPayload,
+                                                                           subItems: getPublicKeysFromSigner())
+            
+            try addToLedger(item: fetter)
             hasSentFetter = true
         }
         
@@ -137,7 +142,10 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
             signatures.append(try signCurrent(signer: signer))
         }
         
-        let witness = try XyoBoundWitness.createWitness(unsignedPayload: payload, signatures: signatures)
+        let witness = try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS,
+                                                                        subSchema: XyoSchemas.SIGNATURE_SET,
+                                                                        masterItems: unsignedPayload,
+                                                                        subItems: signatures)
         try addToLedger(item: witness)
     }
 }
