@@ -21,4 +21,4 @@ The XYO protocol for creating origin-blocks is specified in the [XYO Yellow Pape
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 
-<br><hr><br><p align="center">Made with  ❤️  by [**XY - The Persistent Company**] (https://xy.company)</p>
+<br><hr><br><p align="center">Made with  ❤️  by [**XY - The Persistent Company**](https://xy.company)</p>
