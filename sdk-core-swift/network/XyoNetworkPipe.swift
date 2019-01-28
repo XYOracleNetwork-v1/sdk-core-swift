@@ -11,7 +11,7 @@ import Promises
 
 protocol XyoNetworkPipe {
     func getPeer() -> XyoNetworkPeer
-    func getInitiationData() -> [UInt8]
+    func getInitiationData() -> [UInt8]?
     func send (data: [UInt8], waitForResponse: Bool) -> [UInt8]?
     func close ()
 }

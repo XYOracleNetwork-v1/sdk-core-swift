@@ -11,7 +11,7 @@ import sdk_objectmodel_swift
 
 public struct XyoBoundWitnessUtil {
     
-    public static func removeIdFromUnsignedPayload (id: UInt8, boundWitness : XyoIterableStructure) throws -> XyoIterableStructure {
+    public static func removeIdFromUnsignedPayload (id: UInt8, boundWitness : XyoIterableStructure) throws -> XyoBoundWitness {
         var newBoundWitnessLedger : [XyoObjectStructure] = []
         
         let fetters = try boundWitness.get(id: XyoSchemas.FETTER.id)
@@ -23,7 +23,8 @@ public struct XyoBoundWitnessUtil {
             newBoundWitnessLedger.append(try removeTypeFromWitness(witness: witness, id: id))
         }
         
-        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger)
+        let createBoundWitness = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger).getBuffer()
+        return XyoBoundWitness(value: createBoundWitness)
     }
     
     private static func removeTypeFromWitness (witness : XyoObjectStructure, id: UInt8) throws -> XyoIterableStructure {

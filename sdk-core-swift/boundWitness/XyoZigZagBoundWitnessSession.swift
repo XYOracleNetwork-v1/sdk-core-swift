@@ -28,10 +28,15 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     
     public func doBoundWitness (transfer: XyoIterableStructure?) throws {
         if (!(try getIsCompleted())) {
+            let response = try sendAndRecive(didHaveData: transfer != nil, transfer: transfer)
             
+            if (cycles == 0 && transfer != nil && response != nil) {
+                _ = try incomingData(transfer: response, endpoint: false)
+            } else {
+                cycles += 1
+                return try doBoundWitness(transfer: response)
+            }
         }
-        
-        
     }
     
     private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
@@ -43,10 +48,18 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             buffer.put(bits: UInt8(choice.count))
             buffer.put(bytes: choice)
             buffer.put(bytes: try returnData.getValueCopy().toByteArray())
-//            guard let response =
+            guard let response = pipe.send(data: buffer.toByteArray(), waitForResponse: true) else {
+                return nil
+            }
+            
+             return XyoIterableStructure(value: XyoBuffer(data: response))
         }
         
-        return nil
-    }
+        guard let response = pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
+            return nil
+        }
+        
+        return XyoIterableStructure(value: XyoBuffer(data: response))
     
+    }
 }
