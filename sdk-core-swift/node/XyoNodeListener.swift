@@ -11,6 +11,6 @@ import Foundation
 open class XyoNodeListener {
     open func onBoundWitnessStart() {}
     open func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {}
-    open func onBoundWitnessEndFailure(error: XyoError) {}
+    open func onBoundWitnessEndFailure() {}
     open func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {}
 }

@@ -15,6 +15,7 @@ public class XyoOriginChainCreator {
     private var heuristics = [String : XyoHueresticGetter]()
     private var listeners = [String : XyoNodeListener]()
     private var boundWitnessOptions = [String : XyoBoundWitnessOption]()
+    private var currentBoundWitnessSession : XyoZigZagBoundWitnessSession? = nil
     
     public let originState = XyoOriginChainState()
     
@@ -57,9 +58,80 @@ public class XyoOriginChainCreator {
         boundWitnessOptions.removeValue(forKey: key)
     }
     
+    
     public func selfSignOriginChain (flag : Int?) throws {
-        let bitFlag = UInt(flag ?? 0)
-        let options = getBoundWitneesesOptionsForFlag(flag: bitFlag)
+        if (currentBoundWitnessSession == nil) {
+            let bitFlag = UInt(flag ?? 0)
+            let additional = getAdditionalPayloads(flag: bitFlag)
+            
+            onBoundWitnessStart()
+            let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
+                                                         signedPayload: try makeSignedPayload(additional: additional.signedPayload),
+                                                         unsignedPayload: additional.unsignedPayload)
+            _ = try boundWitness.incomingData(transfer: nil, endpoint: true)
+            
+            try onBoundWitnessCompleted(boundWitness: boundWitness)
+            return
+        }
+        
+        throw XyoError.BW_IS_IN_PROGRESS
+    }
+    
+    public func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, pipe : XyoNetworkPipe, choice : UInt32) throws {
+        if (currentBoundWitnessSession != nil) {
+            throw XyoError.BW_IS_IN_PROGRESS
+        }
+        
+        let additional = getAdditionalPayloads(flag: UInt(choice))
+        
+        onBoundWitnessStart()
+        let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
+                                                            signedPayload: try makeSignedPayload(additional: additional.signedPayload),
+                                                            unsignedPayload: additional.unsignedPayload,
+                                                            pipe: pipe,
+                                                            choice: XyoBuffer().put(bits: choice).toByteArray())
+        
+        currentBoundWitnessSession = boundWitness
+        
+        do {
+            try boundWitness.doBoundWitness(transfer: startingData)
+            
+            if (try boundWitness.getIsCompleted() == true) {
+                try onBoundWitnessCompleted(boundWitness: boundWitness)
+            }
+        } catch is XyoError {
+            onBoundWitnessFailure()
+        } catch is XyoObjectError {
+            onBoundWitnessFailure()
+        }
+        
+        pipe.close()
+        currentBoundWitnessSession = nil
+    }
+    
+    private func onBoundWitnessStart () {
+        for listener in listeners.values {
+            listener.onBoundWitnessStart()
+        }
+    }
+    
+    private func onBoundWitnessFailure () {
+        for listener in listeners.values {
+            listener.onBoundWitnessEndFailure()
+        }
+    }
+    
+    private func onBoundWitnessCompleted (boundWitness : XyoBoundWitness) throws {
+        try updateOriginState(boundWitness: boundWitness)
+        try unpackBoundWitness(boundWitness: boundWitness)
+        
+        for listener in listeners.values {
+            listener.onBoundWitnessEndSuccess(boundWitness: boundWitness)
+        }
+    }
+    
+    private func getAdditionalPayloads (flag : UInt) -> XyoBoundWitnessHueresticPair {
+        let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHuerestics()
         
@@ -71,21 +143,7 @@ public class XyoOriginChainCreator {
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         
-        let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
-                                                     signedPayload: try makeSignedPayload(additional: signedAdditional),
-                                                     unsignedPayload: try makeSignedPayload(additional: unsignedAdditional))
-        _ = try boundWitness.incomingData(transfer: nil, endpoint: true)
-        
-        try onBoundWitnessCompleted(boundWitness: boundWitness)
-    }
-    
-    private func onBoundWitnessCompleted (boundWitness : XyoBoundWitness) throws {
-        try updateOriginState(boundWitness: boundWitness)
-        try unpackBoundWitness(boundWitness: boundWitness)
-        
-        for listener in listeners.values {
-            listener.onBoundWitnessEndSuccess(boundWitness: boundWitness)
-        }
+        return XyoBoundWitnessHueresticPair(signedPayload: signedAdditional, unsignedPayload: unsignedAdditional)
     }
     
     private func unpackBoundWitness (boundWitness : XyoBoundWitness) throws {

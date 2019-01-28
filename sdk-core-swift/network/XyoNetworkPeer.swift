@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol XyoNetworkPeer {
+public protocol XyoNetworkPeer {
     func getRole () -> [UInt8]
     func getPeerId () -> Int
 }
