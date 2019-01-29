@@ -22,6 +22,7 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
         
         addListener(key: XyoRelayNode.LISTENER_KEY, listener: self)
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
+
     }
     
 
