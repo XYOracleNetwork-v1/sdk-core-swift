@@ -9,7 +9,8 @@
 import Foundation
 
 public protocol XyoOriginBlockRepository {
-    func removeOriginBlock (originBlockHash : [UInt8])
-    func containsOriginBlock (originBlockHash : [UInt8]) -> Bool
-    func addOriginBlock (originBlock : XyoBoundWitness)
+    func removeOriginBlock (originBlockHash : [UInt8]) throws
+    func getOriginBlock (originBlockHash : [UInt8]) throws -> XyoBoundWitness?
+    func containsOriginBlock (originBlockHash : [UInt8]) throws -> Bool
+    func addOriginBlock (originBlock : XyoBoundWitness) throws
 }

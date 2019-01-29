@@ -8,9 +8,9 @@
 
 import Foundation
 
-open class XyoNodeListener {
-    open func onBoundWitnessStart() {}
-    open func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {}
-    open func onBoundWitnessEndFailure() {}
-    open func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {}
+public protocol XyoNodeListener {
+    func onBoundWitnessStart()
+    func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness)
+    func onBoundWitnessEndFailure()
+    func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness)
 }

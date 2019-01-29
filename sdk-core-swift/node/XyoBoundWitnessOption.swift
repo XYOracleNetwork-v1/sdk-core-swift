@@ -11,7 +11,6 @@ import sdk_objectmodel_swift
 
 public protocol XyoBoundWitnessOption {
     func getFlag () -> UInt
-    func getSignedPayload () -> XyoObjectStructure?
-    func getUnsignedPatload () -> XyoObjectStructure?
+    func getPair () throws -> XyoBoundWitnessHueresticPair?
     func onCompleted (boundWitness : XyoBoundWitness?)
 }

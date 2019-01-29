@@ -9,25 +9,15 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public class XyoOriginChainCreator {
-    private let blockRepository : XyoOriginBlockRepository
-    private let hasher : XyoHasher
+open class XyoOriginChainCreator {
+    public let blockRepository : XyoOriginBlockRepository
+    let hasher : XyoHasher
     private var heuristics = [String : XyoHueresticGetter]()
     private var listeners = [String : XyoNodeListener]()
     private var boundWitnessOptions = [String : XyoBoundWitnessOption]()
     private var currentBoundWitnessSession : XyoZigZagBoundWitnessSession? = nil
     
     public let originState = XyoOriginChainState()
-    
-    struct XyoBoundWitnessHueresticPair {
-        let unsignedPayload : [XyoObjectStructure]
-        let signedPayload : [XyoObjectStructure]
-        
-        init (signedPayload: [XyoObjectStructure], unsignedPayload: [XyoObjectStructure]) {
-            self.signedPayload = signedPayload
-            self.unsignedPayload = unsignedPayload
-        }
-    }
     
     public init(hasher : XyoHasher, blockRepository : XyoOriginBlockRepository) {
         self.hasher = hasher
@@ -62,7 +52,7 @@ public class XyoOriginChainCreator {
     public func selfSignOriginChain (flag : Int?) throws {
         if (currentBoundWitnessSession == nil) {
             let bitFlag = UInt(flag ?? 0)
-            let additional = getAdditionalPayloads(flag: bitFlag)
+            let additional = try getAdditionalPayloads(flag: bitFlag)
             
             onBoundWitnessStart()
             let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
@@ -82,7 +72,7 @@ public class XyoOriginChainCreator {
             throw XyoError.BW_IS_IN_PROGRESS
         }
         
-        let additional = getAdditionalPayloads(flag: UInt(choice))
+        let additional = try getAdditionalPayloads(flag: UInt(choice))
         
         onBoundWitnessStart()
         let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
@@ -130,9 +120,9 @@ public class XyoOriginChainCreator {
         }
     }
     
-    private func getAdditionalPayloads (flag : UInt) -> XyoBoundWitnessHueresticPair {
+    private func getAdditionalPayloads (flag : UInt) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
-        let optionPayloads = getBoundWitnessesOptions(options: options)
+        let optionPayloads = try getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHuerestics()
         
         var signedAdditional = [XyoObjectStructure]()
@@ -149,12 +139,12 @@ public class XyoOriginChainCreator {
     private func unpackBoundWitness (boundWitness : XyoBoundWitness) throws {
         let hash = try boundWitness.getHash(hasher: hasher)
         
-        if (!blockRepository.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
+        if (try !blockRepository.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
             let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
             let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
                                                                                                      boundWitness: boundWitness)
             
-            blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
+            try blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
             
             for listener in listeners.values {
                 listener.onBoundWitnessDiscovered(boundWitness: boundWitnessWithoughtSubBlocks)
@@ -221,20 +211,16 @@ public class XyoOriginChainCreator {
         return retunOptions
     }
     
-    private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) -> XyoBoundWitnessHueresticPair {
+    private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) throws -> XyoBoundWitnessHueresticPair {
         var signedPayloads = [XyoObjectStructure]()
         var unsignedPayloads = [XyoObjectStructure]()
         
         for option in options {
-            let unsignedPayload = option.getUnsignedPatload()
-            let signedPayload = option.getSignedPayload()
+            let pair = try option.getPair()
             
-            if (unsignedPayload != nil) {
-                unsignedPayloads.append(unsignedPayload.unsafelyUnwrapped)
-            }
-            
-            if (signedPayload != nil) {
-                signedPayloads.append(signedPayload.unsafelyUnwrapped)
+            if (pair != nil) {
+                signedPayloads.append(contentsOf: pair.unsafelyUnwrapped.signedPayload)
+                unsignedPayloads.append(contentsOf: pair.unsafelyUnwrapped.unsignedPayload)
             }
         }
         
