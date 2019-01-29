@@ -24,6 +24,7 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
     }
     
+
     public func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
         for hash in blocksToBridge.getBlocksToRemove() {
             do {

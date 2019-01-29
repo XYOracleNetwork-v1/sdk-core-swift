@@ -27,7 +27,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     }
     
     public func doBoundWitness (transfer: XyoIterableStructure?) throws {
-        if (!(try getIsCompleted())) {
+        if (try !getIsCompleted()) {
             let response = try sendAndRecive(didHaveData: transfer != nil, transfer: transfer)
             
             if (cycles == 0 && transfer != nil && response != nil) {
@@ -43,16 +43,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
         
         if (cycles == 0 && !didHaveData) {
-            let buffer = XyoBuffer()
-            // todo make size include itself
-            buffer.put(bits: UInt8(choice.count))
-            buffer.put(bytes: choice)
-            buffer.put(bytes: try returnData.getValueCopy().toByteArray())
-            guard let response = pipe.send(data: buffer.toByteArray(), waitForResponse: true) else {
-                return nil
-            }
-            
-             return XyoIterableStructure(value: XyoBuffer(data: response))
+            return try sendAndReciveWithChoice(returnData : returnData, transfer: transfer)
         }
         
         guard let response = pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
@@ -61,5 +52,18 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         
         return XyoIterableStructure(value: XyoBuffer(data: response))
     
+    }
+    
+    private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
+        let buffer = XyoBuffer()
+        // todo make size include itself
+        buffer.put(bits: UInt8(choice.count))
+        buffer.put(bytes: choice)
+        buffer.put(bytes: try returnData.getValueCopy().toByteArray())
+        guard let response = pipe.send(data: buffer.toByteArray(), waitForResponse: true) else {
+            return nil
+        }
+        
+        return XyoIterableStructure(value: XyoBuffer(data: response))
     }
 }

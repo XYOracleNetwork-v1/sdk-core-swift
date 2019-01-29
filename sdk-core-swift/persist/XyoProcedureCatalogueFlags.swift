@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct XyoProcedureCatalogue {
+struct XyoProcedureCatalogueFlags {
     static let BOUND_WITNESS : UInt = 1
     static let TAKE_ORIGIN_CHAIN : UInt = 2
     static let GIVE_ORIGIN_CHAIN : UInt = 4

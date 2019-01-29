@@ -140,22 +140,26 @@ open class XyoOriginChainCreator {
         let hash = try boundWitness.getHash(hasher: hasher)
         
         if (try !blockRepository.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
-            let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
-            let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
-                                                                                                     boundWitness: boundWitness)
+            try unpackNewBoundWitness(boundWitness: boundWitness)
+        }
+    }
+    
+    private func unpackNewBoundWitness (boundWitness : XyoBoundWitness) throws {
+        let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
+        let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
+                                                                                                 boundWitness: boundWitness)
+        
+        try blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
+        
+        for listener in listeners.values {
+            listener.onBoundWitnessDiscovered(boundWitness: boundWitnessWithoughtSubBlocks)
+        }
+        
+        if (subblocks != nil) {
+            let it = try subblocks.unsafelyUnwrapped.getNewIterator()
             
-            try blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
-            
-            for listener in listeners.values {
-                listener.onBoundWitnessDiscovered(boundWitness: boundWitnessWithoughtSubBlocks)
-            }
-            
-            if (subblocks != nil) {
-                let it = try subblocks.unsafelyUnwrapped.getNewIterator()
-                
-                while (try it.hasNext()) {
-                    try unpackBoundWitness(boundWitness: XyoBoundWitness(value: try it.next().getBuffer()))
-                }
+            while (try it.hasNext()) {
+                try unpackBoundWitness(boundWitness: XyoBoundWitness(value: try it.next().getBuffer()))
             }
         }
     }

@@ -13,7 +13,7 @@ import sdk_objectmodel_swift
 
 class XyoBridgeQueueTest: XCTestCase {
     
-    func testQueueWhenRemoveWeightIsSmallerThanSendSize () throws {
+    func testBridgeQueueWhenRemoveWeightIsSmallerThanSendSize () throws {
         let queue = XyoBridgeQueue()
         let numberOfBlocks = 1000
         var numberOfBlocksOffloaded = 0
