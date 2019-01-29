@@ -29,6 +29,7 @@
 		8C54007C21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007B21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift */; };
 		8C54007E21FFD449008A3CE3 /* XyoOriginBlockRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007D21FFD449008A3CE3 /* XyoOriginBlockRepositoryTests.swift */; };
 		8C54008021FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007F21FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift */; };
+		8C54008221FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54008121FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift */; };
 		8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542AF21F7E36200124CB0 /* XyoBoundWitness.swift */; };
 		8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542B221F7E8A100124CB0 /* XyoHasher.swift */; };
 		8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542B421F7E97F00124CB0 /* XyoSha256.swift */; };
@@ -91,6 +92,7 @@
 		8C54007B21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoInMemoryStorageTest.swift; sourceTree = "<group>"; };
 		8C54007D21FFD449008A3CE3 /* XyoOriginBlockRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoOriginBlockRepositoryTests.swift; sourceTree = "<group>"; };
 		8C54007F21FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageProviderOriginBlockRepositoryTest.swift; sourceTree = "<group>"; };
+		8C54008121FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBridgeQueueTest.swift; sourceTree = "<group>"; };
 		8C6542AF21F7E36200124CB0 /* XyoBoundWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitness.swift; sourceTree = "<group>"; };
 		8C6542B221F7E8A100124CB0 /* XyoHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoHasher.swift; sourceTree = "<group>"; };
 		8C6542B421F7E97F00124CB0 /* XyoSha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSha256.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		8C54007721FFC251008A3CE3 /* node */ = {
 			isa = PBXGroup;
 			children = (
+				8C54008121FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */,
 				8C54008021FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift in Sources */,
 				8C6542B721F7EF8B00124CB0 /* XyoSha256Test.swift in Sources */,
+				8C54008221FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift in Sources */,
 				8C54007E21FFD449008A3CE3 /* XyoOriginBlockRepositoryTests.swift in Sources */,
 				8C6542D321F9190000124CB0 /* XyoUnixTimeGetterTest.swift in Sources */,
 				8C6542D121F9180A00124CB0 /* XyoUnixTimeTest.swift in Sources */,

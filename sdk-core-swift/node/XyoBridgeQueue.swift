@@ -29,7 +29,7 @@ public class XyoBridgeQueue {
             $0.weight > $1.weight
         }
         
-        for i in 0..<min(blocksToBridge.count, removeWeight) {
+        for i in 0..<min(blocksToBridge.count, sendLimit) {
             toBrigde.append(blocksToBridge[i])
         }
         
