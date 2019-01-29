@@ -63,6 +63,15 @@ public class XyoTcpSocket {
         CFWriteStreamWrite(self.writeStream, pointer, index)
     }
     
+    public func read (size : Int) -> [UInt8] {
+        let pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
+        let index : CFIndex = CFIndex(size)
+        
+        CFReadStreamRead(self.readStream, pointer, index)
+        
+        return Array(UnsafeMutableBufferPointer(start: pointer, count: size))
+    }
+    
     
     static func create(ip : String, port: Int) -> XyoTcpSocket {
         var readStream : Unmanaged<CFReadStream>?

@@ -14,9 +14,10 @@ import sdk_objectmodel_swift
 
 class XyoTcpSocketTest : XCTestCase {
     
-//    func testClient () {
-//        let tcp = XyoTcpSocket()
-//        tcp.connect()
-//    }
+    func testClient () {
+        let tcp = XyoTcpSocket.create(ip: "127.0.0.1", port: 8888)
+        tcp.openReadStream()
+//        print(tcp.read(size: 5))
+    }
     
 }
