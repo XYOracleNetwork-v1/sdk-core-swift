@@ -22,10 +22,8 @@ public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
         for i in 0...bytes.count - 1 {
             let bitShift = (bytes.count - i) * 8
             
-            if (bitShift <= 32) {
-                if (bytes[i] & UInt8((canDoWithOther << bitShift) & 0xFF)  != 0) {
-                    return true
-                }
+            if (bitShift <= 32 && (bytes[i] & UInt8((canDoWithOther << bitShift) & 0xFF)  != 0)) {
+                return true
             }
         }
         

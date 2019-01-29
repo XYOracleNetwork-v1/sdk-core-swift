@@ -32,10 +32,12 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             
             if (cycles == 0 && transfer != nil && response != nil) {
                 _ = try incomingData(transfer: response, endpoint: false)
-            } else {
-                cycles += 1
-                return try doBoundWitness(transfer: response)
+                return
             }
+            
+            cycles += 1
+            return try doBoundWitness(transfer: response)
+            
         }
     }
     
