@@ -42,23 +42,16 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     }
     
     private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
-        // print(transfer?.getBuffer().toByteArray().toHexString())
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
-        print("B")
         
         if (cycles == 0 && !didHaveData) {
-            print("C")
             return try sendAndReciveWithChoice(returnData : returnData, transfer: transfer)
         }
-        print("D")
         
-        print(returnData.getBuffer().toByteArray().toHexString())
         guard let response = handler.pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
-            print("E")
             return nil
         }
         
-        print("F")
         return XyoIterableStructure(value: XyoBuffer(data: response))
     
     }
