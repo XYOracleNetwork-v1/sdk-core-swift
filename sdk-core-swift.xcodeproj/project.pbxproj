@@ -49,7 +49,6 @@
 		8C6542DB21F9644700124CB0 /* XyoZigZagBoundWitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DA21F9644700124CB0 /* XyoZigZagBoundWitness.swift */; };
 		8C6542DD21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */; };
 		8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */; };
-		8C6542E321FAA39900124CB0 /* XyoNetworkPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */; };
 		8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */; };
 		8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6B21F7D31B0005A57F /* XyoError.swift */; };
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
@@ -59,6 +58,10 @@
 		8CF3AE3321FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3221FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift */; };
 		8CF3AE362200C83C00D6EED9 /* XyoTcpSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE352200C83C00D6EED9 /* XyoTcpSocket.swift */; };
 		8CF3AE382200D26500D6EED9 /* XyoTcpTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */; };
+		8CF3AE3A2200FB9900D6EED9 /* XyoTcpSocketPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE392200FB9900D6EED9 /* XyoTcpSocketPipe.swift */; };
+		8CF3AE3C2200FF7400D6EED9 /* XyoNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */; };
+		8CF3AE3E2201033900D6EED9 /* XyoChoicePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */; };
+		8CF3AE402201094F00D6EED9 /* XyoAdvertisePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */; };
 		AFD73A1E4DB29000F2BD654C /* Pods_sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C694C1B472E07CC95D83FDF5 /* Pods_sdk_core_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,7 +120,6 @@
 		8C6542DA21F9644700124CB0 /* XyoZigZagBoundWitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZagBoundWitness.swift; sourceTree = "<group>"; };
 		8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZigBoundWitnessTest.swift; sourceTree = "<group>"; };
 		8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkPipe.swift; sourceTree = "<group>"; };
-		8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkPeer.swift; sourceTree = "<group>"; };
 		8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZagBoundWitnessSession.swift; sourceTree = "<group>"; };
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
@@ -126,6 +128,10 @@
 		8CF3AE3221FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoFlagPrecedureCatalogueTest.swift; sourceTree = "<group>"; };
 		8CF3AE352200C83C00D6EED9 /* XyoTcpSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpSocket.swift; sourceTree = "<group>"; };
 		8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpTest.swift; sourceTree = "<group>"; };
+		8CF3AE392200FB9900D6EED9 /* XyoTcpSocketPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpSocketPipe.swift; sourceTree = "<group>"; };
+		8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkHandler.swift; sourceTree = "<group>"; };
+		8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoChoicePacket.swift; sourceTree = "<group>"; };
+		8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoAdvertisePacket.swift; sourceTree = "<group>"; };
 		A69E5D8261D033F95591D7BB /* Pods-sdk-core-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.release.xcconfig"; sourceTree = "<group>"; };
 		B18D506875636A5D6A1F6E96 /* Pods_sdk_core_swiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCFC5DC81940D3C94E566FAD /* Pods-sdk-core-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -394,9 +400,11 @@
 			children = (
 				8CF3AE342200C83000D6EED9 /* tcp */,
 				8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */,
-				8C6542E221FAA39900124CB0 /* XyoNetworkPeer.swift */,
 				8C54008321FFE138008A3CE3 /* XyoProcedureCatalogue.swift */,
 				8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift */,
+				8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */,
+				8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */,
+				8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -422,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				8CF3AE352200C83C00D6EED9 /* XyoTcpSocket.swift */,
+				8CF3AE392200FB9900D6EED9 /* XyoTcpSocketPipe.swift */,
 			);
 			path = tcp;
 			sourceTree = "<group>";
@@ -623,8 +632,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C6542BF21F7FB0800124CB0 /* XyoSigner.swift in Sources */,
+				8CF3AE3A2200FB9900D6EED9 /* XyoTcpSocketPipe.swift in Sources */,
 				8C54008421FFE138008A3CE3 /* XyoProcedureCatalogue.swift in Sources */,
+				8CF3AE3E2201033900D6EED9 /* XyoChoicePacket.swift in Sources */,
 				8C54005021FF721B008A3CE3 /* XyoOriginChainCreator.swift in Sources */,
+				8CF3AE3C2200FF7400D6EED9 /* XyoNetworkHandler.swift in Sources */,
 				8C54007521FFBECC008A3CE3 /* XyoInMemoryStorage.swift in Sources */,
 				8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */,
 				8C54005B21FF8DDE008A3CE3 /* XyoOriginBoundWitnessUtil.swift in Sources */,
@@ -633,6 +645,7 @@
 				8C54005721FF823B008A3CE3 /* XyoBoundWitnessOption.swift in Sources */,
 				8C6542CE21F80BFB00124CB0 /* XyoUnixTimeGetter.swift in Sources */,
 				8C54005521FF8143008A3CE3 /* XyoNodeListener.swift in Sources */,
+				8CF3AE402201094F00D6EED9 /* XyoAdvertisePacket.swift in Sources */,
 				8C54006721FFAE96008A3CE3 /* XyoRelayNode.swift in Sources */,
 				8CF3AE362200C83C00D6EED9 /* XyoTcpSocket.swift in Sources */,
 				8C6542DB21F9644700124CB0 /* XyoZigZagBoundWitness.swift in Sources */,
@@ -643,7 +656,6 @@
 				8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */,
 				8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
-				8C6542E321FAA39900124CB0 /* XyoNetworkPeer.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
 				8C6542D521F91A0E00124CB0 /* XyoBoundWitnessUtil.swift in Sources */,
 				8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */,

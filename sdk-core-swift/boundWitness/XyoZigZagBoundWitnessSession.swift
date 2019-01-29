@@ -11,16 +11,16 @@ import sdk_objectmodel_swift
 
 class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     private var cycles = 0
-    private let pipe : XyoNetworkPipe
+    private let handler : XyoNetworkHandler
     private let choice : [UInt8]
     
     init(signers: [XyoSigner],
          signedPayload: [XyoObjectStructure],
          unsignedPayload: [XyoObjectStructure],
-         pipe : XyoNetworkPipe,
+         handler : XyoNetworkHandler,
          choice : [UInt8]) throws {
         
-        self.pipe = pipe
+        self.handler = handler
         self.choice = choice
         
         try super.init(signers: signers, signedPayload: signedPayload, unsignedPayload: unsignedPayload)
@@ -42,27 +42,29 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     }
     
     private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
+        // print(transfer?.getBuffer().toByteArray().toHexString())
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
+        print("B")
         
         if (cycles == 0 && !didHaveData) {
+            print("C")
             return try sendAndReciveWithChoice(returnData : returnData, transfer: transfer)
         }
+        print("D")
         
-        guard let response = pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
+        print(returnData.getBuffer().toByteArray().toHexString())
+        guard let response = handler.pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
+            print("E")
             return nil
         }
         
+        print("F")
         return XyoIterableStructure(value: XyoBuffer(data: response))
     
     }
     
     private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
-        let buffer = XyoBuffer()
-        // todo make size include itself
-        buffer.put(bits: UInt8(choice.count))
-        buffer.put(bytes: choice)
-        buffer.put(bytes: try returnData.getValueCopy().toByteArray())
-        guard let response = pipe.send(data: buffer.toByteArray(), waitForResponse: true) else {
+        guard let response =  handler.sendChoicePacket(catalogue: choice, reponse: returnData.getBuffer().toByteArray()) else {
             return nil
         }
         

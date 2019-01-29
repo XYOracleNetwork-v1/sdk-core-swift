@@ -10,7 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public protocol XyoBoundWitnessOption {
-    func getFlag () -> UInt
+    func getFlag () -> [UInt8]
     func getPair () throws -> XyoBoundWitnessHueresticPair?
     func onCompleted (boundWitness : XyoBoundWitness?)
 }

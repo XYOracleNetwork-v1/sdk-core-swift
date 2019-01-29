@@ -52,11 +52,11 @@ public class XyoTcpSocket {
         CFReadStreamClose(self.readStream)
     }
     
-    public func write (bytes : [UInt8]) -> Bool {
+    public func write (bytes : [UInt8], canBlock : Bool) -> Bool {
         let pointer = UnsafePointer<UInt8>(bytes)
         let index : CFIndex = CFIndex(bytes.count)
         
-        if (CFWriteStreamCanAcceptBytes(self.writeStream)) {
+        if (CFWriteStreamCanAcceptBytes(self.writeStream) || canBlock) {
              return CFWriteStreamWrite(self.writeStream, pointer, index) == bytes.count
         }
         

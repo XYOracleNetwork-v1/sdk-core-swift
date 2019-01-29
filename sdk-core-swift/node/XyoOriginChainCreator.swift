@@ -49,10 +49,9 @@ open class XyoOriginChainCreator {
     }
     
     
-    public func selfSignOriginChain (flag : Int?) throws {
+    public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
-            let bitFlag = UInt(flag ?? 0)
-            let additional = try getAdditionalPayloads(flag: bitFlag)
+            let additional = try getAdditionalPayloads(flag: [])
             
             onBoundWitnessStart()
             let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
@@ -67,19 +66,39 @@ open class XyoOriginChainCreator {
         throw XyoError.BW_IS_IN_PROGRESS
     }
     
-    public func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, pipe : XyoNetworkPipe, choice : UInt32) throws {
+    public func doNeogeoationThenBoundWitness (handler : XyoNetworkHandler, procedureCatalogue: XyoProcedureCatalogue) throws {
         if (currentBoundWitnessSession != nil) {
             throw XyoError.BW_IS_IN_PROGRESS
         }
         
-        let additional = try getAdditionalPayloads(flag: UInt(choice))
-        
         onBoundWitnessStart()
+        
+        if (handler.pipe.getInitiationData() == nil) {
+            // is client
+            
+            // send first neogeoation, response is their choice
+            guard let responseWithTheirChoice = handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) else {
+                onBoundWitnessFailure()
+                return
+            }
+            
+            let startingData = XyoIterableStructure(value: XyoBuffer(data: responseWithTheirChoice.getResponce()))
+            return try doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: responseWithTheirChoice.getChoice())
+        }
+        
+        // is server, initation data is the clients catalogue, so we must choose one
+        let choice = procedureCatalogue.choose(catalogue: handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
+        return try doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice)
+    }
+    
+    private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8]) throws {
+        let additional = try getAdditionalPayloads(flag: choice)
+        
         let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                             signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                             unsignedPayload: additional.unsignedPayload,
-                                                            pipe: pipe,
-                                                            choice: XyoBuffer().put(bits: choice).toByteArray())
+                                                            handler: handler,
+                                                            choice: choice)
         
         currentBoundWitnessSession = boundWitness
         
@@ -95,7 +114,7 @@ open class XyoOriginChainCreator {
             onBoundWitnessFailure()
         }
         
-        pipe.close()
+        handler.pipe.close()
         currentBoundWitnessSession = nil
     }
     
@@ -120,7 +139,7 @@ open class XyoOriginChainCreator {
         }
     }
     
-    private func getAdditionalPayloads (flag : UInt) throws -> XyoBoundWitnessHueresticPair {
+    private func getAdditionalPayloads (flag : [UInt8]) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHuerestics()
@@ -203,13 +222,19 @@ open class XyoOriginChainCreator {
     }
     
     
-    private func getBoundWitneesesOptionsForFlag (flag : UInt) -> [XyoBoundWitnessOption] {
+    private func getBoundWitneesesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
         var retunOptions = [XyoBoundWitnessOption]()
         
-        for option in boundWitnessOptions.values {
-            if (flag & option.getFlag() != 0) {
-                retunOptions.append(option)
+        for option in boundWitnessOptions.values {            
+            for i in 0...(min(option.getFlag().count, flag.count) - 1) {
+                let otherCatalogueSection = option.getFlag()[option.getFlag().count - i - 1]
+                let thisCatalogueSection = flag[flag.count - i - 1]
+                
+                if (otherCatalogueSection & thisCatalogueSection != 0) {
+                    retunOptions.append(option)
+                }
             }
+            
         }
         
         return retunOptions

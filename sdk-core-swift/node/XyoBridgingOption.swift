@@ -19,8 +19,8 @@ class XyoBridgingOption: XyoBoundWitnessOption {
         self.originBlockRepository = originBlockRepository
     }
     
-    func getFlag () -> UInt {
-        return XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN
+    func getFlag () -> [UInt8] {
+        return [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)]
     }
     
     func getPair() throws -> XyoBoundWitnessHueresticPair? {

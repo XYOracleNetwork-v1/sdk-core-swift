@@ -38,4 +38,8 @@ public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     public func getEncodedCatalogue() -> [UInt8] {
         return encodedCatalogue
     }
+    
+    public func choose(catalogue: [UInt8]) -> [UInt8] {
+        return [0x01]
+    }
 }

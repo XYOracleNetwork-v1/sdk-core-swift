@@ -10,8 +10,7 @@ import Foundation
 import Promises
 
 public protocol XyoNetworkPipe {
-    func getPeer() -> XyoNetworkPeer
-    func getInitiationData() -> [UInt8]?
+    func getInitiationData() -> XyoAdvertisePacket?
     func send (data: [UInt8], waitForResponse: Bool) -> [UInt8]?
     func close ()
 }
