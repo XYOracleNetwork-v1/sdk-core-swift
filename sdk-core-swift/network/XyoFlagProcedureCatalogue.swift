@@ -10,19 +10,24 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
+    private let encodedCatalogue : [UInt8]
     public let canDoForOther : UInt32
     public let canDoWithOther : UInt32
     
     init(forOther : UInt32, withOther : UInt32) {
         self.canDoForOther = forOther
         self.canDoWithOther = withOther
+        self.encodedCatalogue = XyoBuffer()
+            .put(bits: canDoForOther)
+            .toByteArray()
     }
     
     public func canDo (bytes : [UInt8]) -> Bool {
-        for i in 0...bytes.count - 1 {
-            let bitShift = (bytes.count - i) * 8
+        for i in 0...(min(bytes.count, encodedCatalogue.count) - 1) {
+            let otherCatalogueSection = bytes[bytes.count - i - 1]
+            let thisCatalogueSection = encodedCatalogue[encodedCatalogue.count - i - 1]
             
-            if (bitShift <= 32 && (bytes[i] & UInt8((canDoWithOther << bitShift) & 0xFF)  != 0)) {
+            if (otherCatalogueSection & thisCatalogueSection != 0) {
                 return true
             }
         }
@@ -31,8 +36,6 @@ public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     }
     
     public func getEncodedCatalogue() -> [UInt8] {
-        return XyoBuffer()
-            .put(bits: canDoForOther)
-            .toByteArray()
+        return encodedCatalogue
     }
 }
