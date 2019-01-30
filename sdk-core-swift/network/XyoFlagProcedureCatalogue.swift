@@ -40,7 +40,6 @@ public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     }
     
     open func choose(catalogue: [UInt8]) -> [UInt8] {
-        return [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)]
         return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
     }
 }
