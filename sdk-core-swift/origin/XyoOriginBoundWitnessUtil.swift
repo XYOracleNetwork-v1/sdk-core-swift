@@ -20,7 +20,7 @@ struct XyoOriginBoundWitnessUtil {
             }
             
             let blockset = try typedWitness.get(id: XyoSchemas.BRIDGE_BLOCK_SET.id)
-            
+
             for item in blockset {
                 return item as? XyoIterableStructure
             }

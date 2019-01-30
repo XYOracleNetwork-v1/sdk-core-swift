@@ -8,14 +8,16 @@
 
 import Foundation
 
-public class XyoTcpSocket {
+public class XyoTcpSocket : NSObject, StreamDelegate {
     private var clientContect = CFStreamClientContext()
-    private let writeStream : CFWriteStream
-    private let readStream : CFReadStream
+    private let writeStream : OutputStream
+    private let readStream : InputStream
     
-    init (writeStream : CFWriteStream, readStream : CFReadStream) {
+    init (writeStream : OutputStream!, readStream : InputStream!) {
         self.readStream = readStream
         self.writeStream = writeStream
+        
+       
         
         CFWriteStreamSetClient(writeStream,
                                XyoTcpSocket.allCFFlags,
@@ -26,6 +28,16 @@ public class XyoTcpSocket {
                               XyoTcpSocket.allCFFlags,
                               readCallback,
                               &clientContect)
+        
+        super.init()
+        
+        writeStream.schedule(in: .main, forMode: RunLoop.Mode.common)
+        readStream.schedule(in: .main, forMode: RunLoop.Mode.common)
+        
+        writeStream.delegate = self
+        readStream.delegate = self
+        
+        
     }
     
     let writeCallback:CFWriteStreamClientCallBack = {(stream:CFWriteStream?, eventType:CFStreamEventType, info:UnsafeMutableRawPointer?) in
@@ -37,27 +49,26 @@ public class XyoTcpSocket {
     }
     
     public func openWriteStream() {
-        CFWriteStreamOpen(self.writeStream)
+        self.writeStream.open()
     }
     
     public func openReadStream () {
-        CFReadStreamOpen(self.readStream)
+        self.readStream.open()
     }
     
     public func closeWriteStream() {
-        CFWriteStreamClose(self.writeStream)
+        self.writeStream.close()
     }
     
     public func closeReadStream() {
-        CFReadStreamClose(self.readStream)
+        self.readStream.close()
     }
     
     public func write (bytes : [UInt8], canBlock : Bool) -> Bool {
         let pointer = UnsafePointer<UInt8>(bytes)
-        let index : CFIndex = CFIndex(bytes.count)
         
-        if (CFWriteStreamCanAcceptBytes(self.writeStream) || canBlock) {
-             return CFWriteStreamWrite(self.writeStream, pointer, index) == bytes.count
+        if (self.writeStream.hasSpaceAvailable || canBlock) {
+             return self.writeStream.write(pointer, maxLength: bytes.count) == bytes.count
         }
         
         return false
@@ -65,11 +76,9 @@ public class XyoTcpSocket {
     
     public func read (size : Int, canBlock : Bool) -> [UInt8]? {
         let pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
-        let index : CFIndex = CFIndex(size)
         
-        
-        if(CFReadStreamOpen(self.readStream) || canBlock) {
-            if (CFReadStreamRead(self.readStream, pointer, index) == -1) {
+        if(self.readStream.hasBytesAvailable || canBlock) {
+            if (self.readStream.read(pointer, maxLength: size) == -1) {
                 return nil
             }
             
@@ -88,7 +97,7 @@ public class XyoTcpSocket {
         
         CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, host, port, &readStream, &writeStream)
         
-        return XyoTcpSocket(writeStream: writeStream!.takeUnretainedValue(), readStream: readStream!.takeUnretainedValue())
+        return XyoTcpSocket(writeStream: writeStream?.takeRetainedValue(), readStream: readStream!.takeRetainedValue())
         
     }
     
@@ -97,4 +106,22 @@ public class XyoTcpSocket {
         CFStreamEventType.endEncountered.rawValue |
         CFStreamEventType.errorOccurred.rawValue)
     
+    private func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+        print("YOO")
+        switch eventCode {
+        case Stream.Event.hasBytesAvailable:
+            print("new message received")
+            // readAvailableBytes(stream: aStream as! InputStream)
+        case Stream.Event.endEncountered:
+            closeReadStream()
+            closeReadStream()
+        case Stream.Event.errorOccurred:
+            print("error occurred")
+        case Stream.Event.hasSpaceAvailable:
+            print("has space available")
+        default:
+            print("some other event...")
+            break
+        }
+    }
 }

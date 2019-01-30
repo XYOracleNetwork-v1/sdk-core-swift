@@ -29,6 +29,7 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
     public func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
         for hash in blocksToBridge.getBlocksToRemove() {
             do {
+                  print("HEREEE")
                 try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
             } catch {
                 // todo handle error on removal
@@ -44,6 +45,6 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
         }
     }
     
-    public func onBoundWitnessEndFailure() {}
+    public func onBoundWitnessEndFailure() { }
     public func onBoundWitnessStart() {}
 }

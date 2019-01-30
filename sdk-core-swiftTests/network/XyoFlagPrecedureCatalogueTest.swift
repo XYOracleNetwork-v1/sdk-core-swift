@@ -59,6 +59,7 @@ class XyoFlagPrecedureCatalogueTest: XCTestCase {
         let catalogue = XyoFlagProcedureCatalogue(forOther: 1,
                                                   withOther: 1)
         
+        
         XCTAssertEqual(true, catalogue.canDo(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01]))
     }
         

@@ -92,6 +92,7 @@ open class XyoOriginChainCreator {
     }
     
     private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8]) throws {
+        let options = getBoundWitneesesOptionsForFlag(flag: choice)
         let additional = try getAdditionalPayloads(flag: choice)
         
         let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
@@ -106,8 +107,19 @@ open class XyoOriginChainCreator {
             try boundWitness.doBoundWitness(transfer: startingData)
             
             if (try boundWitness.getIsCompleted() == true) {
+                
+                if (options.count > 0) {
+                    for i in 0...options.count - 1 {
+                        options[i].onCompleted(boundWitness: boundWitness)
+                    }
+                }
+                
                 try onBoundWitnessCompleted(boundWitness: boundWitness)
+                
+               
+                
             }
+            
         } catch is XyoError {
             onBoundWitnessFailure()
         } catch is XyoObjectError {
@@ -157,7 +169,7 @@ open class XyoOriginChainCreator {
     
     private func unpackBoundWitness (boundWitness : XyoBoundWitness) throws {
         let hash = try boundWitness.getHash(hasher: hasher)
-        
+
         if (try !blockRepository.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
             try unpackNewBoundWitness(boundWitness: boundWitness)
         }
@@ -167,7 +179,6 @@ open class XyoOriginChainCreator {
         let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
         let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
                                                                                                  boundWitness: boundWitness)
-        
         try blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
         
         for listener in listeners.values {
@@ -178,7 +189,8 @@ open class XyoOriginChainCreator {
             let it = try subblocks.unsafelyUnwrapped.getNewIterator()
             
             while (try it.hasNext()) {
-                try unpackBoundWitness(boundWitness: XyoBoundWitness(value: try it.next().getBuffer()))
+                let item = try it.next().getBuffer()
+                try unpackBoundWitness(boundWitness: XyoBoundWitness(value: item))
             }
         }
     }
