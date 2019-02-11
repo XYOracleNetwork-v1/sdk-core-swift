@@ -8,22 +8,24 @@
 
 import Foundation
 
-class XyoInMemoryStorage: XyoStorageProvider {
+public class XyoInMemoryStorage: XyoStorageProvider {
     private var storageMap = [[UInt8] : [UInt8]]()
     
-    func write (key : [UInt8], value: [UInt8]) throws {
+    public init () {}
+    
+    public func write (key : [UInt8], value: [UInt8]) throws {
         storageMap[key] = value
     }
     
-    func read (key : [UInt8]) throws -> [UInt8]? {
+    public func read (key : [UInt8]) throws -> [UInt8]? {
         return storageMap[key]
     }
     
-    func delete (key : [UInt8]) throws {
+    public func delete (key : [UInt8]) throws {
         storageMap.removeValue(forKey: key)
     }
     
-    func containsKey (key : [UInt8]) throws -> Bool {
+    public func containsKey (key : [UInt8]) throws -> Bool {
         return storageMap.contains {
             $0.key == key
         }

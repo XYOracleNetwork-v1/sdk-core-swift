@@ -9,20 +9,20 @@
 import Foundation
 import sdk_objectmodel_swift
 
-class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
+public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     private let storageProvider : XyoStorageProvider
     private let hasher : XyoHasher
     
-    init(storageProvider : XyoStorageProvider, hasher : XyoHasher) throws {
+    public init(storageProvider : XyoStorageProvider, hasher : XyoHasher) throws {
         self.storageProvider = storageProvider
         self.hasher = hasher
     }
     
-    func removeOriginBlock (originBlockHash : [UInt8]) throws {
+    public func removeOriginBlock (originBlockHash : [UInt8]) throws {
         try storageProvider.delete(key: originBlockHash)
     }
     
-    func getOriginBlock (originBlockHash : [UInt8]) throws -> XyoBoundWitness? {
+    public func getOriginBlock (originBlockHash : [UInt8]) throws -> XyoBoundWitness? {
         guard let packedBlock = try storageProvider.read(key: originBlockHash) else {
             return nil
         }
@@ -30,11 +30,11 @@ class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         return XyoBoundWitness(value: XyoBuffer(data: packedBlock))
     }
     
-    func containsOriginBlock (originBlockHash : [UInt8]) throws -> Bool {
+    public func containsOriginBlock (originBlockHash : [UInt8]) throws -> Bool {
         return try storageProvider.containsKey(key: originBlockHash)
     }
     
-    func addOriginBlock (originBlock : XyoBoundWitness) throws {
+    public func addOriginBlock (originBlock : XyoBoundWitness) throws {
         let key = try originBlock.getHash(hasher: hasher).getBuffer().toByteArray()
         let value = originBlock.getBuffer().toByteArray()
         

@@ -119,8 +119,9 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         try XyoIterableStructure.verify(item: transfer)
         
         let it = try transfer.getNewIterator()
-        
+                
         while try it.hasNext() {
+            
             try addToLedger(item: try it.next())
         }
     }

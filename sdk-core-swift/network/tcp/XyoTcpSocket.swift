@@ -107,20 +107,11 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
         CFStreamEventType.errorOccurred.rawValue)
     
     private func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-        print("YOO")
         switch eventCode {
-        case Stream.Event.hasBytesAvailable:
-            print("new message received")
-            // readAvailableBytes(stream: aStream as! InputStream)
         case Stream.Event.endEncountered:
             closeReadStream()
             closeReadStream()
-        case Stream.Event.errorOccurred:
-            print("error occurred")
-        case Stream.Event.hasSpaceAvailable:
-            print("has space available")
         default:
-            print("some other event...")
             break
         }
     }

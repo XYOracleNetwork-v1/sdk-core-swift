@@ -66,7 +66,7 @@ open class XyoOriginChainCreator {
         throw XyoError.BW_IS_IN_PROGRESS
     }
     
-    public func doNeogeoationThenBoundWitness (handler : XyoNetworkHandler, procedureCatalogue: XyoProcedureCatalogue) throws {
+    public func doNeogeoationThenBoundWitness (handler : XyoNetworkHandler, procedureCatalogue: XyoProcedureCatalogue) throws -> XyoBoundWitness? {
         if (currentBoundWitnessSession != nil) {
             throw XyoError.BW_IS_IN_PROGRESS
         }
@@ -79,7 +79,7 @@ open class XyoOriginChainCreator {
             // send first neogeoation, response is their choice
             guard let responseWithTheirChoice = handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) else {
                 onBoundWitnessFailure()
-                return
+                return nil
             }
             
             let startingData = XyoIterableStructure(value: XyoBuffer(data: responseWithTheirChoice.getResponce()))
@@ -91,9 +91,9 @@ open class XyoOriginChainCreator {
         return try doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice)
     }
     
-    private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8]) throws {
-        let options = getBoundWitneesesOptionsForFlag(flag: choice)
-        let additional = try getAdditionalPayloads(flag: choice)
+    private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8]) throws -> XyoBoundWitness? {
+        let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
+        let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
         
         let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                             signedPayload: try makeSignedPayload(additional: additional.signedPayload),
@@ -128,6 +128,8 @@ open class XyoOriginChainCreator {
         
         handler.pipe.close()
         currentBoundWitnessSession = nil
+        
+        return boundWitness
     }
     
     private func onBoundWitnessStart () {

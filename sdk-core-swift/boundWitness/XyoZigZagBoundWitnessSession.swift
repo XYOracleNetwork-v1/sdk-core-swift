@@ -49,6 +49,10 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         }
         
         guard let response = handler.pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
+            if (cycles == 0) {
+                throw XyoError.RESPONSE_IS_NULL
+            }
+            
             return nil
         }
         
@@ -58,7 +62,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     
     private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
         guard let response =  handler.sendChoicePacket(catalogue: choice, reponse: returnData.getBuffer().toByteArray()) else {
-            return nil
+            throw XyoError.RESPONSE_IS_NULL
         }
         
         return XyoIterableStructure(value: XyoBuffer(data: response))

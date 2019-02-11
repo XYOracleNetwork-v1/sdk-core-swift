@@ -12,7 +12,7 @@ import sdk_objectmodel_swift
 public class XyoNetworkHandler {
     let pipe : XyoNetworkPipe
     
-    init(pipe: XyoNetworkPipe) {
+    public init(pipe: XyoNetworkPipe) {
         self.pipe = pipe
     }
     

@@ -15,19 +15,20 @@ import sdk_objectmodel_swift
 class XyoTcpSocketTest : XCTestCase {
     
     func testClient () throws {
-        let node = XyoRelayNode(hasher: XyoSha256(), blockRepository: try XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256()))
-        node.originState.addSigner(signer: XyoStubSigner())
-        
-        while (true) {
+        if (false) {
+            // this test must be run manualy
+            let node = XyoRelayNode(hasher: XyoSha256(), blockRepository: try XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256()))
+            node.originState.addSigner(signer: XyoStubSigner())
             
-            let socket = XyoTcpSocket.create(ip: "127.0.0.1", port: 6968)
-            let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
-            let handler = XyoNetworkHandler(pipe: pipe)
-            
-            try node.doNeogeoationThenBoundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: 0xff, withOther: 0xff))
+            while (true) {
+                
+                let socket = XyoTcpSocket.create(ip: "localhost", port: 1111)
+                let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
+                let handler = XyoNetworkHandler(pipe: pipe)
+                
+                _ = try node.doNeogeoationThenBoundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: 0xff, withOther: 0xff))
+            }
         }
-        
-        
     }
     
 }

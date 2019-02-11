@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Promises
 
 public protocol XyoNetworkPipe {
     func getInitiationData() -> XyoAdvertisePacket?

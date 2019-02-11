@@ -11,6 +11,8 @@ import CommonCrypto
 import sdk_objectmodel_swift
 
 public struct XyoSha256 : XyoHasher {
+    public init () {}
+    
     public func hash(data: [UInt8]) -> XyoObjectStructure {
         var digest = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
         

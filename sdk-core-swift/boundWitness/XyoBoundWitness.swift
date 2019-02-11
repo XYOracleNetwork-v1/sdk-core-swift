@@ -32,6 +32,7 @@ open class XyoBoundWitness : XyoIterableStructure {
     }
     
     public func signCurrent(signer : XyoSigner) throws -> XyoObjectStructure {
+        
         return try signer.sign(data: getSigningData())
     }
     
@@ -101,8 +102,8 @@ open class XyoBoundWitness : XyoIterableStructure {
                                                masterItems: [XyoObjectStructure],
                                                subItems: [XyoObjectStructure]) throws -> XyoObjectStructure {
         let sub = try XyoIterableStructure.createUntypedIterableObject(schema: subSchema, values: subItems)
-        var itemsInMaster = masterItems
-        itemsInMaster.append(sub)
+        var itemsInMaster : [XyoObjectStructure] = [sub]
+        itemsInMaster.append(contentsOf: masterItems)
         return try XyoIterableStructure.createUntypedIterableObject(schema: masterSchema, values: itemsInMaster)
     }
 }

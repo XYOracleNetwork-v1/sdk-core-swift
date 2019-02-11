@@ -8,7 +8,7 @@ target 'sdk-core-swift' do
   # Pods for sdk-core-swift
   
   pod 'PromisesSwift', '~> 1.2.3'
-  pod 'sdk-objectmodel-swift', :path => '/Users/carterharrison/Documents/github/xyo/sdk-objectmodel-swift/'
+  pod 'sdk-objectmodel-swift', '~> 0.1.1-beta.0'
 
   target 'sdk-core-swiftTests' do
     inherit! :search_paths
