@@ -9,12 +9,12 @@
 import Foundation
 import sdk_objectmodel_swift
 
-class XyoTcpSocketPipe: XyoNetworkPipe {
+public class XyoTcpSocketPipe: XyoNetworkPipe {
     private let socket : XyoTcpSocket
     private let initiationData : [UInt8]?
     
     
-    init(socket : XyoTcpSocket, initiationData: [UInt8]?) {
+    public init(socket : XyoTcpSocket, initiationData: [UInt8]?) {
         self.socket = socket
         self.initiationData = initiationData
         
@@ -22,7 +22,7 @@ class XyoTcpSocketPipe: XyoNetworkPipe {
         self.socket.openWriteStream()
     }
     
-    func getInitiationData() -> XyoAdvertisePacket? {
+    public func getInitiationData() -> XyoAdvertisePacket? {
         if (initiationData == nil) {
             return nil
         }
@@ -30,7 +30,7 @@ class XyoTcpSocketPipe: XyoNetworkPipe {
         return XyoAdvertisePacket.init(data: initiationData.unsafelyUnwrapped)
     }
     
-    func send (data: [UInt8], waitForResponse: Bool) -> [UInt8]? {
+    public func send (data: [UInt8], waitForResponse: Bool) -> [UInt8]? {
         let dataWithSize = XyoBuffer()
             .put(bits: UInt32(data.count + 4))
             .put(bytes: data)
@@ -50,7 +50,7 @@ class XyoTcpSocketPipe: XyoNetworkPipe {
         return nil
     }
     
-    func close () {
+    public func close () {
         self.socket.closeWriteStream()
         self.socket.closeWriteStream()
     }

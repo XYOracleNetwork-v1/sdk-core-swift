@@ -89,11 +89,11 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
     }
     
     
-    static func create(ip : String, port: Int) -> XyoTcpSocket {
+    public static func create(peer : XyoTcpPeer) -> XyoTcpSocket {
         var readStream : Unmanaged<CFReadStream>?
         var writeStream : Unmanaged<CFWriteStream>?
-        let host : CFString = NSString(string: ip)
-        let port : UInt32 = UInt32(port)
+        let host : CFString = NSString(string: peer.ip)
+        let port : UInt32 = UInt32(peer.port)
         
         CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault, host, port, &readStream, &writeStream)
         
