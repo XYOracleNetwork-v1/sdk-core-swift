@@ -22,14 +22,12 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
         
         addListener(key: XyoRelayNode.LISTENER_KEY, listener: self)
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
-
     }
     
 
     public func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
         for hash in blocksToBridge.getBlocksToRemove() {
             do {
-                  print("HEREEE")
                 try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
             } catch {
                 // todo handle error on removal
