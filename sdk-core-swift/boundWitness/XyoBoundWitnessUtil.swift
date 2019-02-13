@@ -23,7 +23,7 @@ public struct XyoBoundWitnessUtil {
             newBoundWitnessLedger.append(try removeTypeFromWitness(witness: witness, id: id))
         }
         
-        let createBoundWitness = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger).getBuffer()
+        let createBoundWitness = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW, values: newBoundWitnessLedger).getBuffer()
         return XyoBoundWitness(value: createBoundWitness)
     }
     
@@ -44,7 +44,7 @@ public struct XyoBoundWitnessUtil {
             }
         }
         
-        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: newWitnessContents)
+        return XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.WITNESS, values: newWitnessContents)
     }
     
     public static func getPartyNumberFromPublicKey (publickey : XyoObjectStructure, boundWitness : XyoBoundWitness) throws -> Int? {

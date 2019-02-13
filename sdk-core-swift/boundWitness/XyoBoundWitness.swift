@@ -100,10 +100,10 @@ open class XyoBoundWitness : XyoIterableStructure {
     static func createMasterArrayWithSubArray (masterSchema : XyoObjectSchema,
                                                subSchema : XyoObjectSchema,
                                                masterItems: [XyoObjectStructure],
-                                               subItems: [XyoObjectStructure]) throws -> XyoObjectStructure {
-        let sub = try XyoIterableStructure.createUntypedIterableObject(schema: subSchema, values: subItems)
+                                               subItems: [XyoObjectStructure]) -> XyoObjectStructure {
+        let sub = XyoIterableStructure.createUntypedIterableObject(schema: subSchema, values: subItems)
         var itemsInMaster : [XyoObjectStructure] = [sub]
         itemsInMaster.append(contentsOf: masterItems)
-        return try XyoIterableStructure.createUntypedIterableObject(schema: masterSchema, values: itemsInMaster)
+        return XyoIterableStructure.createUntypedIterableObject(schema: masterSchema, values: itemsInMaster)
     }
 }

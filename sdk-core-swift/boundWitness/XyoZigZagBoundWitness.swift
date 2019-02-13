@@ -20,7 +20,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         self.signedPayload = signedPayload
         self.unsignedPayload = unsignedPayload
         
-        super.init(value: try XyoIterableStructure.encodeUntypedIterableObject(schema: XyoSchemas.BW, values: []))
+        super.init(value: XyoIterableStructure.encodeUntypedIterableObject(schema: XyoSchemas.BW, values: []))
     }
     
     public func incomingData (transfer : XyoIterableStructure?, endpoint: Bool) throws -> XyoIterableStructure  {
@@ -108,7 +108,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
             return try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.FETTER_SET, values: fetters)
         }
         
-        return try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW_FRAGMENT, values: items)
+        return XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BW_FRAGMENT, values: items)
     }
     
     private func getNumberOfWitnessesFromTransfer (transfer: XyoIterableStructure?) throws -> Int {
@@ -143,7 +143,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
             signatures.append(try signCurrent(signer: signer))
         }
         
-        let witness = try XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS,
+        let witness = XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS,
                                                                         subSchema: XyoSchemas.SIGNATURE_SET,
                                                                         masterItems: unsignedPayload,
                                                                         subItems: signatures)
