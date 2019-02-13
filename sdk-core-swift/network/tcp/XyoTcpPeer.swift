@@ -1,11 +1,9 @@
-
 //
 //  XyoTcpPeer.swift
 //  mod-ble-swift
 //
 //  Created by Carter Harrison on 2/12/19.
 //
-
 import Foundation
 
 public struct XyoTcpPeer {

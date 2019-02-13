@@ -39,7 +39,7 @@ class XyoBridgingOption: XyoBoundWitnessOption {
         
         if (blockHashes.count > 0) {
             let hashSet = try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.BRIDGE_HASH_SET, values: blockHashes)
-            let blockSet = try XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BRIDGE_BLOCK_SET, values: blocks)
+            let blockSet = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BRIDGE_BLOCK_SET, values: blocks)
 
             return XyoBoundWitnessHueresticPair(signedPayload: [hashSet], unsignedPayload: [blockSet])
         }
