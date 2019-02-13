@@ -64,6 +64,9 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         let currentIndex = try getBlockIndex().getNewIterator()
         
         while try currentIndex.hasNext() {
+            
+            
+            
             let hashInList = try currentIndex.next()
             
             if (hashInList.getBuffer().toByteArray() != hashToRemove) {

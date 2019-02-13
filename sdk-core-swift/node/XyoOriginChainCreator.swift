@@ -239,16 +239,17 @@ open class XyoOriginChainCreator {
     private func getBoundWitneesesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
         var retunOptions = [XyoBoundWitnessOption]()
         
-        for option in boundWitnessOptions.values {            
-            for i in 0...(min(option.getFlag().count, flag.count) - 1) {
-                let otherCatalogueSection = option.getFlag()[option.getFlag().count - i - 1]
-                let thisCatalogueSection = flag[flag.count - i - 1]
-                
-                if (otherCatalogueSection & thisCatalogueSection != 0) {
-                    retunOptions.append(option)
+        for option in boundWitnessOptions.values {
+            if (min(option.getFlag().count, flag.count) != 0) {
+                for i in 0...(min(option.getFlag().count, flag.count) - 1) {
+                    let otherCatalogueSection = option.getFlag()[option.getFlag().count - i - 1]
+                    let thisCatalogueSection = flag[flag.count - i - 1]
+                    
+                    if (otherCatalogueSection & thisCatalogueSection != 0) {
+                        retunOptions.append(option)
+                    }
                 }
             }
-            
         }
         
         return retunOptions
