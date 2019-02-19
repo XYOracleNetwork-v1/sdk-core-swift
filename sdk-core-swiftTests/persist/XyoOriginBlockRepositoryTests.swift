@@ -46,6 +46,7 @@ struct XyoOriginBlockRepositoryTests {
         try blockRepo.removeOriginBlock(originBlockHash: XyoOriginBlockRepositoryTests.expectedHashOne)
         
         XCTAssertNil(try blockRepo.getOriginBlock(originBlockHash: XyoOriginBlockRepositoryTests.expectedHashOne))
+        XCTAssertFalse(try blockRepo.containsOriginBlock(originBlockHash: XyoOriginBlockRepositoryTests.expectedHashOne))
     }
     
     static func testRemove (blockRepo : XyoOriginBlockRepository) throws {

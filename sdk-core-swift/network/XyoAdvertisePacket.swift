@@ -17,7 +17,7 @@ public struct XyoAdvertisePacket {
         return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
     }
 
-    init(data : [UInt8]) {
+    public init(data : [UInt8]) {
         self.data = data
     }
 }
