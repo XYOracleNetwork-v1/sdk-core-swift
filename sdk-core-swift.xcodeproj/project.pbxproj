@@ -232,7 +232,6 @@
 		8C54004D21FF71AF008A3CE3 /* persist */ = {
 			isa = PBXGroup;
 			children = (
-				8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */,
 				8C54005821FF8319008A3CE3 /* XyoOriginBlockRepository.swift */,
 				8C54007021FFBAFD008A3CE3 /* XyoStorageProvider.swift */,
 				8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */,
@@ -400,6 +399,7 @@
 		8C6542DE21FAA34200124CB0 /* network */ = {
 			isa = PBXGroup;
 			children = (
+				8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */,
 				8CF3AE342200C83000D6EED9 /* tcp */,
 				8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */,
 				8C54008321FFE138008A3CE3 /* XyoProcedureCatalogue.swift */,
@@ -446,7 +446,6 @@
 				ADED9DF2A045003FE2DFBA83 /* Pods-sdk-core-swiftTests.debug.xcconfig */,
 				2AAA1D7DDFC64CF490CE6122 /* Pods-sdk-core-swiftTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
+open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     private let encodedCatalogue : [UInt8]
     public let canDoForOther : UInt32
     public let canDoWithOther : UInt32
@@ -40,7 +40,6 @@ public class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     }
     
     open func choose(catalogue: [UInt8]) -> [UInt8] {
-        // return [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)]
         return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
     }
 }
