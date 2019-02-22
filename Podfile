@@ -7,13 +7,13 @@ target 'sdk-core-swift' do
 
   # Pods for sdk-core-swift
   
-  pod 'sdk-objectmodel-swift', '~> 0.1.2-beta.0'
+  pod 'sdk-objectmodel-swift', '~> 0.1.2-beta.2'
   pod 'BigInt', '~> 3.1'
 
   target 'sdk-core-swiftTests' do
     inherit! :search_paths
 
-    pod 'sdk-objectmodel-swift', '~> 0.1.2-beta.0'
+    pod 'sdk-objectmodel-swift', '~> 0.1.2-beta.2'
     # Pods for testing
   end
 
