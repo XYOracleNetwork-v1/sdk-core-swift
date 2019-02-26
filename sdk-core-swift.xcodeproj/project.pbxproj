@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E9B77024486A3BB50AB5AF6 /* Pods_sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E0B758EFD71EC318CE7EC4 /* Pods_sdk_core_swift.framework */; };
 		8A1CDA8B582707BF643F7DC2 /* Pods_sdk_core_swiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E426773B59EC1C419BC0A8 /* Pods_sdk_core_swiftTests.framework */; };
+		8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */; };
+		8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */; };
 		8C361F3A2213C7710049B9EF /* XyoTcpPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C361F392213C7710049B9EF /* XyoTcpPeer.swift */; };
 		8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */; };
 		8C42B7C721F7C5CC006F6F86 /* sdk_core_swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -80,6 +82,8 @@
 		2AAA1D7DDFC64CF490CE6122 /* Pods-sdk-core-swiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swiftTests.release.xcconfig"; path = "Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		4F0946EC4CB9DFF26882B809 /* Pods-sdk-core-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.debug.xcconfig"; path = "Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		76E426773B59EC1C419BC0A8 /* Pods_sdk_core_swiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSecp256k1Signer.swift; sourceTree = "<group>"; };
+		8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSecp256k1SignerTest.swift; sourceTree = "<group>"; };
 		8C361F392213C7710049B9EF /* XyoTcpPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpPeer.swift; sourceTree = "<group>"; };
 		8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sdk_core_swift.h; sourceTree = "<group>"; };
@@ -164,6 +168,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C25B77B2224B0270046DCA7 /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77C2224B02E0046DCA7 /* signing */,
+			);
+			path = crypto;
+			sourceTree = "<group>";
+		};
+		8C25B77C2224B02E0046DCA7 /* signing */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77D2224B0340046DCA7 /* ecdsa */,
+			);
+			path = signing;
+			sourceTree = "<group>";
+		};
+		8C25B77D2224B0340046DCA7 /* ecdsa */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */,
+			);
+			path = ecdsa;
+			sourceTree = "<group>";
+		};
 		8C42B7AC21F7C5CB006F6F86 = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +234,7 @@
 		8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				8C25B77B2224B0270046DCA7 /* crypto */,
 				8C54007821FFC259008A3CE3 /* persist */,
 				8C54007721FFC251008A3CE3 /* node */,
 				8C54007621FFC238008A3CE3 /* origin */,
@@ -348,6 +377,7 @@
 		8C6542C021F7FBD500124CB0 /* ecdsa */ = {
 			isa = PBXGroup;
 			children = (
+				8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */,
 			);
 			path = ecdsa;
 			sourceTree = "<group>";
@@ -611,12 +641,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/sdk-objectmodel-swift/sdk_objectmodel_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sdk_objectmodel_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -661,6 +693,7 @@
 				8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */,
 				8C54005D21FF9797008A3CE3 /* XyoBridgeQueue.swift in Sources */,
 				8C54006921FFAF4B008A3CE3 /* XyoBridgingOption.swift in Sources */,
+				8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */,
 				8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */,
 				8C54007121FFBAFD008A3CE3 /* XyoStorageProvider.swift in Sources */,
 				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
@@ -677,6 +710,7 @@
 				8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */,
 				8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */,
 				8C54007C21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift in Sources */,
+				8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */,
 				8C54007A21FFC267008A3CE3 /* XyoStorageTests.swift in Sources */,
 				8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */,
 				8C6542DD21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift in Sources */,

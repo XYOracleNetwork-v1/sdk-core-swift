@@ -1,24 +1,20 @@
 PODS:
-  - BigInt (3.1.0):
-    - SipHash (~> 1.2)
   - sdk-objectmodel-swift (0.1.2-beta.2)
-  - SipHash (1.2.2)
+  - secp256k1.swift (0.1.4)
 
 DEPENDENCIES:
-  - BigInt (~> 3.1)
   - sdk-objectmodel-swift (~> 0.1.2-beta.2)
+  - secp256k1.swift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - BigInt
     - sdk-objectmodel-swift
-    - SipHash
+    - secp256k1.swift
 
 SPEC CHECKSUMS:
-  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   sdk-objectmodel-swift: 509fbc7b1990ed6cd7c0025dc634e5f09c237e98
-  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
+  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
 
-PODFILE CHECKSUM: 2e8e6bc039f9ac37cd6948d148fcdfdb72d7309b
+PODFILE CHECKSUM: 68805ca9138e060a6ca91908d8ff2b9c24cb003f
 
 COCOAPODS: 1.6.0

@@ -33,6 +33,7 @@ DESC
   s.source_files = 'sdk-core-swift/**/*.{swift}'
   s.swift_version = '4.2.0'
   s.dependency 'sdk-objectmodel-swift', '~> 0.1.1-beta.2'
+  s.dependency 'secp256k1.swift'
   
 
 end
