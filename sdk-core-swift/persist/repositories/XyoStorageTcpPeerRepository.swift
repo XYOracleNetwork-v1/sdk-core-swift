@@ -10,8 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStorageTcpPeerRepository : XyoTcpPeerRepository {
-    private static let IP_ARRAY_KEY = Array("IP_ARRAY_KEY".utf8)
-    private static let PORT_ARRAY_KEY = Array("PORT_ARRAY_KEY".utf8)
+    private static let PEER_ARRAY_INDEX_KEY = Array("PEER_ARRAY_INDEX_KEY".utf8)
     
     private var peerCache = [XyoTcpPeer]()
     private let storage : XyoStorageProvider
@@ -31,56 +30,91 @@ public class XyoStorageTcpPeerRepository : XyoTcpPeerRepository {
     }
     
     public func getPeers() -> [XyoTcpPeer] {
-        
+        return peerCache
     }
     
     public func addPeer(peer: XyoTcpPeer) {
+        peerCache = getPeers()
         peerCache.append(peer)
+        savePeerList(peers: peerCache)
     }
     
     public func removePeer(peer: XyoTcpPeer) {
         removePeerFromCache(peer: peer)
+        savePeerList(peers: peerCache)
     }
     
-    private func addPeer () {
+    private func restorePeers () {
+        var peers = [XyoTcpPeer]()
+        let stringPeers = getPeerIndex()
         
+        for i in 0...stringPeers.count {
+            let peer = stringPeerToTcpPeer(string: stringPeers[i])
+            
+            if (peer != nil) {
+                peers.append(peer!)
+            }
+        }
+        
+        peerCache = peers
     }
     
-    private func getPortArray () -> [Int] {
+    private func savePeerList (peers : [XyoTcpPeer]) {
+        var structers = [XyoObjectStructure]()
+        
+        for peer in peers {
+            let content = XyoBuffer(data: Array(tcpPeerToStringPeer(peer: peer).utf8))
+            let structure = XyoObjectStructure.newInstance(schema: XyoSchemas.BLOB, bytes: content)
+            structers.append(structure)
+        }
+        
+        let encodedIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_TYPED, values: structers).getBuffer().toByteArray()
+        
         do {
-            var ports = [Int]()
-            
-            guard let encodedPortArray = try storage.read(key: XyoStorageTcpPeerRepository.PORT_ARRAY_KEY) else {
-                return []
-            }
-            
-            let portArrayIt = try XyoIterableStructure(value: XyoBuffer(data: encodedPortArray)).getNewIterator()
-            
-            while try portArrayIt.hasNext() {
-                ports.append(Int(try portArrayIt.next().getValueCopy().getUInt32(offset: 0)))
-            }
-            
-            return ports
-        } catch {
-             return []
+            try storage.write(key: XyoStorageTcpPeerRepository.PEER_ARRAY_INDEX_KEY, value: encodedIndex)
+        } catch  {
+            // todo handle this error
         }
     }
     
-    private func getIpArray () -> [String] {
+    private func stringPeerToTcpPeer (string : String) -> XyoTcpPeer? {
+        let sections = string.split(separator: ":")
+        
+        if (sections.count != 2) {
+            return nil
+        }
+        
+        let ip = String(sections[0])
+        guard let port = UInt32(sections[1]) else {
+            return nil
+        }
+        
+        return XyoTcpPeer(ip: ip, port: port)
+    }
+    
+    private func tcpPeerToStringPeer (peer : XyoTcpPeer) -> String {
+        return "\(peer.ip):\(peer.port)"
+    }
+    
+    private func getPeerIndex () -> [String] {
         do {
-            var ips = [String]()
+            var peers = [String]()
             
-            guard let encodedIpArray = try storage.read(key: XyoStorageTcpPeerRepository.IP_ARRAY_KEY) else {
+            guard let encodedPeersArray = try storage.read(key: XyoStorageTcpPeerRepository.PEER_ARRAY_INDEX_KEY) else {
                 return []
             }
             
-            let ipArrayIt = try XyoIterableStructure(value: XyoBuffer(data: encodedIpArray)).getNewIterator()
+            let peersArrayIt = try XyoIterableStructure(value: XyoBuffer(data: encodedPeersArray)).getNewIterator()
             
-            while try ipArrayIt.hasNext() {
-                ips.append(String(try ipArrayIt.next().getValueCopy().getUInt32(offset: 0)))
+            while try peersArrayIt.hasNext() {
+                let peer = String(bytes: try peersArrayIt.next().getValueCopy().toByteArray(), encoding: String.Encoding.utf8)
+                
+                if (peer != nil) {
+                    peers.append(peer!)
+                }
             }
             
-            return ips
+            return peers
         } catch {
             return []
         }

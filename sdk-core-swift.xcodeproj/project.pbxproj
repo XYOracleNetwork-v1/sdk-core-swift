@@ -16,6 +16,8 @@
 		8C25B7852224DE480046DCA7 /* XyoTcpPeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B7842224DE480046DCA7 /* XyoTcpPeerRepository.swift */; };
 		8C361F3A2213C7710049B9EF /* XyoTcpPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C361F392213C7710049B9EF /* XyoTcpPeer.swift */; };
 		8C3E6D5E2225060100A34A22 /* XyoStorageTcpPeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */; };
+		8C3E6D602225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */; };
+		8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */; };
 		8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */; };
 		8C42B7C721F7C5CC006F6F86 /* sdk_core_swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C54005021FF721B008A3CE3 /* XyoOriginChainCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54004F21FF721B008A3CE3 /* XyoOriginChainCreator.swift */; };
@@ -93,6 +95,8 @@
 		8C25B7842224DE480046DCA7 /* XyoTcpPeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpPeerRepository.swift; sourceTree = "<group>"; };
 		8C361F392213C7710049B9EF /* XyoTcpPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpPeer.swift; sourceTree = "<group>"; };
 		8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageTcpPeerRepository.swift; sourceTree = "<group>"; };
+		8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageBridgeQueueRepository.swift; sourceTree = "<group>"; };
+		8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageOriginChainStateRepository.swift; sourceTree = "<group>"; };
 		8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sdk_core_swift.h; sourceTree = "<group>"; };
 		8C42B7BA21F7C5CC006F6F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -214,6 +218,8 @@
 		8C3E6D5C222505D300A34A22 /* repositories */ = {
 			isa = PBXGroup;
 			children = (
+				8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */,
+				8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */,
 				8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */,
 				8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */,
 			);
@@ -702,11 +708,13 @@
 				8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */,
 				8C25B7852224DE480046DCA7 /* XyoTcpPeerRepository.swift in Sources */,
 				8C54005B21FF8DDE008A3CE3 /* XyoOriginBoundWitnessUtil.swift in Sources */,
+				8C3E6D602225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift in Sources */,
 				8C54006D21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift in Sources */,
 				8C54006521FFA918008A3CE3 /* XyoBridgeQueueItem.swift in Sources */,
 				8C54005721FF823B008A3CE3 /* XyoBoundWitnessOption.swift in Sources */,
 				8C6542CE21F80BFB00124CB0 /* XyoUnixTimeGetter.swift in Sources */,
 				8C54005521FF8143008A3CE3 /* XyoNodeListener.swift in Sources */,
+				8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */,
 				8CF3AE402201094F00D6EED9 /* XyoAdvertisePacket.swift in Sources */,
 				8C54006721FFAE96008A3CE3 /* XyoRelayNode.swift in Sources */,
 				8CF3AE362200C83C00D6EED9 /* XyoTcpSocket.swift in Sources */,
