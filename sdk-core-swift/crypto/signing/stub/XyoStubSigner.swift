@@ -24,6 +24,7 @@ public class XyoStubSigner : XyoSigner {
         self.stubKeyValue = stubKeyValue
         self.stubSignatureValue = stubSignatureValue
         self.stubPrivateKeyValue = stubPrivateKeyValue
+                
     }
     
     public func getPublicKey () -> XyoObjectStructure {

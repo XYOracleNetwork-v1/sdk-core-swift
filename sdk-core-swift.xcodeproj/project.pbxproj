@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F217B3DD64FF1E6A136C46B /* Pods_sdk_core_swiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18D506875636A5D6A1F6E96 /* Pods_sdk_core_swiftTests.framework */; };
+		0E9B77024486A3BB50AB5AF6 /* Pods_sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E0B758EFD71EC318CE7EC4 /* Pods_sdk_core_swift.framework */; };
+		8A1CDA8B582707BF643F7DC2 /* Pods_sdk_core_swiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E426773B59EC1C419BC0A8 /* Pods_sdk_core_swiftTests.framework */; };
+		8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */; };
+		8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */; };
 		8C361F3A2213C7710049B9EF /* XyoTcpPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C361F392213C7710049B9EF /* XyoTcpPeer.swift */; };
 		8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */; };
 		8C42B7C721F7C5CC006F6F86 /* sdk_core_swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -63,7 +66,6 @@
 		8CF3AE3C2200FF7400D6EED9 /* XyoNetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */; };
 		8CF3AE3E2201033900D6EED9 /* XyoChoicePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */; };
 		8CF3AE402201094F00D6EED9 /* XyoAdvertisePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */; };
-		AFD73A1E4DB29000F2BD654C /* Pods_sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C694C1B472E07CC95D83FDF5 /* Pods_sdk_core_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2AAA1D7DDFC64CF490CE6122 /* Pods-sdk-core-swiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swiftTests.release.xcconfig"; path = "Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		4F0946EC4CB9DFF26882B809 /* Pods-sdk-core-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.debug.xcconfig"; path = "Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.debug.xcconfig"; sourceTree = "<group>"; };
+		76E426773B59EC1C419BC0A8 /* Pods_sdk_core_swiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSecp256k1Signer.swift; sourceTree = "<group>"; };
+		8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSecp256k1SignerTest.swift; sourceTree = "<group>"; };
 		8C361F392213C7710049B9EF /* XyoTcpPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpPeer.swift; sourceTree = "<group>"; };
 		8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sdk_core_swift.h; sourceTree = "<group>"; };
@@ -134,12 +141,9 @@
 		8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkHandler.swift; sourceTree = "<group>"; };
 		8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoChoicePacket.swift; sourceTree = "<group>"; };
 		8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoAdvertisePacket.swift; sourceTree = "<group>"; };
-		A69E5D8261D033F95591D7BB /* Pods-sdk-core-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.release.xcconfig"; sourceTree = "<group>"; };
-		B18D506875636A5D6A1F6E96 /* Pods_sdk_core_swiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCFC5DC81940D3C94E566FAD /* Pods-sdk-core-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		C694C1B472E07CC95D83FDF5 /* Pods_sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6FDA8D3972DABF3B0D74308 /* Pods-sdk-core-swiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests.release.xcconfig"; sourceTree = "<group>"; };
-		DF623D1703CE84CEB6224DCC /* Pods-sdk-core-swiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ADED9DF2A045003FE2DFBA83 /* Pods-sdk-core-swiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swiftTests.debug.xcconfig"; path = "Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C062A2103A66C884A343657A /* Pods-sdk-core-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.release.xcconfig"; path = "Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.release.xcconfig"; sourceTree = "<group>"; };
+		F6E0B758EFD71EC318CE7EC4 /* Pods_sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */,
-				AFD73A1E4DB29000F2BD654C /* Pods_sdk_core_swift.framework in Frameworks */,
+				0E9B77024486A3BB50AB5AF6 /* Pods_sdk_core_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,13 +161,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */,
-				3F217B3DD64FF1E6A136C46B /* Pods_sdk_core_swiftTests.framework in Frameworks */,
+				8A1CDA8B582707BF643F7DC2 /* Pods_sdk_core_swiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C25B77B2224B0270046DCA7 /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77C2224B02E0046DCA7 /* signing */,
+			);
+			path = crypto;
+			sourceTree = "<group>";
+		};
+		8C25B77C2224B02E0046DCA7 /* signing */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77D2224B0340046DCA7 /* ecdsa */,
+			);
+			path = signing;
+			sourceTree = "<group>";
+		};
+		8C25B77D2224B0340046DCA7 /* ecdsa */ = {
+			isa = PBXGroup;
+			children = (
+				8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */,
+			);
+			path = ecdsa;
+			sourceTree = "<group>";
+		};
 		8C42B7AC21F7C5CB006F6F86 = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +199,7 @@
 				8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */,
 				8C42B7B721F7C5CC006F6F86 /* Products */,
 				8C42B7D121F7CC12006F6F86 /* Frameworks */,
-				8DC7C653BFFBAF44B512D1D1 /* Pods */,
+				A13F137B54D0E87C89266ADE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,6 +234,7 @@
 		8C42B7C321F7C5CC006F6F86 /* sdk-core-swiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				8C25B77B2224B0270046DCA7 /* crypto */,
 				8C54007821FFC259008A3CE3 /* persist */,
 				8C54007721FFC251008A3CE3 /* node */,
 				8C54007621FFC238008A3CE3 /* origin */,
@@ -223,8 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */,
-				C694C1B472E07CC95D83FDF5 /* Pods_sdk_core_swift.framework */,
-				B18D506875636A5D6A1F6E96 /* Pods_sdk_core_swiftTests.framework */,
+				F6E0B758EFD71EC318CE7EC4 /* Pods_sdk_core_swift.framework */,
+				76E426773B59EC1C419BC0A8 /* Pods_sdk_core_swiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -232,7 +261,6 @@
 		8C54004D21FF71AF008A3CE3 /* persist */ = {
 			isa = PBXGroup;
 			children = (
-				8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */,
 				8C54005821FF8319008A3CE3 /* XyoOriginBlockRepository.swift */,
 				8C54007021FFBAFD008A3CE3 /* XyoStorageProvider.swift */,
 				8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */,
@@ -349,6 +377,7 @@
 		8C6542C021F7FBD500124CB0 /* ecdsa */ = {
 			isa = PBXGroup;
 			children = (
+				8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */,
 			);
 			path = ecdsa;
 			sourceTree = "<group>";
@@ -400,6 +429,7 @@
 		8C6542DE21FAA34200124CB0 /* network */ = {
 			isa = PBXGroup;
 			children = (
+				8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */,
 				8CF3AE342200C83000D6EED9 /* tcp */,
 				8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */,
 				8C54008321FFE138008A3CE3 /* XyoProcedureCatalogue.swift */,
@@ -438,15 +468,15 @@
 			path = tcp;
 			sourceTree = "<group>";
 		};
-		8DC7C653BFFBAF44B512D1D1 /* Pods */ = {
+		A13F137B54D0E87C89266ADE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BCFC5DC81940D3C94E566FAD /* Pods-sdk-core-swift.debug.xcconfig */,
-				A69E5D8261D033F95591D7BB /* Pods-sdk-core-swift.release.xcconfig */,
-				DF623D1703CE84CEB6224DCC /* Pods-sdk-core-swiftTests.debug.xcconfig */,
-				D6FDA8D3972DABF3B0D74308 /* Pods-sdk-core-swiftTests.release.xcconfig */,
+				4F0946EC4CB9DFF26882B809 /* Pods-sdk-core-swift.debug.xcconfig */,
+				C062A2103A66C884A343657A /* Pods-sdk-core-swift.release.xcconfig */,
+				ADED9DF2A045003FE2DFBA83 /* Pods-sdk-core-swiftTests.debug.xcconfig */,
+				2AAA1D7DDFC64CF490CE6122 /* Pods-sdk-core-swiftTests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,7 +497,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C42B7CA21F7C5CC006F6F86 /* Build configuration list for PBXNativeTarget "sdk-core-swift" */;
 			buildPhases = (
-				F83AFD414FF04C8CAD185E95 /* [CP] Check Pods Manifest.lock */,
+				D14B667795076A4B2123CD61 /* [CP] Check Pods Manifest.lock */,
 				8C42B7B121F7C5CC006F6F86 /* Headers */,
 				8C42B7B221F7C5CC006F6F86 /* Sources */,
 				8C42B7B321F7C5CC006F6F86 /* Frameworks */,
@@ -486,10 +516,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8C42B7CD21F7C5CC006F6F86 /* Build configuration list for PBXNativeTarget "sdk-core-swiftTests" */;
 			buildPhases = (
-				1772DE7F3EB762EFF9CFDAFB /* [CP] Check Pods Manifest.lock */,
+				53F27840B51D8D35B9F2A45D /* [CP] Check Pods Manifest.lock */,
 				8C42B7BB21F7C5CC006F6F86 /* Sources */,
 				8C42B7BC21F7C5CC006F6F86 /* Frameworks */,
 				8C42B7BD21F7C5CC006F6F86 /* Resources */,
+				F836245B797871C1ED258A65 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -556,7 +587,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1772DE7F3EB762EFF9CFDAFB /* [CP] Check Pods Manifest.lock */ = {
+		53F27840B51D8D35B9F2A45D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -578,7 +609,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F83AFD414FF04C8CAD185E95 /* [CP] Check Pods Manifest.lock */ = {
+		D14B667795076A4B2123CD61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -598,6 +629,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F836245B797871C1ED258A65 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/sdk-objectmodel-swift/sdk_objectmodel_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sdk_objectmodel_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -638,6 +693,7 @@
 				8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */,
 				8C54005D21FF9797008A3CE3 /* XyoBridgeQueue.swift in Sources */,
 				8C54006921FFAF4B008A3CE3 /* XyoBridgingOption.swift in Sources */,
+				8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */,
 				8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */,
 				8C54007121FFBAFD008A3CE3 /* XyoStorageProvider.swift in Sources */,
 				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
@@ -654,6 +710,7 @@
 				8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */,
 				8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */,
 				8C54007C21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift in Sources */,
+				8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */,
 				8C54007A21FFC267008A3CE3 /* XyoStorageTests.swift in Sources */,
 				8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */,
 				8C6542DD21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift in Sources */,
@@ -804,7 +861,7 @@
 		};
 		8C42B7CB21F7C5CC006F6F86 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BCFC5DC81940D3C94E566FAD /* Pods-sdk-core-swift.debug.xcconfig */;
+			baseConfigurationReference = 4F0946EC4CB9DFF26882B809 /* Pods-sdk-core-swift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -832,7 +889,7 @@
 		};
 		8C42B7CC21F7C5CC006F6F86 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A69E5D8261D033F95591D7BB /* Pods-sdk-core-swift.release.xcconfig */;
+			baseConfigurationReference = C062A2103A66C884A343657A /* Pods-sdk-core-swift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -859,7 +916,7 @@
 		};
 		8C42B7CE21F7C5CC006F6F86 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF623D1703CE84CEB6224DCC /* Pods-sdk-core-swiftTests.debug.xcconfig */;
+			baseConfigurationReference = ADED9DF2A045003FE2DFBA83 /* Pods-sdk-core-swiftTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -879,7 +936,7 @@
 		};
 		8C42B7CF21F7C5CC006F6F86 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6FDA8D3972DABF3B0D74308 /* Pods-sdk-core-swiftTests.release.xcconfig */;
+			baseConfigurationReference = 2AAA1D7DDFC64CF490CE6122 /* Pods-sdk-core-swiftTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

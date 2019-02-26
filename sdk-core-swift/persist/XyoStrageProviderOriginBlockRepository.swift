@@ -54,6 +54,7 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     }
     
     private func updateBlockIndex (hashToAdd : XyoObjectStructure) throws {
+        print("ADD HASH: " + (try hashToAdd.getValueCopy().toByteArray().toHexString()))
         let currentIndex = try getBlockIndex()
         try currentIndex.addElement(element: hashToAdd)
         try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: currentIndex.getBuffer().toByteArray())

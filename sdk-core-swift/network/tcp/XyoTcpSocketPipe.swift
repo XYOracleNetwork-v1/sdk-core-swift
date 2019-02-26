@@ -42,8 +42,13 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
                     return nil
                 }
                 
-                let actualSize = XyoBuffer(data: byteSize).getUInt32(offset: 0) - 4
-                return socket.read(size: Int(actualSize), canBlock: true)
+                let actualSize = XyoBuffer(data: byteSize).getUInt32(offset: 0)
+                
+                if (actualSize <= 4) {
+                    return nil
+                }
+                
+                return socket.read(size: Int(actualSize - 4), canBlock: true)
             }
         }
         
