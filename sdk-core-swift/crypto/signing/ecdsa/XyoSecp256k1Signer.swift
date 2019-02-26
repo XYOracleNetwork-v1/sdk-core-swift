@@ -64,14 +64,14 @@ public class XyoSecp256k1Signer : XyoSigner {
     private func getRFromD(der : [UInt8]) -> [UInt8] {
         let sizeOfR = Int(der[3])
         let buffer = XyoBuffer(data: der)
-        return buffer.copyRangeOf(from: 3, to: (3 + sizeOfR)).toByteArray()
+        return buffer.copyRangeOf(from: 3 + 1, to: (3 + sizeOfR) + 1).toByteArray()
     }
     
     private func getSFromD(der : [UInt8]) -> [UInt8] {
         let sizeOfR = Int(der[3])
         let sizeOfS = Int(der[Int(5 + sizeOfR)])
         let buffer = XyoBuffer(data: der)
-        return buffer.copyRangeOf(from: 5 + sizeOfR, to: 5 + sizeOfR + sizeOfS).toByteArray()
+        return buffer.copyRangeOf(from: 5 + sizeOfR + 1, to: 6 + sizeOfR + sizeOfS).toByteArray()
     }
     
     private static func randomData(ofLength length: Int) -> Data {
