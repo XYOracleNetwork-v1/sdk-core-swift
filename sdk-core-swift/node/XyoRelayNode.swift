@@ -13,12 +13,17 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
     private static let LISTENER_KEY = "RELAY_NODE"
     private static let OPTION_KEY = "BRIDING_OPTION"
     
-    public let blocksToBridge = XyoBridgeQueue()
+    public let blocksToBridge : XyoBridgeQueue
     private let bridgeOption : XyoBridgingOption
     
-    public override init(hasher: XyoHasher, blockRepository: XyoOriginBlockRepository) {
+    public init(hasher: XyoHasher,
+                blockRepository: XyoOriginBlockRepository,
+                originStateRepository: XyoOriginChainStateRepository,
+                queueRepository: XyoBridgeQueueRepository) {
+        
+        self.blocksToBridge = XyoBridgeQueue(repository: queueRepository)
         bridgeOption = XyoBridgingOption(bridgeQueue: blocksToBridge, originBlockRepository: blockRepository)
-        super.init(hasher: hasher, blockRepository: blockRepository)
+        super.init(hasher: hasher, blockRepository: blockRepository, originStateRepository: originStateRepository)
         
         addListener(key: XyoRelayNode.LISTENER_KEY, listener: self)
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)

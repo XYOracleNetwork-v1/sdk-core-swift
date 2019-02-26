@@ -10,18 +10,21 @@ import Foundation
 import sdk_objectmodel_swift
 
 open class XyoOriginChainCreator {
+    public let originStateRepository : XyoOriginChainStateRepository
     public let blockRepository : XyoOriginBlockRepository
-    let hasher : XyoHasher
+    public let hasher : XyoHasher
+    
     private var heuristics = [String : XyoHueresticGetter]()
     private var listeners = [String : XyoNodeListener]()
     private var boundWitnessOptions = [String : XyoBoundWitnessOption]()
     private var currentBoundWitnessSession : XyoZigZagBoundWitnessSession? = nil
     
-    public let originState = XyoOriginChainState()
+    public lazy var originState = XyoOriginChainState(repository: originStateRepository)
     
-    public init(hasher : XyoHasher, blockRepository : XyoOriginBlockRepository) {
+    public init(hasher : XyoHasher, blockRepository : XyoOriginBlockRepository, originStateRepository: XyoOriginChainStateRepository) {
         self.hasher = hasher
         self.blockRepository = blockRepository
+        self.originStateRepository = originStateRepository
     }
     
     public func addHuerestic (key: String, getter : XyoHueresticGetter) {
@@ -218,7 +221,7 @@ open class XyoOriginChainCreator {
     
     private func makeSignedPayload (additional : [XyoObjectStructure]) throws -> [XyoObjectStructure] {
         var signedPayload = additional
-        let previousHash = try originState.getPreviousHash()
+        let previousHash = originState.getPreviousHash()
         let index = originState.getIndex()
         let nextPublicKey = originState.getNextPublicKey()
         

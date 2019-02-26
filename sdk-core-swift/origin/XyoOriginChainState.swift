@@ -11,68 +11,85 @@ import sdk_objectmodel_swift
 
 
 public class XyoOriginChainState {
-    private var currentSigners : [XyoSigner] = []
+    private let repo : XyoOriginChainStateRepository
     private var waitingSigners : [XyoSigner] = []
     private var nextPublicKey : XyoObjectStructure? = nil
-    private var latestHash : XyoObjectStructure? = nil
-    private var count : Int = 0
-    private let indexOffset : Int
     
-    public init() {
-        self.indexOffset = 0
+    public init(repository : XyoOriginChainStateRepository) {
+        self.repo = repository
     }
-    
-    public init (indexOffset : Int) {
-        self.indexOffset = indexOffset
-    }
-    
+
     public func getIndex () -> XyoObjectStructure {
-        let buffer = XyoBuffer()
-        buffer.put(bits: UInt32(count + indexOffset))
-        return XyoObjectStructure.newInstance(schema: XyoSchemas.INDEX, bytes: buffer)
+        return repo.getIndex() ?? XyoOriginChainState.createIndex(index: 0)
     }
     
-    public func getPreviousHash () throws -> XyoObjectStructure? {
-        guard let hashValue = latestHash else {
-            return nil
-        }
-        
-        return try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.PREVIOUS_HASH, values: [hashValue])
+    public func getPreviousHash () -> XyoObjectStructure? {
+        return repo.getPreviousHash()
     }
     
     public func getSigners () -> [XyoSigner] {
-        return currentSigners
+        return repo.getSigners()
     }
     
     public func getNextPublicKey () -> XyoObjectStructure? {
         return nextPublicKey
     }
     
-    public func addSigner (signer : XyoSigner) {
-        if ((count + indexOffset) == 0) {
-            currentSigners.append(signer)
-            return
-        }
-        
-        nextPublicKey = XyoObjectStructure.newInstance(schema: XyoSchemas.NEXT_PUBLIC_KEY, bytes: signer.getPublicKey().getBuffer())
-        waitingSigners.append(signer)
+    public func removeOldestSigner () {
+        repo.removeOldestSigner()
     }
     
-    public func removeOldestSigner () {
-        currentSigners.remove(at: 0)
+    public func addSigner (signer : XyoSigner) {
+        do {
+            let index = try getIndex().getValueCopy().getUInt32(offset: 0)
+            
+            if (index == 0) {
+                repo.putSigner(signer: signer)
+                return
+            }
+        } catch {
+            fatalError("Index should be parcable.")
+        }
+        
+        waitingSigners.append(signer)
+        nextPublicKey = XyoOriginChainState.createNextPublicKey(publicKey: signer.getPublicKey())
     }
     
     public func addOriginBlock (hash : XyoObjectStructure) {
         nextPublicKey = nil
-        latestHash = hash
         addWaitingSigner()
-        count += 1
+        repo.putPreviousHash(hash: hash)
+        incrementIndex()
+    }
+    
+    private func incrementIndex () {
+        do {
+            let index = try getIndex().getValueCopy().getUInt32(offset: 0)
+            let awaitingIndex = XyoOriginChainState.createIndex(index: index)
+            repo.putIndex(index: awaitingIndex)
+        } catch {
+            fatalError("Index provided is invalid.")
+        }
     }
     
     private func addWaitingSigner () {
         if (waitingSigners.count > 0) {
-            currentSigners.append(waitingSigners[0])
+            repo.putSigner(signer: waitingSigners[0])
             waitingSigners.remove(at: 0)
         }
+    }
+    
+    public static func createIndex (index : UInt32) -> XyoObjectStructure {
+        let buffer = XyoBuffer()
+        buffer.put(bits: index)
+        return XyoObjectStructure.newInstance(schema: XyoSchemas.INDEX, bytes: buffer)
+    }
+    
+    public static func createPreviousHash (hash : XyoIterableStructure) throws -> XyoObjectStructure {
+        return try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.PREVIOUS_HASH, values: [hash])
+    }
+    
+    public static func createNextPublicKey (publicKey : XyoObjectStructure) -> XyoObjectStructure {
+        return XyoObjectStructure.newInstance(schema: XyoSchemas.NEXT_PUBLIC_KEY, bytes: publicKey.getBuffer())
     }
 }
