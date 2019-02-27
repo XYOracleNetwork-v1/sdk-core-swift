@@ -13,10 +13,6 @@ public class XyoBridgeQueueItem {
     var weight : Int
     let hash : XyoObjectStructure
     
-    public func bridged() {
-        weight += 1
-    }
-    
     init(weight: Int, hash: XyoObjectStructure) {
         self.weight = weight
         self.hash = hash

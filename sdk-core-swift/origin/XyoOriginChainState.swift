@@ -11,7 +11,7 @@ import sdk_objectmodel_swift
 
 
 public class XyoOriginChainState {
-    private let repo : XyoOriginChainStateRepository
+    let repo : XyoOriginChainStateRepository
     private var waitingSigners : [XyoSigner] = []
     private var nextPublicKey : XyoObjectStructure? = nil
     
@@ -65,7 +65,7 @@ public class XyoOriginChainState {
     private func incrementIndex () {
         do {
             let index = try getIndex().getValueCopy().getUInt32(offset: 0)
-            let awaitingIndex = XyoOriginChainState.createIndex(index: index)
+            let awaitingIndex = XyoOriginChainState.createIndex(index: index + 1)
             repo.putIndex(index: awaitingIndex)
         } catch {
             fatalError("Index provided is invalid.")

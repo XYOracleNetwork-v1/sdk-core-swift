@@ -13,5 +13,8 @@ public protocol XyoBridgeQueueRepository {
     func getQueue () -> [XyoBridgeQueueItem]
     func setQueue (queue : [XyoBridgeQueueItem])
     func addQueueItem (item : XyoBridgeQueueItem)
-    func removeQueueItem (hash : XyoObjectStructure)
+    func removeQueueItems (hashes : [XyoObjectStructure])
+    func getLowestWeight (n : Int) -> [XyoBridgeQueueItem]
+    func incrementWeights (hashes: [XyoObjectStructure])
+    func commit ()
 }

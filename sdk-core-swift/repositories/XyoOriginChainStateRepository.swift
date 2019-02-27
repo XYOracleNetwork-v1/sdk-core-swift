@@ -17,4 +17,5 @@ public protocol XyoOriginChainStateRepository {
     func getSigners () -> [XyoSigner]
     func removeOldestSigner ()
     func putSigner (signer : XyoSigner)
+    func commit ()
 }

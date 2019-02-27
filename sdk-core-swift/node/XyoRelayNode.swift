@@ -10,6 +10,8 @@ import Foundation
 import sdk_objectmodel_swift
 
 open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
+   
+    
     private static let LISTENER_KEY = "RELAY_NODE"
     private static let OPTION_KEY = "BRIDING_OPTION"
     
@@ -29,20 +31,24 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
     }
     
-
-    public func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
-        for hash in blocksToBridge.getBlocksToRemove() {
-            do {
-                try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
-            } catch {
-                // todo handle error on removal
-            }
+    public func onBoundWitnessDiscovered(boundWitness: XyoBoundWitness) {
+        do {
+            blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
+        } catch {
+            // do not add block to queue if there is an issue with getting its hash
         }
     }
     
     public func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {
         do {
             blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
+            
+            for hash in blocksToBridge.getBlocksToRemove() {
+                try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
+            }
+            
+            originState.repo.commit()
+            blocksToBridge.repo.commit()
         } catch {
             // do not add block to queue if there is an issue with getting its hash
         }

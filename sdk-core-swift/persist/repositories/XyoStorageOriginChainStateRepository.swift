@@ -52,6 +52,23 @@ class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
         signersCache.append(signer)
     }
     
+    func commit () {
+        do {
+            if (indexCache != nil) {
+                let encodedIndex = indexCache!.getBuffer().toByteArray()
+                try store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_STATE_INDEX_KEY, value: encodedIndex)
+            }
+            
+            if (previousHashCache != nil) {
+                let encodedHash = previousHashCache!.getBuffer().toByteArray()
+                try store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_STATE_INDEX_KEY, value: encodedHash)
+            }
+        } catch {
+            // todo handle error
+        }
+        
+    }
+    
     func restoreState (signers : [XyoSigner]) {
         do {
             guard let encodedIndex = try store.read(key: XyoStorageOriginChainStateRepository.ORIGIN_STATE_INDEX_KEY) else {

@@ -10,8 +10,9 @@ import Foundation
 import sdk_objectmodel_swift
 
 class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
-    private static let QUEUE_ARRAY_INDEX_KEY = Array("QUEUE_ARRAY_INDEX_KEY".utf8)
     
+    
+    private static let QUEUE_ARRAY_INDEX_KEY = Array("QUEUE_ARRAY_INDEX_KEY".utf8)
     private let store : XyoStorageProvider
     private var queueCache = [XyoBridgeQueueItem]()
     
@@ -29,13 +30,59 @@ class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
     }
     
     func addQueueItem(item: XyoBridgeQueueItem) {
-        queueCache.append(item)
+        queueCache.insert(item, at: getInsertIndex(weight: item.weight))
         saveQueue(items: queueCache)
     }
     
-    func removeQueueItem(hash: XyoObjectStructure) {
-        removeItemFromQueueCache(hash: hash)
+    func commit() {
         saveQueue(items: queueCache)
+    }
+    
+    private func getInsertIndex (weight : Int) -> Int {
+        if (queueCache.count == 0) {
+            return 0
+        }
+        
+        for i in 0...queueCache.count - 1 {
+            if (queueCache[i].weight >= weight) {
+                return i
+            }
+        }
+        
+        return 0
+    }
+    
+    func removeQueueItems(hashes: [XyoObjectStructure]) {
+        for hash in hashes {
+           removeItemFromQueueCache(hash: hash)
+        }
+    }
+    
+    func incrementWeights(hashes: [XyoObjectStructure]) {
+        for hash in hashes {
+            let indexOfItem = (queueCache.firstIndex { (cachedItem) -> Bool in
+                return cachedItem.hash.getBuffer().toByteArray() == hash.getBuffer().toByteArray()
+            })
+            
+            if (indexOfItem != nil) {
+                queueCache[indexOfItem!].weight += 1
+            }
+        }
+    }
+    
+    
+    func getLowestWeight(n: Int) -> [XyoBridgeQueueItem] {
+        if (queueCache.count == 0 || n == 0) {
+            return []
+        }
+        
+        var itemsToReturn = [XyoBridgeQueueItem]()
+        
+        for i in 0...min(n - 1, queueCache.count - 1) {
+            itemsToReturn.append(queueCache[i])
+        }
+        
+        return itemsToReturn
     }
     
     func restoreQueue () {

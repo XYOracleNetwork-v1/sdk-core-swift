@@ -28,18 +28,17 @@ public class XyoBridgeQueue {
     }
     
     func getBlocksToBridge() -> [XyoBridgeQueueItem] {
-        var blocksToBridge = repo.getQueue()
-        var toBrigde = [XyoBridgeQueueItem]()
+        return repo.getLowestWeight(n: sendLimit)
+    }
+    
+    func onBlocksBridged (blocks : [XyoBridgeQueueItem]) {
+        var hashes = [XyoObjectStructure]()
         
-        blocksToBridge.sort {
-            $0.weight > $1.weight
+        for block in blocks {
+            hashes.append(block.hash)
         }
         
-        for i in 0..<min(blocksToBridge.count, sendLimit) {
-            toBrigde.append(blocksToBridge[i])
-        }
-        
-        return toBrigde
+        repo.incrementWeights(hashes: hashes)
     }
     
     // it is possable to leak blocks if this function is called, the blocks are removed in the queue, before the block repository.
@@ -51,10 +50,10 @@ public class XyoBridgeQueue {
             if (blocksToBridge[i].weight >= removeWeight) {
                 let hash = blocksToBridge[i].hash
                 toRemoveHashes.append(hash)
-                repo.removeQueueItem(hash: hash)
             }
         }
         
+        repo.removeQueueItems(hashes: toRemoveHashes)
         return toRemoveHashes
     }
 }

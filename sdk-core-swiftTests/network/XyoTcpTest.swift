@@ -17,7 +17,13 @@ class XyoTcpSocketTest : XCTestCase {
     func testClient () throws {
         if (false) {
             // this test must be run manualy
-            let node = XyoRelayNode(hasher: XyoSha256(), blockRepository: XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256()))
+            let storage = XyoInMemoryStorage()
+            let node = XyoRelayNode(hasher: XyoSha256(),
+                                    blockRepository: XyoStrageProviderOriginBlockRepository(storageProvider: storage,
+                                                                                            hasher: XyoSha256()),
+                                    originStateRepository: XyoStorageOriginChainStateRepository(storage: storage),
+                                    queueRepository: XyoStorageBridgeQueueRepository(storage: storage))
+            
             node.originState.addSigner(signer: XyoSecp256k1Signer())
 
             while (true) {
