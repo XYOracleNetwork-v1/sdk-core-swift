@@ -15,10 +15,10 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     private var previousHashCache : XyoObjectStructure? = nil
     
     private let store : XyoStorageProvider
-    private static let ORIGIN_STATE_INDEX_KEY = Array("QUEUE_ARRAY_INDEX_KEY".utf8)
+    private static let ORIGIN_STATE_INDEX_KEY = Array("ORIGIN_STATE_INDEX_KEY".utf8)
     private static let ORIGIN_HASH_INDEX_KEY = Array("ORIGIN_HASH_INDEX_KEY".utf8)
     
-    init(storage : XyoStorageProvider) {
+    public init(storage : XyoStorageProvider) {
         self.store = storage
     }
     

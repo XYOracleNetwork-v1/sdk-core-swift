@@ -16,7 +16,7 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
     private let store : XyoStorageProvider
     private var queueCache = [XyoBridgeQueueItem]()
     
-    init(storage : XyoStorageProvider) {
+    public init(storage : XyoStorageProvider) {
         self.store = storage
     }
     
