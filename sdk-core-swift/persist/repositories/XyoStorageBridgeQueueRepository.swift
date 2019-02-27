@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
+public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
     
     
     private static let QUEUE_ARRAY_INDEX_KEY = Array("QUEUE_ARRAY_INDEX_KEY".utf8)
@@ -20,21 +20,21 @@ class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
         self.store = storage
     }
     
-    func getQueue() -> [XyoBridgeQueueItem] {
+    public func getQueue() -> [XyoBridgeQueueItem] {
         return queueCache
     }
     
-    func setQueue(queue: [XyoBridgeQueueItem]) {
+    public func setQueue(queue: [XyoBridgeQueueItem]) {
         queueCache = queue
         saveQueue(items: queueCache)
     }
     
-    func addQueueItem(item: XyoBridgeQueueItem) {
+    public func addQueueItem(item: XyoBridgeQueueItem) {
         queueCache.insert(item, at: getInsertIndex(weight: item.weight))
         saveQueue(items: queueCache)
     }
     
-    func commit() {
+    public func commit() {
         saveQueue(items: queueCache)
     }
     
@@ -52,13 +52,13 @@ class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
         return 0
     }
     
-    func removeQueueItems(hashes: [XyoObjectStructure]) {
+    public func removeQueueItems(hashes: [XyoObjectStructure]) {
         for hash in hashes {
            removeItemFromQueueCache(hash: hash)
         }
     }
     
-    func incrementWeights(hashes: [XyoObjectStructure]) {
+    public func incrementWeights(hashes: [XyoObjectStructure]) {
         for hash in hashes {
             let indexOfItem = (queueCache.firstIndex { (cachedItem) -> Bool in
                 return cachedItem.hash.getBuffer().toByteArray() == hash.getBuffer().toByteArray()
@@ -71,7 +71,7 @@ class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
     }
     
     
-    func getLowestWeight(n: Int) -> [XyoBridgeQueueItem] {
+    public func getLowestWeight(n: Int) -> [XyoBridgeQueueItem] {
         if (queueCache.count == 0 || n == 0) {
             return []
         }
@@ -85,7 +85,7 @@ class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
         return itemsToReturn
     }
     
-    func restoreQueue () {
+    public func restoreQueue () {
         var items = [XyoBridgeQueueItem]()
         
         do {

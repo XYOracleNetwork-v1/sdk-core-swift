@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
+public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
     private var signersCache = [XyoSigner]()
     private var indexCache : XyoObjectStructure? = nil
     private var previousHashCache : XyoObjectStructure? = nil
@@ -22,37 +22,37 @@ class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
         self.store = storage
     }
     
-    func getIndex() -> XyoObjectStructure? {
+    public func getIndex() -> XyoObjectStructure? {
         return indexCache
     }
     
-    func putIndex(index: XyoObjectStructure) {
+    public func putIndex(index: XyoObjectStructure) {
         indexCache = index
     }
     
-    func getPreviousHash() -> XyoObjectStructure? {
+    public func getPreviousHash() -> XyoObjectStructure? {
         return previousHashCache
     }
     
-    func putPreviousHash(hash: XyoObjectStructure) {
+    public func putPreviousHash(hash: XyoObjectStructure) {
         previousHashCache = hash
     }
     
-    func getSigners() -> [XyoSigner] {
+    public func getSigners() -> [XyoSigner] {
         return signersCache
     }
     
-    func removeOldestSigner() {
+    public func removeOldestSigner() {
         if (signersCache.count > 0) {
             signersCache.removeFirst()
         }
     }
     
-    func putSigner(signer: XyoSigner) {
+    public func putSigner(signer: XyoSigner) {
         signersCache.append(signer)
     }
     
-    func commit () {
+    public func commit () {
         do {
             if (indexCache != nil) {
                 let encodedIndex = indexCache!.getBuffer().toByteArray()
