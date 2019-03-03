@@ -4,7 +4,7 @@ xcode_project: sdk-core-swift.xcodeproj
 xcode_scheme: sdk-core-swift
 xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
 
-before-build: 
+before_install: 
   - pod repo update
 
 script:
