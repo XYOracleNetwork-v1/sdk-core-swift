@@ -15,7 +15,7 @@ import sdk_objectmodel_swift
 class XyoTcpSocketTest : XCTestCase {
     
     func testClient () throws {
-        if (true) {
+        if (false) {
             // true test must be run manualy
             let storage = XyoInMemoryStorage()
             let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,
