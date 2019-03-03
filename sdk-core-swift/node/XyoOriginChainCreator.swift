@@ -10,8 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 open class XyoOriginChainCreator {
-    public let originStateRepository : XyoOriginChainStateRepository
-    public let blockRepository : XyoOriginBlockRepository
+    public let repositoryConfiguration : XyoRepositoryConfiguration
     public let hasher : XyoHasher
     
     private var heuristics = [String : XyoHueresticGetter]()
@@ -19,12 +18,11 @@ open class XyoOriginChainCreator {
     private var boundWitnessOptions = [String : XyoBoundWitnessOption]()
     private var currentBoundWitnessSession : XyoZigZagBoundWitnessSession? = nil
     
-    public lazy var originState = XyoOriginChainState(repository: originStateRepository)
+    public lazy var originState = XyoOriginChainState(repository: self.repositoryConfiguration.originState)
     
-    public init(hasher : XyoHasher, blockRepository : XyoOriginBlockRepository, originStateRepository: XyoOriginChainStateRepository) {
+    public init(hasher : XyoHasher, repositoryConfiguration: XyoRepositoryConfiguration) {
         self.hasher = hasher
-        self.blockRepository = blockRepository
-        self.originStateRepository = originStateRepository
+        self.repositoryConfiguration = repositoryConfiguration
     }
     
     public func addHuerestic (key: String, getter : XyoHueresticGetter) {
@@ -69,9 +67,10 @@ open class XyoOriginChainCreator {
         throw XyoError.BW_IS_IN_PROGRESS
     }
     
-    public func doNeogeoationThenBoundWitness (handler : XyoNetworkHandler, procedureCatalogue: XyoProcedureCatalogue) throws -> XyoBoundWitness? {
+    public func boundWitness (handler : XyoNetworkHandler, procedureCatalogue: XyoProcedureCatalogue, completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
         if (currentBoundWitnessSession != nil) {
-            throw XyoError.BW_IS_IN_PROGRESS
+            completion(nil, XyoError.BW_IS_IN_PROGRESS)
+            return
         }
         
         onBoundWitnessStart()
@@ -80,59 +79,77 @@ open class XyoOriginChainCreator {
             // is client
             
             // send first neogeoation, response is their choice
-            guard let responseWithTheirChoice = handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) else {
-                onBoundWitnessFailure()
-                return nil
+            handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) { result in
+                guard let responseWithTheirChoice = result else {
+                    self.onBoundWitnessFailure()
+                    return
+                }
+                
+                let adv = XyoChoicePacket(data: responseWithTheirChoice)
+                let startingData = XyoIterableStructure(value: XyoBuffer(data: adv.getResponce()))
+                self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: adv.getChoice(), completion: completion)
             }
-            
-            let startingData = XyoIterableStructure(value: XyoBuffer(data: responseWithTheirChoice.getResponce()))
-            return try doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: responseWithTheirChoice.getChoice())
+            return
         }
         
         // is server, initation data is the clients catalogue, so we must choose one
         let choice = procedureCatalogue.choose(catalogue: handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-        return try doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice)
+        doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
     }
     
-    private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8]) throws -> XyoBoundWitness? {
-        let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-        let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-        
-        let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
-                                                            signedPayload: try makeSignedPayload(additional: additional.signedPayload),
-                                                            unsignedPayload: additional.unsignedPayload,
-                                                            handler: handler,
-                                                            choice: choice)
-        
-        currentBoundWitnessSession = boundWitness
-        
+    private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8], completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
+    
         do {
-            try boundWitness.doBoundWitness(transfer: startingData)
             
-            if (try boundWitness.getIsCompleted() == true) {
-                
-                if (options.count > 0) {
-                    for i in 0...options.count - 1 {
-                        options[i].onCompleted(boundWitness: boundWitness)
+            let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
+            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
+            
+            let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
+                                                                signedPayload: try makeSignedPayload(additional: additional.signedPayload),
+                                                                unsignedPayload: additional.unsignedPayload,
+                                                                handler: handler,
+                                                                choice: choice)
+            
+            currentBoundWitnessSession = boundWitness
+            
+            boundWitness.doBoundWitness(transfer: startingData) { result in
+            
+                do {
+                    if (try boundWitness.getIsCompleted() == true) {
+                        
+                        if (options.count > 0) {
+                            for i in 0...options.count - 1 {
+                                options[i].onCompleted(boundWitness: boundWitness)
+                            }
+                        }
+                        
+                        try self.onBoundWitnessCompleted(boundWitness: boundWitness)
                     }
+                    
+                    self.currentBoundWitnessSession = nil
+                    completion(boundWitness, nil)
+                } catch {
+                    self.onBoundWitnessFailure()
+                    handler.pipe.close()
+                    self.currentBoundWitnessSession = nil
+                    completion(nil, XyoError.UNKNOWN_ERROR)
                 }
                 
-                try onBoundWitnessCompleted(boundWitness: boundWitness)
-                
-               
-                
+                return nil
             }
             
-        } catch is XyoError {
-            onBoundWitnessFailure()
+            
         } catch is XyoObjectError {
             onBoundWitnessFailure()
+            handler.pipe.close()
+            currentBoundWitnessSession = nil
+            completion(nil, XyoError.BYTE_ERROR)
+        } catch {
+            onBoundWitnessFailure()
+            handler.pipe.close()
+            currentBoundWitnessSession = nil
+            completion(nil, XyoError.UNKNOWN_ERROR)
         }
-        
-        handler.pipe.close()
-        currentBoundWitnessSession = nil
-        
-        return boundWitness
     }
     
     private func onBoundWitnessStart () {
@@ -175,7 +192,7 @@ open class XyoOriginChainCreator {
     private func unpackBoundWitness (boundWitness : XyoBoundWitness) throws {
         let hash = try boundWitness.getHash(hasher: hasher)
 
-        if (try !blockRepository.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
+        if (try !repositoryConfiguration.originBlock.containsOriginBlock(originBlockHash: hash.getBuffer().toByteArray())) {
             try unpackNewBoundWitness(boundWitness: boundWitness)
         }
     }
@@ -184,7 +201,7 @@ open class XyoOriginChainCreator {
         let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
         let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
                                                                                                  boundWitness: boundWitness)
-        try blockRepository.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
+        try repositoryConfiguration.originBlock.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
         
         for listener in listeners.values {
             listener.onBoundWitnessDiscovered(boundWitness: boundWitnessWithoughtSubBlocks)

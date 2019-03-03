@@ -33,7 +33,6 @@ class XyoBridgeQueueTest: XCTestCase {
         while repo.getQueue().count > 0 {
             let blocksToBridge = queue.getBlocksToBridge()
             payloadsSent += 1
-            print(blocksToBridge.count)
             numberOfBlocksOffloaded += blocksToBridge.count
             
             queue.onBlocksBridged(blocks: blocksToBridge)

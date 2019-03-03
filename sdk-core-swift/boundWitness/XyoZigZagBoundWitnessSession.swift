@@ -26,45 +26,67 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         try super.init(signers: signers, signedPayload: signedPayload, unsignedPayload: unsignedPayload)
     }
     
-    public func doBoundWitness (transfer: XyoIterableStructure?) throws {
-        if (try !getIsCompleted()) {
-            let response = try sendAndRecive(didHaveData: transfer != nil, transfer: transfer)
-            
-            if (cycles == 0 && transfer != nil && response != nil) {
-                _ = try incomingData(transfer: response, endpoint: false)
-                return
+    public func doBoundWitness (transfer: XyoIterableStructure?, completion : @escaping (_: XyoError?)->()?) {
+        do {
+            if (try !getIsCompleted()) {
+                try sendAndRecive(didHaveData: transfer != nil, transfer: transfer) { response in
+                    do {
+                        if (self.cycles == 0 && transfer != nil) {
+                            throw XyoError.RESPONSE_IS_NULL
+                        }
+                        
+                        if (self.cycles == 0 && transfer != nil && response != nil) {
+                            _ = try self.incomingData(transfer: response, endpoint: false)
+                            return
+                        }
+                        
+                        self.cycles += 1
+                        self.doBoundWitness(transfer: response, completion: completion)
+                        return
+                    } catch is XyoObjectError {
+                        completion(XyoError.BYTE_ERROR)
+                        return
+                    } catch {
+                        completion(XyoError.UNKNOWN_ERROR)
+                        return
+                    }
+                }
+            } else {
+                completion(nil)
             }
-            
-            cycles += 1
-            return try doBoundWitness(transfer: response)
-            
+        } catch {
+            completion(XyoError.UNKNOWN_ERROR)
         }
     }
     
-    private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
+
+    private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
         
         if (cycles == 0 && !didHaveData) {
-            return try sendAndReciveWithChoice(returnData : returnData, transfer: transfer)
+            try sendAndReciveWithChoice(returnData : returnData, transfer: transfer, completion: completion)
+            return
         }
         
-        guard let response = handler.pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) else {
-            if (cycles == 0) {
-                throw XyoError.RESPONSE_IS_NULL
+        handler.pipe.send(data: returnData.getBuffer().toByteArray(), waitForResponse: cycles == 0) { result in
+            guard let response = result else {
+                completion(nil)
+                return
             }
             
-            return nil
+            completion(XyoIterableStructure(value: XyoBuffer(data: response)))
+            
         }
-        
-        return XyoIterableStructure(value: XyoBuffer(data: response))
-    
     }
     
-    private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?) throws -> XyoIterableStructure? {
-        guard let response =  handler.sendChoicePacket(catalogue: choice, reponse: returnData.getBuffer().toByteArray()) else {
-            throw XyoError.RESPONSE_IS_NULL
+    private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
+        handler.sendChoicePacket(catalogue: choice, reponse: returnData.getBuffer().toByteArray()) { result in
+            guard let response = result else {
+                completion(nil)
+                return
+            }
+            
+            completion( XyoIterableStructure(value: XyoBuffer(data: response)))
         }
-        
-        return XyoIterableStructure(value: XyoBuffer(data: response))
     }
 }

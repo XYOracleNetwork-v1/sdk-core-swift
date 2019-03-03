@@ -16,23 +16,19 @@ public class XyoNetworkHandler {
         self.pipe = pipe
     }
     
-    func sendCataloguePacket (catalogue : [UInt8]) -> XyoChoicePacket? {
+    func sendCataloguePacket (catalogue : [UInt8], completion: @escaping (_: [UInt8]?)->()) {
         let buffer = getSizeEncodedCatalogue(catalogue: catalogue)
         
-        guard let response = pipe.send(data: buffer, waitForResponse: true) else {
-            return nil
-        }
-        
-        return XyoChoicePacket(data: response)
+        pipe.send(data: buffer, waitForResponse: true, completion: completion)
     }
     
-    func sendChoicePacket (catalogue : [UInt8], reponse : [UInt8]) -> [UInt8]? {
+    func sendChoicePacket (catalogue : [UInt8], reponse : [UInt8], completion: @escaping (_: [UInt8]?)->()) {
         let buffer = XyoBuffer()
             .put(bytes: getSizeEncodedCatalogue(catalogue: catalogue))
             .put(bytes: reponse)
             .toByteArray()
         
-        return pipe.send(data: buffer, waitForResponse: true)
+        return pipe.send(data: buffer, waitForResponse: true, completion: completion)
     }
     
     private func getSizeEncodedCatalogue (catalogue : [UInt8]) -> [UInt8] {

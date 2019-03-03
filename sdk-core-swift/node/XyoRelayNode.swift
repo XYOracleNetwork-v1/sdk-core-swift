@@ -19,13 +19,13 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
     private let bridgeOption : XyoBridgingOption
     
     public init(hasher: XyoHasher,
-                blockRepository: XyoOriginBlockRepository,
-                originStateRepository: XyoOriginChainStateRepository,
+                repositoryConfiguration : XyoRepositoryConfiguration,
                 queueRepository: XyoBridgeQueueRepository) {
         
         self.blocksToBridge = XyoBridgeQueue(repository: queueRepository)
-        bridgeOption = XyoBridgingOption(bridgeQueue: blocksToBridge, originBlockRepository: blockRepository)
-        super.init(hasher: hasher, blockRepository: blockRepository, originStateRepository: originStateRepository)
+        bridgeOption = XyoBridgingOption(bridgeQueue: blocksToBridge, originBlockRepository: repositoryConfiguration.originBlock)
+        
+        super.init(hasher: hasher, repositoryConfiguration: repositoryConfiguration)
         
         addListener(key: XyoRelayNode.LISTENER_KEY, listener: self)
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
@@ -44,7 +44,7 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
             blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
             
             for hash in blocksToBridge.getBlocksToRemove() {
-                try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
+                try repositoryConfiguration.originBlock.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
             }
             
             originState.repo.commit()
