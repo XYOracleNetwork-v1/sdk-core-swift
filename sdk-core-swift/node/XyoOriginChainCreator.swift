@@ -139,11 +139,6 @@ open class XyoOriginChainCreator {
             }
             
             
-        } catch is XyoObjectError {
-            onBoundWitnessFailure()
-            handler.pipe.close()
-            currentBoundWitnessSession = nil
-            completion(nil, XyoError.BYTE_ERROR)
         } catch {
             onBoundWitnessFailure()
             handler.pipe.close()
