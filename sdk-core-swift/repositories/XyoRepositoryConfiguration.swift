@@ -12,7 +12,7 @@ public struct XyoRepositoryConfiguration {
     public let originState : XyoOriginChainStateRepository
     public let originBlock : XyoOriginBlockRepository
     
-    init(originState : XyoOriginChainStateRepository, originBlock: XyoOriginBlockRepository) {
+    public init(originState : XyoOriginChainStateRepository, originBlock: XyoOriginBlockRepository) {
         self.originState = originState
         self.originBlock = originBlock
     }
