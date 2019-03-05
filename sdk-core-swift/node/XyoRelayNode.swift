@@ -40,9 +40,7 @@ open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
     }
     
     public func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {
-        do {
-            blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
-            
+        do {            
             for hash in blocksToBridge.getBlocksToRemove() {
                 try repositoryConfiguration.originBlock.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
             }
