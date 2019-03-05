@@ -169,7 +169,7 @@ open class XyoOriginChainCreator {
                     } else {
                         self.currentBoundWitnessSession = nil
                         completion(boundWitness, XyoError.UNKNOWN_ERROR)
-                        return
+                        return nil
                     }
                     
                     self.currentBoundWitnessSession = nil
