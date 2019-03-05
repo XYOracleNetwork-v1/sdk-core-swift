@@ -31,12 +31,13 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             if (try !getIsCompleted()) {
                 try sendAndRecive(didHaveData: transfer != nil, transfer: transfer) { response in
                     do {
-                        if (self.cycles == 0 && transfer == nil) {
+                        if (self.cycles == 0 && transfer == nil && response == nil) {
                             throw XyoError.RESPONSE_IS_NULL
                         }
                         
                         if (self.cycles == 0 && transfer != nil && response != nil) {
                             _ = try self.incomingData(transfer: response, endpoint: false)
+                            completion(nil)
                             return
                         }
                         
