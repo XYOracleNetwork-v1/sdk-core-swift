@@ -10,6 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
+    
     private static let BLOCK_INDEX_KEY : [UInt8] = [0x00, 0x00]
     private let storageProvider : XyoStorageProvider
     private let hasher : XyoHasher

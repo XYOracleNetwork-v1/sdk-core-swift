@@ -10,6 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
+    
     private var signersCache = [XyoSigner]()
     private var indexCache : XyoObjectStructure? = nil
     private var previousHashCache : XyoObjectStructure? = nil

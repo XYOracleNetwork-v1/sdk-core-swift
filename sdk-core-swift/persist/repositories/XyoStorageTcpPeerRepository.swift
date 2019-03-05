@@ -10,6 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStorageTcpPeerRepository : XyoTcpPeerRepository {
+    
     private static let PEER_ARRAY_INDEX_KEY = Array("PEER_ARRAY_INDEX_KEY".utf8)
     
     private var peerCache = [XyoTcpPeer]()

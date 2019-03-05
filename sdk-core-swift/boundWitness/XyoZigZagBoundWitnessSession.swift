@@ -31,7 +31,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             if (try !getIsCompleted()) {
                 try sendAndRecive(didHaveData: transfer != nil, transfer: transfer) { response in
                     do {
-                        if (self.cycles == 0 && transfer != nil) {
+                        if (self.cycles == 0 && transfer == nil) {
                             throw XyoError.RESPONSE_IS_NULL
                         }
                         
