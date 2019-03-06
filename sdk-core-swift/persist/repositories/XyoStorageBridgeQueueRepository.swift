@@ -105,8 +105,9 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
                         items.append(created!)
                     }
                 }
-                
             }
+            
+            queueCache = items
         } catch {
             // handle this error
         }
@@ -146,8 +147,8 @@ extension XyoBridgeQueueItem {
     
     static func fromStructure (structure : XyoIterableStructure) -> XyoBridgeQueueItem? {
         do {
-            let weight = try structure.get(index: 0).getValueCopy().getUInt32(offset: 0)
-            let hash = try structure.get(index: 1)
+            let hash = try structure.get(index: 0)
+            let weight = try structure.get(index: 1).getValueCopy().getUInt32(offset: 0)
             
             return XyoBridgeQueueItem(weight: Int(weight), hash: hash)
         } catch {
