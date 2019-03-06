@@ -72,6 +72,8 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     
     public func restoreState (signers : [XyoSigner]) {
         do {
+            signersCache = signers
+            
             guard let encodedIndex = try store.read(key: XyoStorageOriginChainStateRepository.ORIGIN_STATE_INDEX_KEY) else {
                 return
             }
@@ -82,7 +84,6 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
             
             indexCache = XyoObjectStructure(value: XyoBuffer(data: encodedIndex))
             previousHashCache = XyoObjectStructure(value: XyoBuffer(data: encodedHash))
-            signersCache = signers
         } catch {
             // find way of handling this error
             return
