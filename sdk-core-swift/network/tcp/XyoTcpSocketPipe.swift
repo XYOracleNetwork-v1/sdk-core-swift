@@ -30,7 +30,7 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
         return XyoAdvertisePacket.init(data: initiationData.unsafelyUnwrapped)
     }
     
-    public func send (data: [UInt8], waitForResponse: Bool) -> [UInt8]? {
+    public func send(data: [UInt8], waitForResponse: Bool, completion: ([UInt8]?) -> ()) {
         let dataWithSize = XyoBuffer()
             .put(bits: UInt32(data.count + 4))
             .put(bytes: data)
@@ -39,20 +39,22 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
         if (socket.write(bytes: dataWithSize, canBlock: true) == true) {
             if (waitForResponse) {
                 guard let byteSize = socket.read(size: 4, canBlock: true) else {
-                    return nil
+                    completion(nil)
+                    return
                 }
                 
                 let actualSize = XyoBuffer(data: byteSize).getUInt32(offset: 0)
                 
                 if (actualSize <= 4) {
-                    return nil
+                    completion(nil)
+                    return
                 }
                 
-                return socket.read(size: Int(actualSize - 4), canBlock: true)
+                completion(socket.read(size: Int(actualSize - 4), canBlock: true))
             }
+        } else {
+            completion(nil)
         }
-        
-        return nil
     }
     
     public func close () {

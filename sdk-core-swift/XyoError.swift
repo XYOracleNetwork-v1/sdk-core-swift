@@ -15,4 +15,6 @@ public enum XyoError : Error {
     case BW_IS_COMPLETED // thrown when a bound wittness is completed and you are trying to change it
     case BW_IS_IN_PROGRESS // throws when asked to do a bound witness but a bound witness in in progress
     case RESPONSE_IS_NULL
+    case BYTE_ERROR
+    case UNKNOWN_ERROR
 }

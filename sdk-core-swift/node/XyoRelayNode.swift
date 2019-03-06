@@ -10,34 +10,43 @@ import Foundation
 import sdk_objectmodel_swift
 
 open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
+   
+    
     private static let LISTENER_KEY = "RELAY_NODE"
     private static let OPTION_KEY = "BRIDING_OPTION"
     
-    public let blocksToBridge = XyoBridgeQueue()
+    public let blocksToBridge : XyoBridgeQueue
     private let bridgeOption : XyoBridgingOption
     
-    public override init(hasher: XyoHasher, blockRepository: XyoOriginBlockRepository) {
-        bridgeOption = XyoBridgingOption(bridgeQueue: blocksToBridge, originBlockRepository: blockRepository)
-        super.init(hasher: hasher, blockRepository: blockRepository)
+    public init(hasher: XyoHasher,
+                repositoryConfiguration : XyoRepositoryConfiguration,
+                queueRepository: XyoBridgeQueueRepository) {
+        
+        self.blocksToBridge = XyoBridgeQueue(repository: queueRepository)
+        bridgeOption = XyoBridgingOption(bridgeQueue: blocksToBridge, originBlockRepository: repositoryConfiguration.originBlock)
+        
+        super.init(hasher: hasher, repositoryConfiguration: repositoryConfiguration)
         
         addListener(key: XyoRelayNode.LISTENER_KEY, listener: self)
         addBoundWitnessOption(key: XyoRelayNode.OPTION_KEY, option: bridgeOption)
     }
     
-
-    public func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
-        for hash in blocksToBridge.getBlocksToRemove() {
-            do {
-                try blockRepository.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
-            } catch {
-                // todo handle error on removal
-            }
+    public func onBoundWitnessDiscovered(boundWitness: XyoBoundWitness) {
+        do {
+            blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
+        } catch {
+            // do not add block to queue if there is an issue with getting its hash
         }
     }
     
     public func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {
-        do {
-            blocksToBridge.addBlock(blockHash: try boundWitness.getHash(hasher: hasher))
+        do {            
+            for hash in blocksToBridge.getBlocksToRemove() {
+                try repositoryConfiguration.originBlock.removeOriginBlock(originBlockHash: hash.getBuffer().toByteArray())
+            }
+            
+            originState.repo.commit()
+            blocksToBridge.repo.commit()
         } catch {
             // do not add block to queue if there is an issue with getting its hash
         }

@@ -10,6 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
+    
     private static let BLOCK_INDEX_KEY : [UInt8] = [0x00, 0x00]
     private let storageProvider : XyoStorageProvider
     private let hasher : XyoHasher
@@ -54,7 +55,6 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     }
     
     private func updateBlockIndex (hashToAdd : XyoObjectStructure) throws {
-        print("ADD HASH: " + (try hashToAdd.getValueCopy().toByteArray().toHexString()))
         let currentIndex = try getBlockIndex()
         try currentIndex.addElement(element: hashToAdd)
         try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: currentIndex.getBuffer().toByteArray())
@@ -65,9 +65,6 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         let currentIndex = try getBlockIndex().getNewIterator()
         
         while try currentIndex.hasNext() {
-            
-            
-            
             let hashInList = try currentIndex.next()
             
             if (hashInList.getBuffer().toByteArray() != hashToRemove) {

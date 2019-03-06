@@ -33,11 +33,6 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
         
         writeStream.schedule(in: .main, forMode: RunLoop.Mode.common)
         readStream.schedule(in: .main, forMode: RunLoop.Mode.common)
-        
-        writeStream.delegate = self
-        readStream.delegate = self
-        
-        
     }
     
     let writeCallback:CFWriteStreamClientCallBack = {(stream:CFWriteStream?, eventType:CFStreamEventType, info:UnsafeMutableRawPointer?) in

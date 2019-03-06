@@ -48,8 +48,6 @@ class XyoBridgingOption: XyoBoundWitnessOption {
     }
     
     func onCompleted(boundWitness: XyoBoundWitness?) {
-        for i in 0..<blocksInTransit.count {
-            blocksInTransit[i].bridged()
-        }
+        bridgeQueue.onBlocksBridged(blocks: blocksInTransit)
     }
 }
