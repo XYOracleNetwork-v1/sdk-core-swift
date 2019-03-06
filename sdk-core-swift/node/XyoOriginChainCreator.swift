@@ -122,6 +122,7 @@ open class XyoOriginChainCreator {
             handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) { result in
                 guard let responseWithTheirChoice = result else {
                     self.onBoundWitnessFailure()
+                    completion(nil, XyoError.UNKNOWN_ERROR)
                     return
                 }
                 

@@ -52,6 +52,8 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
                 
                 completion(socket.read(size: Int(actualSize - 4), canBlock: true))
             }
+        } else {
+            completion(nil)
         }
     }
     
