@@ -113,6 +113,10 @@ public class XyoOriginChainState {
         }
     }
     
+    public func getStaticHuerestics () -> [XyoObjectStructure] {
+        return self.repo.getStaticHuerestics()
+    }
+    
     /// This function creates an XYO index object from a UInt32.
     /// - Parameter index: The index to encode in the xyo index object.
     /// - Returns: The encoded index
@@ -135,4 +139,5 @@ public class XyoOriginChainState {
     public static func createNextPublicKey (publicKey : XyoObjectStructure) -> XyoObjectStructure {
         return XyoObjectStructure.newInstance(schema: XyoSchemas.NEXT_PUBLIC_KEY, bytes: publicKey.getBuffer())
     }
+
 }

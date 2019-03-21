@@ -305,6 +305,7 @@ open class XyoOriginChainCreator {
         let previousHash = originState.getPreviousHash()
         let index = originState.getIndex()
         let nextPublicKey = originState.getNextPublicKey()
+        let statics = originState.getStaticHuerestics()
         
         if (previousHash != nil) {
             signedPayload.append(previousHash.unsafelyUnwrapped)
@@ -315,6 +316,7 @@ open class XyoOriginChainCreator {
         }
         
         signedPayload.append(index)
+        signedPayload.append(contentsOf: statics)
         
         return signedPayload
     }

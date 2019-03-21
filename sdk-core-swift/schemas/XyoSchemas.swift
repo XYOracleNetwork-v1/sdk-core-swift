@@ -18,7 +18,7 @@ public struct XyoSchemas {
     public static let NEXT_PUBLIC_KEY =         XyoObjectSchema(id: 04, encodingCatalogue: 0x80)
     public static let BRIDGE_BLOCK_SET =        XyoObjectSchema(id: 05, encodingCatalogue: 0xa0)
     public static let BRIDGE_HASH_SET =         XyoObjectSchema(id: 06, encodingCatalogue: 0xb0)
-    // open slot for 7
+    public static let PAYMENT_KEY =             XyoObjectSchema(id: 07, encodingCatalogue: 0x80)
     public static let PREVIOUS_HASH =           XyoObjectSchema(id: 08, encodingCatalogue: 0xb0)
     public static let EC_SIGNATURE =            XyoObjectSchema(id: 09, encodingCatalogue: 0x80)
     public static let RSA_SIGNATURE =           XyoObjectSchema(id: 10, encodingCatalogue: 0x80)
