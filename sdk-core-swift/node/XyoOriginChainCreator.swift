@@ -84,7 +84,7 @@ open class XyoOriginChainCreator {
     /// Self signs the nodes origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
     public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
-            let additional = try getAdditionalPayloads(flag: [])
+            let additional = try getAdditionalPayloads(flag: [], pipe: nil)
             
             onBoundWitnessStart()
             let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
@@ -147,7 +147,7 @@ open class XyoOriginChainCreator {
     
         do {
             let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
+            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)], pipe: handler.pipe)
             let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
@@ -223,7 +223,7 @@ open class XyoOriginChainCreator {
     /// This function is called before evey bound witness.
     /// - Parameter flag: The choice of the bound witness to get the payloads from.
     /// - Returns: Returns a all of the bound witness options for a new bound witness.
-    private func getAdditionalPayloads (flag : [UInt8]) throws -> XyoBoundWitnessHueresticPair {
+    private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHuerestics()
@@ -233,6 +233,7 @@ open class XyoOriginChainCreator {
         
         signedAdditional.append(contentsOf: optionPayloads.signedPayload)
         signedAdditional.append(contentsOf: hueresticPayloads.signedPayload)
+        signedAdditional.append(contentsOf: pipe?.getNetworkHuerestics() ?? [])
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         

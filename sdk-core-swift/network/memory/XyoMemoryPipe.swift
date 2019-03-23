@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import sdk_objectmodel_swift
 
 class XyoMemoryPipe : XyoNetworkPipe {
     var other : XyoMemoryPipe? = nil
@@ -40,4 +41,9 @@ class XyoMemoryPipe : XyoNetworkPipe {
     func close() {
 
     }
+    
+    func getNetworkHuerestics() -> [XyoObjectStructure] {
+        return []
+    }
+    
 }

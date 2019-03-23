@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import sdk_objectmodel_swift
 
 public protocol XyoNetworkPipe {
     func getInitiationData() -> XyoAdvertisePacket?
+    func getNetworkHuerestics() -> [XyoObjectStructure]
     func send (data: [UInt8], waitForResponse: Bool, completion: @escaping (_: [UInt8]?)->())
     func close ()
 }
