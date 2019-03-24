@@ -29,7 +29,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     
     public func doBoundWitness (transfer: XyoIterableStructure?, completion : @escaping (_: XyoError?)->()?) {
         do {
-            if (cycles >= maxNumberOfCycles) {
+            if (cycles >= XyoZigZagBoundWitnessSession.maxNumberOfCycles) {
                 completion(XyoError.UNKNOWN_ERROR)
                 return
             }
