@@ -19,6 +19,7 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     private static let ORIGIN_STATE_INDEX_KEY = Array("ORIGIN_STATE_INDEX_KEY".utf8)
     private static let ORIGIN_HASH_INDEX_KEY = Array("ORIGIN_HASH_INDEX_KEY".utf8)
     private static let ORIGIN_STATTICS_KEY = Array("ORIGIN_STATICS_KEY".utf8)
+    private static let ORIGIN_LAST_TIME = Array("ORIGIN_LAST_TIME".utf8)
     
     public init(storage : XyoStorageProvider) {
         self.store = storage
@@ -120,5 +121,33 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
         }
         
         return returnArray
+    }
+    
+    public func onBoundWitness() {
+        do {
+            let timeNow = UInt64(NSDate().timeIntervalSince1970)
+            let encodedDate = XyoBuffer()
+                .put(bits: timeNow)
+                .toByteArray()
+            
+            try self.store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_LAST_TIME, value: encodedDate)
+        } catch {
+            // do not store bound witness date if it can not be stored
+        }
+        
+    }
+    
+    public func lastBoundWitnessTime() -> UInt64? {
+        do {
+            guard let encodedTime = try self.store.read(key: XyoStorageOriginChainStateRepository.ORIGIN_LAST_TIME) else {
+                return nil
+            }
+            
+            return XyoBuffer.init(data: encodedTime).getUInt64(offset: 0)
+        } catch {
+            // return nil if it can not be read from the store
+        }
+        
+        return nil
     }
 }

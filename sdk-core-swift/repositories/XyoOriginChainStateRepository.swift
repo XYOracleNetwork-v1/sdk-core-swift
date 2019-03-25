@@ -57,4 +57,8 @@ public protocol XyoOriginChainStateRepository {
     func setStaticHuerestics (huerestics: [XyoObjectStructure])
     
     func getStaticHuerestics () -> [XyoObjectStructure]
+    
+    func onBoundWitness ()
+    
+    func lastBoundWitnessTime() -> UInt64?
 }

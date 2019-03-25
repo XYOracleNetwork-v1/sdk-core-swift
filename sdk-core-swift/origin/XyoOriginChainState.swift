@@ -91,6 +91,7 @@ public class XyoOriginChainState {
         addWaitingSigner()
         repo.putPreviousHash(hash: hash)
         incrementIndex()
+        repo.onBoundWitness()
     }
     
     
