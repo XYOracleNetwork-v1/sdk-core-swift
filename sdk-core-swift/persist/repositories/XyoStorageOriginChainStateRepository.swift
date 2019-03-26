@@ -11,7 +11,7 @@ import sdk_objectmodel_swift
 
 public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
     private var signersCache = [XyoSigner]()
-    private var statics : [XyoObjectStructure] = []
+    private var staticsCache : [XyoObjectStructure] = []
     private var indexCache : XyoObjectStructure? = nil
     private var previousHashCache : XyoObjectStructure? = nil
     
@@ -46,11 +46,11 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     }
     
     public func setStaticHuerestics(huerestics: [XyoObjectStructure]) {
-        self.statics = huerestics
+        self.staticsCache = huerestics
     }
     
     public func getStaticHuerestics() -> [XyoObjectStructure] {
-        return statics
+        return staticsCache
     }
     
     public func removeOldestSigner() {
@@ -66,7 +66,7 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     public func commit () {
         do {
             
-            let encodedStatics = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: self.statics)
+            let encodedStatics = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: self.staticsCache)
                 .getBuffer()
                 .toByteArray()
             
@@ -101,7 +101,7 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
             
             indexCache = XyoObjectStructure(value: XyoBuffer(data: encodedIndex))
             previousHashCache = XyoObjectStructure(value: XyoBuffer(data: encodedHash))
-            statics = try getStoreStatics()
+            staticsCache = try getStoreStatics()
         } catch {
             // find way of handling this error
             return
