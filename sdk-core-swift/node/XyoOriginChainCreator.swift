@@ -126,16 +126,25 @@ open class XyoOriginChainCreator {
                     return
                 }
                 
-                let adv = XyoChoicePacket(data: responseWithTheirChoice)
-                let startingData = XyoIterableStructure(value: XyoBuffer(data: adv.getResponce()))
-                self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: adv.getChoice(), completion: completion)
+                do {
+                    let adv = XyoChoicePacket(data: responseWithTheirChoice)
+                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponce()))
+                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: try adv.getChoice(), completion: completion)
+                } catch {
+                    completion(nil, XyoError.UNKNOWN_ERROR)
+                    return
+                }
             }
             return
         }
         
         // is server, initation data is the clients catalogue, so we must choose one
-        let choice = procedureCatalogue.choose(catalogue: handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-        doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+        do {
+            let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
+            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+        } catch {
+            completion(nil, XyoError.UNKNOWN_ERROR)
+        }
     }
     
     /// This function preformed a bound witness after the neogeoation has been handled.

@@ -12,12 +12,21 @@ import sdk_objectmodel_swift
 public struct XyoAdvertisePacket {
     private let data : [UInt8]
     
-    func getChoice () -> [UInt8] {
-        let sizeOfChoice = Int(XyoBuffer(data: data).getUInt8(offset: 0))
-        return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
-    }
-
     public init(data : [UInt8]) {
         self.data = data
+    }
+    
+    func getChoice () throws -> [UInt8] {
+        if (data.count == 0) {
+            throw XyoObjectError.OUT_OF_INDEX
+        }
+        
+        let sizeOfChoice = Int(XyoBuffer(data: data).getUInt8(offset: 0))
+        
+        if (sizeOfChoice + 1 > data.count) {
+            throw XyoObjectError.OUT_OF_INDEX
+        }
+        
+        return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
     }
 }
