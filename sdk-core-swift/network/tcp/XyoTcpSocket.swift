@@ -9,6 +9,7 @@
 import Foundation
 
 public class XyoTcpSocket : NSObject, StreamDelegate {
+    private static let MAX_READ_SIZE_K_BYTES = 200
     private var clientContect = CFStreamClientContext()
     private let writeStream : OutputStream
     private let readStream : InputStream
@@ -70,6 +71,10 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
     }
     
     public func read (size : Int, canBlock : Bool) -> [UInt8]? {
+        if (size > (XyoTcpSocket.MAX_READ_SIZE_K_BYTES * 1024)) {
+            return nil
+        }
+        
         let pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
         
         if(self.readStream.hasBytesAvailable || canBlock) {
