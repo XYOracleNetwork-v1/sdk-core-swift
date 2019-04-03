@@ -7,6 +7,12 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/587ae96e86057b6b6178/maintainability)](https://codeclimate.com/repos/5c4a7a7372b7b2029d008b34/maintainability) [![](https://img.shields.io/cocoapods/v/sdk-core-swift.svg?style=flat)](https://cocoapods.org/pods/sdk-core-swift)
 
 
+| Branches        | Status           |
+| ------------- |:-------------:|
+| Master      | [![Build Status](https://travis-ci.org/XYOracleNetwork/sdk-core-swift.svg?branch=master)](https://travis-ci.org/XYOracleNetwork/sdk-core-swift) |
+| Develop      | [![Build Status](https://travis-ci.org/XYOracleNetwork/sdk-core-swift.svg?branch=develop)](https://travis-ci.org/XYOracleNetwork/sdk-core-swift)      |
+
+
 
 A library to preform all core XYO Network functions.
 This includes creating an origin chain, maintaining an origin chain, negotiations for talking to other nodes, and other basic functionality.
