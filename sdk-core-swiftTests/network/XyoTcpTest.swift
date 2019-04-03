@@ -35,12 +35,11 @@ class XyoTcpSocketTest : XCTestCase {
                 let handler = XyoNetworkHandler(pipe: pipe)
 
                 node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: 0xff, withOther: 0xff)) { (result, error) in
-                    
+                        
                 }
             }
         }
     }
-    
 }
 
 
