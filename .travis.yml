@@ -5,6 +5,7 @@ xcode_scheme: sdk-core-swift
 xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
 
 before_install:
+  - gem install cocoapods --pr
   - pod repo update
 
 script:
