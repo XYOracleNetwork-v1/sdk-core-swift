@@ -10,14 +10,16 @@ import Foundation
 import sdk_objectmodel_swift
 
 public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository {
-    
     private var signersCache = [XyoSigner]()
+    private var staticsCache : [XyoObjectStructure] = []
     private var indexCache : XyoObjectStructure? = nil
     private var previousHashCache : XyoObjectStructure? = nil
     
     private let store : XyoStorageProvider
     private static let ORIGIN_STATE_INDEX_KEY = Array("ORIGIN_STATE_INDEX_KEY".utf8)
     private static let ORIGIN_HASH_INDEX_KEY = Array("ORIGIN_HASH_INDEX_KEY".utf8)
+    private static let ORIGIN_STATTICS_KEY = Array("ORIGIN_STATICS_KEY".utf8)
+    private static let ORIGIN_LAST_TIME = Array("ORIGIN_LAST_TIME".utf8)
     
     public init(storage : XyoStorageProvider) {
         self.store = storage
@@ -43,6 +45,14 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
         return signersCache
     }
     
+    public func setStaticHuerestics(huerestics: [XyoObjectStructure]) {
+        self.staticsCache = huerestics
+    }
+    
+    public func getStaticHuerestics() -> [XyoObjectStructure] {
+        return staticsCache
+    }
+    
     public func removeOldestSigner() {
         if (signersCache.count > 0) {
             signersCache.removeFirst()
@@ -55,6 +65,13 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     
     public func commit () {
         do {
+            
+            let encodedStatics = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: self.staticsCache)
+                .getBuffer()
+                .toByteArray()
+            
+            try store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_STATTICS_KEY, value: encodedStatics)
+            
             if (indexCache != nil) {
                 let encodedIndex = indexCache!.getBuffer().toByteArray()
                 try store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_STATE_INDEX_KEY, value: encodedIndex)
@@ -84,9 +101,53 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
             
             indexCache = XyoObjectStructure(value: XyoBuffer(data: encodedIndex))
             previousHashCache = XyoObjectStructure(value: XyoBuffer(data: encodedHash))
+            staticsCache = try getStoreStatics()
         } catch {
             // find way of handling this error
             return
         }
+    }
+    
+    private func getStoreStatics () throws -> [XyoObjectStructure] {
+        guard let encodedStatics = try store.read(key: XyoStorageOriginChainStateRepository.ORIGIN_STATTICS_KEY) else {
+            return []
+        }
+        
+        var returnArray: [XyoObjectStructure] = []
+        let it = try XyoIterableStructure(value: XyoBuffer(data: encodedStatics)).getNewIterator()
+        
+        while try it.hasNext() {
+            returnArray.append(try it.next())
+        }
+        
+        return returnArray
+    }
+    
+    public func onBoundWitness() {
+        do {
+            let timeNow = UInt64(NSDate().timeIntervalSince1970)
+            let encodedDate = XyoBuffer()
+                .put(bits: timeNow)
+                .toByteArray()
+            
+            try self.store.write(key: XyoStorageOriginChainStateRepository.ORIGIN_LAST_TIME, value: encodedDate)
+        } catch {
+            // do not store bound witness date if it can not be stored
+        }
+        
+    }
+    
+    public func lastBoundWitnessTime() -> UInt64? {
+        do {
+            guard let encodedTime = try self.store.read(key: XyoStorageOriginChainStateRepository.ORIGIN_LAST_TIME) else {
+                return nil
+            }
+            
+            return XyoBuffer.init(data: encodedTime).getUInt64(offset: 0)
+        } catch {
+            // return nil if it can not be read from the store
+        }
+        
+        return nil
     }
 }

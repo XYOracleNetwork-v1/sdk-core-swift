@@ -87,10 +87,17 @@ public class XyoOriginChainState {
     /// The repositry state should also be commited after this function is called.
     /// - Parameter hash: The hash of the bound witness to add to the origin state (this will become the previous hash).
     public func addOriginBlock (hash : XyoObjectStructure) {
-        nextPublicKey = nil
-        addWaitingSigner()
-        repo.putPreviousHash(hash: hash)
-        incrementIndex()
+        do {
+            let previousHash = try XyoOriginChainState.createPreviousHash(hash: hash)
+            nextPublicKey = nil
+            addWaitingSigner()
+            repo.putPreviousHash(hash: previousHash)
+            incrementIndex()
+            repo.onBoundWitness()
+        } catch {
+            // dont do anything if there is something wrong with the hash, this should never happen
+            fatalError()
+        }
     }
     
     
@@ -113,6 +120,10 @@ public class XyoOriginChainState {
         }
     }
     
+    public func getStaticHuerestics () -> [XyoObjectStructure] {
+        return self.repo.getStaticHuerestics()
+    }
+    
     /// This function creates an XYO index object from a UInt32.
     /// - Parameter index: The index to encode in the xyo index object.
     /// - Returns: The encoded index
@@ -125,7 +136,7 @@ public class XyoOriginChainState {
     /// This function creates a xyo previuous hash object from an xyo hash object
     /// - Parameter hash: The hash to put inside of the previous hash object.
     /// - Returns: The encoded previous hash object.
-    public static func createPreviousHash (hash : XyoIterableStructure) throws -> XyoObjectStructure {
+    public static func createPreviousHash (hash : XyoObjectStructure) throws -> XyoObjectStructure {
         return try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.PREVIOUS_HASH, values: [hash])
     }
     
@@ -135,4 +146,5 @@ public class XyoOriginChainState {
     public static func createNextPublicKey (publicKey : XyoObjectStructure) -> XyoObjectStructure {
         return XyoObjectStructure.newInstance(schema: XyoSchemas.NEXT_PUBLIC_KEY, bytes: publicKey.getBuffer())
     }
+
 }

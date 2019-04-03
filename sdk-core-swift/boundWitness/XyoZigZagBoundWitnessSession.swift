@@ -10,6 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
+    private static let maxNumberOfCycles = 10
     private var cycles = 0
     private let handler : XyoNetworkHandler
     private let choice : [UInt8]
@@ -28,10 +29,15 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     
     public func doBoundWitness (transfer: XyoIterableStructure?, completion : @escaping (_: XyoError?)->()?) {
         do {
+            if (cycles >= XyoZigZagBoundWitnessSession.maxNumberOfCycles) {
+                completion(XyoError.UNKNOWN_ERROR)
+                return
+            }
+            
             if (try !getIsCompleted()) {
                 try sendAndRecive(didHaveData: transfer != nil, transfer: transfer) { response in
                     do {
-                        if (self.cycles == 0 && transfer == nil && response == nil) {
+                        if (self.cycles == 0 && transfer != nil && response == nil) {
                             throw XyoError.RESPONSE_IS_NULL
                         }
                         

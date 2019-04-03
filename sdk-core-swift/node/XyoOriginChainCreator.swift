@@ -84,7 +84,7 @@ open class XyoOriginChainCreator {
     /// Self signs the nodes origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
     public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
-            let additional = try getAdditionalPayloads(flag: [])
+            let additional = try getAdditionalPayloads(flag: [], pipe: nil)
             
             onBoundWitnessStart()
             let boundWitness = try XyoZigZagBoundWitness(signers: originState.getSigners(),
@@ -126,16 +126,25 @@ open class XyoOriginChainCreator {
                     return
                 }
                 
-                let adv = XyoChoicePacket(data: responseWithTheirChoice)
-                let startingData = XyoIterableStructure(value: XyoBuffer(data: adv.getResponce()))
-                self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: adv.getChoice(), completion: completion)
+                do {
+                    let adv = XyoChoicePacket(data: responseWithTheirChoice)
+                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponce()))
+                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: try adv.getChoice(), completion: completion)
+                } catch {
+                    completion(nil, XyoError.UNKNOWN_ERROR)
+                    return
+                }
             }
             return
         }
         
         // is server, initation data is the clients catalogue, so we must choose one
-        let choice = procedureCatalogue.choose(catalogue: handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-        doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+        do {
+            let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
+            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+        } catch {
+            completion(nil, XyoError.UNKNOWN_ERROR)
+        }
     }
     
     /// This function preformed a bound witness after the neogeoation has been handled.
@@ -147,7 +156,7 @@ open class XyoOriginChainCreator {
     
         do {
             let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
+            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)], pipe: handler.pipe)
             let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
@@ -223,7 +232,7 @@ open class XyoOriginChainCreator {
     /// This function is called before evey bound witness.
     /// - Parameter flag: The choice of the bound witness to get the payloads from.
     /// - Returns: Returns a all of the bound witness options for a new bound witness.
-    private func getAdditionalPayloads (flag : [UInt8]) throws -> XyoBoundWitnessHueresticPair {
+    private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHuerestics()
@@ -233,6 +242,8 @@ open class XyoOriginChainCreator {
         
         signedAdditional.append(contentsOf: optionPayloads.signedPayload)
         signedAdditional.append(contentsOf: hueresticPayloads.signedPayload)
+        
+        signedAdditional.append(contentsOf: pipe?.getNetworkHuerestics() ?? [])
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         
@@ -305,6 +316,7 @@ open class XyoOriginChainCreator {
         let previousHash = originState.getPreviousHash()
         let index = originState.getIndex()
         let nextPublicKey = originState.getNextPublicKey()
+        let statics = originState.getStaticHuerestics()
         
         if (previousHash != nil) {
             signedPayload.append(previousHash.unsafelyUnwrapped)
@@ -315,6 +327,7 @@ open class XyoOriginChainCreator {
         }
         
         signedPayload.append(index)
+        signedPayload.append(contentsOf: statics)
         
         return signedPayload
     }

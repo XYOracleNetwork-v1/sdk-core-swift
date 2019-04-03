@@ -53,4 +53,12 @@ public protocol XyoOriginChainStateRepository {
     /// This function is called after every bound witness to persist the state, if there is non caching implemented,
     /// there is no reason to implement this methed.
     func commit ()
+    
+    func setStaticHuerestics (huerestics: [XyoObjectStructure])
+    
+    func getStaticHuerestics () -> [XyoObjectStructure]
+    
+    func onBoundWitness ()
+    
+    func lastBoundWitnessTime() -> UInt64?
 }
