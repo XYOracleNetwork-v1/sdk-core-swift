@@ -4,6 +4,9 @@ xcode_project: sdk-core-swift.xcodeproj
 xcode_scheme: sdk-core-swift
 xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
 
+before_install:
+- pod repo update
+
 script:
   - gem install slather &&
     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-darwin-amd64 > ./cc-test-reporter &&
