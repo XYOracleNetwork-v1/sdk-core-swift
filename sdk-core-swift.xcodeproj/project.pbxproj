@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,7 +17,6 @@
 		8C361F3A2213C7710049B9EF /* XyoTcpPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C361F392213C7710049B9EF /* XyoTcpPeer.swift */; };
 		8C39ABD6222C508A00A3440D /* XyoRepositoryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39ABD5222C508A00A3440D /* XyoRepositoryConfiguration.swift */; };
 		8C39ABD9222C531600A3440D /* XyoMemoryPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39ABD8222C531600A3440D /* XyoMemoryPipe.swift */; };
-		8C39ABDB222C6C9A00A3440D /* XyoPipeBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39ABDA222C6C9A00A3440D /* XyoPipeBoundWitnessTest.swift */; };
 		8C3E6D5E2225060100A34A22 /* XyoStorageTcpPeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */; };
 		8C3E6D602225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */; };
 		8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */; };
@@ -63,6 +62,9 @@
 		8C6542DD21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */; };
 		8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */; };
 		8C6542E521FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */; };
+		8C70859D225BB0DE0036F057 /* XyoStandardInteractionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70859C225BB0DE0036F057 /* XyoStandardInteractionTest.swift */; };
+		8C7085A0225BB3EF0036F057 /* XyoJustBoundWitnessCatalogues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C70859F225BB3EF0036F057 /* XyoJustBoundWitnessCatalogues.swift */; };
+		8C7085A2225BB4C30036F057 /* XyoPlayloadTestChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7085A1225BB4C30036F057 /* XyoPlayloadTestChecker.swift */; };
 		8CA10E6C21F7D31B0005A57F /* XyoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6B21F7D31B0005A57F /* XyoError.swift */; };
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
 		8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */; };
@@ -99,7 +101,6 @@
 		8C361F392213C7710049B9EF /* XyoTcpPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpPeer.swift; sourceTree = "<group>"; };
 		8C39ABD5222C508A00A3440D /* XyoRepositoryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoRepositoryConfiguration.swift; sourceTree = "<group>"; };
 		8C39ABD8222C531600A3440D /* XyoMemoryPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoMemoryPipe.swift; sourceTree = "<group>"; };
-		8C39ABDA222C6C9A00A3440D /* XyoPipeBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoPipeBoundWitnessTest.swift; sourceTree = "<group>"; };
 		8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageTcpPeerRepository.swift; sourceTree = "<group>"; };
 		8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageBridgeQueueRepository.swift; sourceTree = "<group>"; };
 		8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageOriginChainStateRepository.swift; sourceTree = "<group>"; };
@@ -148,6 +149,9 @@
 		8C6542DC21FA8CCE00124CB0 /* XyoZigZigBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZigBoundWitnessTest.swift; sourceTree = "<group>"; };
 		8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNetworkPipe.swift; sourceTree = "<group>"; };
 		8C6542E421FAA7A500124CB0 /* XyoZigZagBoundWitnessSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoZigZagBoundWitnessSession.swift; sourceTree = "<group>"; };
+		8C70859C225BB0DE0036F057 /* XyoStandardInteractionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStandardInteractionTest.swift; sourceTree = "<group>"; };
+		8C70859F225BB3EF0036F057 /* XyoJustBoundWitnessCatalogues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoJustBoundWitnessCatalogues.swift; sourceTree = "<group>"; };
+		8C7085A1225BB4C30036F057 /* XyoPlayloadTestChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoPlayloadTestChecker.swift; sourceTree = "<group>"; };
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
 		8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_objectmodel_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -287,11 +291,10 @@
 				8C25B77B2224B0270046DCA7 /* crypto */,
 				8C54007821FFC259008A3CE3 /* persist */,
 				8C54007721FFC251008A3CE3 /* node */,
-				8C54007621FFC238008A3CE3 /* origin */,
 				8C6542E121FAA37500124CB0 /* network */,
 				8C6542CF21F917C500124CB0 /* heuristics */,
 				8C6542C521F8022100124CB0 /* boundWitness */,
-				8C6542B921F7F06E00124CB0 /* testing */,
+				8C6542B921F7F06E00124CB0 /* testingUtil */,
 				8C6542B821F7EF9000124CB0 /* hashing */,
 				8C42B7C621F7C5CC006F6F86 /* Info.plist */,
 			);
@@ -342,18 +345,12 @@
 			path = origin;
 			sourceTree = "<group>";
 		};
-		8C54007621FFC238008A3CE3 /* origin */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = origin;
-			sourceTree = "<group>";
-		};
 		8C54007721FFC251008A3CE3 /* node */ = {
 			isa = PBXGroup;
 			children = (
+				8C70859E225BB3C50036F057 /* testCatalogues */,
+				8C70859B225BB0BA0036F057 /* interaction */,
 				8C54008121FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift */,
-				8C39ABDA222C6C9A00A3440D /* XyoPipeBoundWitnessTest.swift */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -397,12 +394,13 @@
 			path = hashing;
 			sourceTree = "<group>";
 		};
-		8C6542B921F7F06E00124CB0 /* testing */ = {
+		8C6542B921F7F06E00124CB0 /* testingUtil */ = {
 			isa = PBXGroup;
 			children = (
 				8C6542BA21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift */,
+				8C7085A1225BB4C30036F057 /* XyoPlayloadTestChecker.swift */,
 			);
-			path = testing;
+			path = testingUtil;
 			sourceTree = "<group>";
 		};
 		8C6542BC21F7FAC000124CB0 /* crypto */ = {
@@ -499,6 +497,22 @@
 				8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		8C70859B225BB0BA0036F057 /* interaction */ = {
+			isa = PBXGroup;
+			children = (
+				8C70859C225BB0DE0036F057 /* XyoStandardInteractionTest.swift */,
+			);
+			path = interaction;
+			sourceTree = "<group>";
+		};
+		8C70859E225BB3C50036F057 /* testCatalogues */ = {
+			isa = PBXGroup;
+			children = (
+				8C70859F225BB3EF0036F057 /* XyoJustBoundWitnessCatalogues.swift */,
+			);
+			path = testCatalogues;
 			sourceTree = "<group>";
 		};
 		8CA10E6D21F7D3690005A57F /* schemas */ = {
@@ -688,18 +702,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/sdk-objectmodel-swift/sdk_objectmodel_swift.framework",
-				"${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/sdk_objectmodel_swift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-sdk-core-swiftTests/Pods-sdk-core-swiftTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -768,6 +775,7 @@
 			files = (
 				8C6542D721F91CE200124CB0 /* XyoBoundWitnessUtilTest.swift in Sources */,
 				8C6542BB21F7F08400124CB0 /* XyoHexStringToUInt8Array.swift in Sources */,
+				8C70859D225BB0DE0036F057 /* XyoStandardInteractionTest.swift in Sources */,
 				8C54007C21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift in Sources */,
 				8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */,
 				8C54007A21FFC267008A3CE3 /* XyoStorageTests.swift in Sources */,
@@ -777,10 +785,11 @@
 				8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */,
 				8C54008021FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift in Sources */,
 				8CF3AE382200D26500D6EED9 /* XyoTcpTest.swift in Sources */,
+				8C7085A0225BB3EF0036F057 /* XyoJustBoundWitnessCatalogues.swift in Sources */,
 				8C6542B721F7EF8B00124CB0 /* XyoSha256Test.swift in Sources */,
 				8C54008221FFD8D1008A3CE3 /* XyoBridgeQueueTest.swift in Sources */,
 				8C54007E21FFD449008A3CE3 /* XyoOriginBlockRepositoryTests.swift in Sources */,
-				8C39ABDB222C6C9A00A3440D /* XyoPipeBoundWitnessTest.swift in Sources */,
+				8C7085A2225BB4C30036F057 /* XyoPlayloadTestChecker.swift in Sources */,
 				8C6542D321F9190000124CB0 /* XyoUnixTimeGetterTest.swift in Sources */,
 				8C6542D121F9180A00124CB0 /* XyoUnixTimeTest.swift in Sources */,
 			);
