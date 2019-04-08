@@ -29,12 +29,13 @@ class XyoTcpSocketTest : XCTestCase {
             node.originState.addSigner(signer: XyoSecp256k1Signer())
 
             while (true) {
-                let peer = XyoTcpPeer(ip: "localhost", port: 11000)
+                let peer = XyoTcpPeer(ip: "alpha-peers.xyo.network", port: 11000)
                 let socket = XyoTcpSocket.create(peer: peer)
                 let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
                 let handler = XyoNetworkHandler(pipe: pipe)
 
-                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: 0xff, withOther: 0xff)) { (result, error) in
+                let data = UInt32(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)
+                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: data, withOther: data)) { (result, error) in
                         
                 }
             }

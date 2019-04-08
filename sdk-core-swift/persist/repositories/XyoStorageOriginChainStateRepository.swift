@@ -16,10 +16,10 @@ public class XyoStorageOriginChainStateRepository: XyoOriginChainStateRepository
     private var previousHashCache : XyoObjectStructure? = nil
     
     private let store : XyoStorageProvider
-    private static let ORIGIN_STATE_INDEX_KEY = Array("ORIGIN_STATE_INDEX_KEY".utf8)
-    private static let ORIGIN_HASH_INDEX_KEY = Array("ORIGIN_HASH_INDEX_KEY".utf8)
-    private static let ORIGIN_STATTICS_KEY = Array("ORIGIN_STATICS_KEY".utf8)
-    private static let ORIGIN_LAST_TIME = Array("ORIGIN_LAST_TIME".utf8)
+    private static let ORIGIN_STATE_INDEX_KEY =     Array("ORIGIN_STATE_INDEX_KEY".utf8)
+    private static let ORIGIN_HASH_INDEX_KEY =      Array("ORIGIN_HASH_INDEX_KEY".utf8)
+    private static let ORIGIN_STATTICS_KEY =        Array("ORIGIN_STATICS_KEY".utf8)
+    private static let ORIGIN_LAST_TIME =           Array("ORIGIN_LAST_TIME".utf8)
     
     public init(storage : XyoStorageProvider) {
         self.store = storage

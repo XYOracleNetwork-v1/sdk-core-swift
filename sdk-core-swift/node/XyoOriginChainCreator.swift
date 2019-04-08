@@ -82,6 +82,7 @@ open class XyoOriginChainCreator {
     }
     
     /// Self signs the nodes origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
+    /// This function will only throw if there is something invalid in the statics in the originState
     public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
             let additional = try getAdditionalPayloads(flag: [], pipe: nil)
@@ -141,7 +142,7 @@ open class XyoOriginChainCreator {
         // is server, initation data is the clients catalogue, so we must choose one
         do {
             let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: XyoProcedureCatalogueFlags.flip(flags: choice), completion: completion)
         } catch {
             completion(nil, XyoError.UNKNOWN_ERROR)
         }
@@ -155,8 +156,8 @@ open class XyoOriginChainCreator {
     private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8], completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
     
         do {
-            let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)], pipe: handler.pipe)
+            let options = getBoundWitneesesOptionsForFlag(flag: choice)
+            let additional = try getAdditionalPayloads(flag: choice, pipe: handler.pipe)
             let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
@@ -332,7 +333,9 @@ open class XyoOriginChainCreator {
         return signedPayload
     }
     
-    /// This function gets
+    /// This function gets all of the bound witness options for a paticular flag
+    /// - Parameter flag: The flag to check bound witness options for
+    /// - Returns: All of the options that have that flag set
     private func getBoundWitneesesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
         var retunOptions = [XyoBoundWitnessOption]()
         
@@ -352,6 +355,10 @@ open class XyoOriginChainCreator {
         return retunOptions
     }
     
+    /// This function loops over all of the options obtains obtained from getBoundWitneesesOptionsForFlag(), and returns
+    /// all of the huerestics that those options have
+    /// - Parameter options: The options to get the huerestics from
+    /// - Returns: All of the huerestics contained in the options
     private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) throws -> XyoBoundWitnessHueresticPair {
         var signedPayloads = [XyoObjectStructure]()
         var unsignedPayloads = [XyoObjectStructure]()

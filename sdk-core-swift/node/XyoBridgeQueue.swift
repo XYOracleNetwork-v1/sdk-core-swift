@@ -9,11 +9,25 @@
 import Foundation
 import sdk_objectmodel_swift
 
+
+/// This class is ment to hold hashes and a value so that one can maintain a list of blocks that
+/// they need to ofload. This is used by the XyoRelayNode. Both sentinels and bridges need this
+// functionality.
 public class XyoBridgeQueue {
+    
+    /// The place to store and persist the bridge queue blocks
     public let repo : XyoBridgeQueueRepository
+    
+    /// The max number of blocks to get when sending blocks. (The max number of blocks that
+    /// getBlocksToBridge() returns)
     public var sendLimit = 10
+    
+    /// How many times to bridge a block before it shoudl be removed from the queue, after this
+    /// happens, the hash of the block can be gotten from getBlocksToRemove()
     public var removeWeight = 3
     
+    /// Creates a new instance of XyoBridgeQueue
+    /// - Parameter repository:
     public init (repository : XyoBridgeQueueRepository) {
         self.repo = repository
     }

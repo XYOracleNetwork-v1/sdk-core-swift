@@ -9,6 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
+/// This
 open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     private let encodedCatalogue : [UInt8]
     public let canDoForOther : UInt32

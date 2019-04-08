@@ -65,7 +65,7 @@ public class XyoOriginChainState {
     /// If the origin state has not made a block yet, the signer will go directly into the signers, else
     /// it will be added to next public key first. If you are trying to restore signer state, add to the
     /// repoisorty, not this function.
-    /// - Parameter siger: The signer to add to the origin state.
+    /// - Parameter signer: The signer to add to the origin state.
     public func addSigner (signer : XyoSigner) {
         do {
             let index = try getIndex().getValueCopy().getUInt32(offset: 0)
