@@ -12,6 +12,7 @@ import sdk_objectmodel_swift
 /// This
 open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     private let encodedCatalogue : [UInt8]
+    private let encodedCatalogueWithOther : [UInt8]
     public let canDoForOther : UInt32
     public let canDoWithOther : UInt32
     
@@ -21,12 +22,16 @@ open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
         self.encodedCatalogue = XyoBuffer()
             .put(bits: canDoForOther)
             .toByteArray()
+        
+        self.encodedCatalogueWithOther = XyoBuffer()
+            .put(bits: canDoWithOther)
+            .toByteArray()
     }
     
     public func canDo (bytes : [UInt8]) -> Bool {
         for i in 0...(min(bytes.count, encodedCatalogue.count) - 1) {
             let otherCatalogueSection = bytes[bytes.count - i - 1]
-            let thisCatalogueSection = encodedCatalogue[encodedCatalogue.count - i - 1]
+            let thisCatalogueSection = encodedCatalogueWithOther[encodedCatalogue.count - i - 1]
             
             if (otherCatalogueSection & thisCatalogueSection != 0) {
                 return true

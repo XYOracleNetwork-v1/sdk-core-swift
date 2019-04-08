@@ -130,7 +130,8 @@ open class XyoOriginChainCreator {
                 do {
                     let adv = XyoChoicePacket(data: responseWithTheirChoice)
                     let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponce()))
-                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: try adv.getChoice(), completion: completion)
+                    let choice = try adv.getChoice()
+                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: choice, completion: completion)
                 } catch {
                     completion(nil, XyoError.UNKNOWN_ERROR)
                     return
@@ -162,7 +163,7 @@ open class XyoOriginChainCreator {
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
                                                                 handler: handler,
-                                                                choice: choice)
+                                                                choice: XyoProcedureCatalogueFlags.flip(flags: choice))
             
             currentBoundWitnessSession = boundWitness
             boundWitness.doBoundWitness(transfer: startingData) { result in
