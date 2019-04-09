@@ -51,15 +51,18 @@ After creating a node, it is standard to add a signer, and create a genesis bloc
 
 ```swift
 // creates a signer with a random private key
-    let signer = XyoSecp256k1Signer()
+let signer = XyoSecp256k1Signer()
     
 // adds the signer to the node
 node.originState.addSigner(signer: signer)
 
-// creates a origin block with its self (genesis block if this is the first block you male)
+// creates a origin block with its self (genesis block if this is the first block you make)
 try node.selfSignOriginChain()
 
 ```
+
+After creating a genesis block, your origin chain has officially started. Remember, all of the state is stored in the state repository (`XyoOriginChainStateRepository`) and the block repository (`XyoOriginBlockRepository`) that are constructed with the node. Both repositories are very high level and can be implemented for ones needs. Out of the box, this library comes with an implementation for key value store databases (`XyoStorageOriginBlockRepository`) and (`XyoStorageOriginChainStateRepository`). The `XyoStorageProvider` interface defines the methods for a simple key value store. There is a default implementation of an in memory key value store that comes with this library (`XyoInMemoryStorage`).
+
 
 
 ## License
