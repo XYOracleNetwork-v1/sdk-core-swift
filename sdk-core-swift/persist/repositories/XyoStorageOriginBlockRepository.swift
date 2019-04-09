@@ -9,14 +9,14 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
+public class XyoStorageOriginBlockRepository: XyoOriginBlockRepository {
     
     private static let BLOCK_INDEX_KEY : [UInt8] = [0x00, 0x00]
     private let storageProvider : XyoStorageProvider
     private let hasher : XyoHasher
     
-    public init(storageProvider : XyoStorageProvider, hasher : XyoHasher) {
-        self.storageProvider = storageProvider
+    public init(storage : XyoStorageProvider, hasher : XyoHasher) {
+        self.storageProvider = storage
         self.hasher = hasher
     }
     
@@ -47,7 +47,7 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     }
     
     private func getBlockIndex () throws -> XyoIterableStructure {
-        guard let value = try storageProvider.read(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY) else {
+        guard let value = try storageProvider.read(key: XyoStorageOriginBlockRepository.BLOCK_INDEX_KEY) else {
             return XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: [])
         }
         
@@ -57,7 +57,7 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     private func updateBlockIndex (hashToAdd : XyoObjectStructure) throws {
         let currentIndex = try getBlockIndex()
         try currentIndex.addElement(element: hashToAdd)
-        try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: currentIndex.getBuffer().toByteArray())
+        try storageProvider.write(key: XyoStorageOriginBlockRepository.BLOCK_INDEX_KEY, value: currentIndex.getBuffer().toByteArray())
     }
     
     private func updateBlockIndex (hashToRemove : [UInt8]) throws {
@@ -73,7 +73,7 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         }
         
         let newIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: newHashes)
-        try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: newIndex.getBuffer().toByteArray())
+        try storageProvider.write(key: XyoStorageOriginBlockRepository.BLOCK_INDEX_KEY, value: newIndex.getBuffer().toByteArray())
     }
     
     public func getAllOriginBlockHashes () -> XyoIterableStructure {

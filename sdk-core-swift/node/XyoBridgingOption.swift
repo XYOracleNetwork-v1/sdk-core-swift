@@ -24,6 +24,7 @@ class XyoBridgingOption: XyoBoundWitnessOption {
     }
     
     func getPair() throws -> XyoBoundWitnessHueresticPair? {
+        print("BRIDGING")
         blocksInTransit = bridgeQueue.getBlocksToBridge()
         var blocks = [XyoObjectStructure]()
         var blockHashes = [XyoObjectStructure]()

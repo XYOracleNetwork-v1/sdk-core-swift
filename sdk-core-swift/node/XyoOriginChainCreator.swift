@@ -376,3 +376,36 @@ open class XyoOriginChainCreator {
         return XyoBoundWitnessHueresticPair(signedPayload: signedPayloads, unsignedPayload: unsignedPayloads)
     }
 }
+
+
+func test () {
+    // this object will be used to hash items withen the node
+    let hasher = XyoSha256()
+    
+    // this is used as a key value store to persist
+    let storage = XyoInMemoryStorage()
+    
+    // this is used as a place to store all of the bound witnesses/origin blocks
+    let chainRepo = XyoStorageOriginBlockRepository(storage: storage, hasher: hasher)
+    
+    // this is used to save the state of the node (keys, index, previous hash)
+    let stateRepo = XyoStorageOriginChainStateRepository(storage: storage)
+    
+    // this simply holds the state and the chain repo together
+    let configuration = XyoRepositoryConfiguration(originState: stateRepo, originBlock: chainRepo)
+    
+    // the node to interface with creating an origin chain
+    let node = XyoOriginChainCreator(hasher: hasher, repositoryConfiguration: configuration)
+    
+    
+    
+    // creates a signer with a random private key
+    let signer = XyoSecp256k1Signer()
+    
+    // adds the signer to the node
+    node.originState.addSigner(signer: signer)
+    
+    // creates a origin block with its self (gensisys block if this is the first block you male)
+    try node.selfSignOriginChain()
+
+}

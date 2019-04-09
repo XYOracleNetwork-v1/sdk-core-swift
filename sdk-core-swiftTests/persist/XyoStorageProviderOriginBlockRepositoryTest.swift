@@ -17,22 +17,22 @@ import sdk_objectmodel_swift
 class XyoStorageProviderOriginBlockRepositoryTest: XCTestCase {
     
     func testAdd () throws {
-        let repo = XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
+        let repo = XyoStorageOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
         try XyoOriginBlockRepositoryTests.testAdd(blockRepo: repo)
     }
     
     func testGet () throws {
-        let repo = XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
+        let repo = XyoStorageOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
         try XyoOriginBlockRepositoryTests.testGet(blockRepo: repo)
     }
     
     func testRemove () throws {
-        let repo = XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
+        let repo = XyoStorageOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
         try XyoOriginBlockRepositoryTests.testRemove(blockRepo: repo)
     }
     
     func testContains () throws {
-        let repo = XyoStrageProviderOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
+        let repo = XyoStorageOriginBlockRepository(storageProvider: XyoInMemoryStorage(), hasher: XyoSha256())
         try XyoOriginBlockRepositoryTests.testContains(blockRepo: repo)
     }
     

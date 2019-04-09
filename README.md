@@ -22,6 +22,45 @@ The XYO protocol for creating origin-blocks is specified in the [XYO Yellow Pape
 
 [Here](https://github.com/XYOracleNetwork/spec-coreobjectmodel-tex) is a link to the core object model that contains an index of major/minor values and their respective objects.
 
+## Getting Started
+
+The most common interface to this library through creating an origin chain creator object. Through an origin chain creator object one can create and maintain an origin chain. 
+
+```swift
+// this object will be used to hash items whiten the node
+let hasher = XyoSha256()
+
+// this is used as a key value store to persist
+let storage = XyoInMemoryStorage()
+
+// this is used as a place to store all of the bound witnesses/origin blocks
+let chainRepo = XyoStorageOriginBlockRepository(storage: storage, hasher: hasher)
+
+// this is used to save the state of the node (keys, index, previous hash)
+let stateRepo = XyoStorageOriginChainStateRepository(storage: storage)
+
+// this simply holds the state and the chain repository together
+let configuration = XyoRepositoryConfiguration(originState: stateRepo, originBlock: chainRepo)
+
+// the node to interface with creating an origin chain
+let node = XyoOriginChainCreator(hasher: hasher, repositoryConfiguration: configuration)
+
+```
+
+After creating a node, it is standard to add a signer, and create a genesis block.
+
+```swift
+// creates a signer with a random private key
+    let signer = XyoSecp256k1Signer()
+    
+// adds the signer to the node
+node.originState.addSigner(signer: signer)
+
+// creates a origin block with its self (genesis block if this is the first block you male)
+try node.selfSignOriginChain()
+
+```
+
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
