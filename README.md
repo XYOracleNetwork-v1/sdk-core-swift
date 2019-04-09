@@ -66,6 +66,31 @@ After creating a genesis block, your origin chain has officially started. Rememb
 
 ### Creating Origin Blocks
 
+After a node has been created, it can be used to create origin blocks with other nodes. The process of talking to other nodes has been abstracted through use of a pipe (e.g. tcp, ble, memory) that handles all of the transport logic. This interface is defined as `XyoNetworkPipe`. This library ships with a memory pipe, and a tcp pipe.
+
+**Using a tcp pipe** 
+
+```swift
+ // this defines who to create a tcp pipe with
+let tcpPeer = XyoTcpPeer(ip: "myarchivist.com", port: 11000)
+
+// prepares a socket tcp to communicate with the other node
+let socket = XyoTcpSocket.create(peer: tcpPeer)
+
+// wraps the socket to comply to the pipe interface
+let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
+
+// wraps the pipe to preform standard communications
+let handler = XyoNetworkHandler(pipe: pipe)
+
+node.boundWitness(handler: handler, procedureCatalogue: XyoProcedureCatalogue) { (boundWitness, error) in
+    
+}
+```
+
+
+**Using a memory pipe** 
+
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
