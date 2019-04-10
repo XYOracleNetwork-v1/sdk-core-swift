@@ -43,6 +43,7 @@ public struct XyoSchemas {
     public static let BW_FRAGMENT =             XyoObjectSchema(id: 27, encodingCatalogue: 0xa0)
     public static let LAT =                     XyoObjectSchema(id: 28, encodingCatalogue: 0x80)
     public static let LNG =                     XyoObjectSchema(id: 29, encodingCatalogue: 0x80)
+    public static let BLE_POWER_LEVEL =         XyoObjectSchema(id: 30, encodingCatalogue: 0x80)
     
     // custum
     public static let STUB_PRIVATE_KEY =        XyoObjectSchema(id: 0xff, encodingCatalogue: 0x80)
