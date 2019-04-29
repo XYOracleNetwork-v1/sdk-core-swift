@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'sdk-core-swift'
-  s.version          = '0.1.6-beta.7'
+  s.version          = '0.1.6-beta.8'
   s.summary          = 'Core Library for XYO Network in Swift.'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ DESC
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'sdk-core-swift/**/*.{swift}'
-#  s.swift_version = '4.2.0'
+  s.swift_version = '4.2.0'
   s.dependency 'sdk-objectmodel-swift', '~> 0.1.2-beta.3'
   s.dependency 'secp256k1.swift'
   
