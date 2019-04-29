@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */; };
 		8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */; };
 		8C42B7C721F7C5CC006F6F86 /* sdk_core_swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8C4F11552277702700CE3828 /* XyoChoicePacketTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4F11542277702700CE3828 /* XyoChoicePacketTest.swift */; };
 		8C54005021FF721B008A3CE3 /* XyoOriginChainCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54004F21FF721B008A3CE3 /* XyoOriginChainCreator.swift */; };
 		8C54005321FF735C008A3CE3 /* XyoOriginChainState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54005221FF735C008A3CE3 /* XyoOriginChainState.swift */; };
 		8C54005521FF8143008A3CE3 /* XyoNodeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54005421FF8143008A3CE3 /* XyoNodeListener.swift */; };
@@ -115,6 +116,7 @@
 		8C42B7BA21F7C5CC006F6F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C42B7BF21F7C5CC006F6F86 /* sdk-core-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sdk-core-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C42B7C621F7C5CC006F6F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C4F11542277702700CE3828 /* XyoChoicePacketTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoChoicePacketTest.swift; sourceTree = "<group>"; };
 		8C54004F21FF721B008A3CE3 /* XyoOriginChainCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoOriginChainCreator.swift; sourceTree = "<group>"; };
 		8C54005221FF735C008A3CE3 /* XyoOriginChainState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoOriginChainState.swift; sourceTree = "<group>"; };
 		8C54005421FF8143008A3CE3 /* XyoNodeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoNodeListener.swift; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 			children = (
 				8CF3AE3221FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift */,
 				8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */,
+				8C4F11542277702700CE3828 /* XyoChoicePacketTest.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */,
 				8C7085A6225BBDC20036F057 /* XyoBridgeInteractionTest.swift in Sources */,
 				8C54008021FFD742008A3CE3 /* XyoStorageProviderOriginBlockRepositoryTest.swift in Sources */,
+				8C4F11552277702700CE3828 /* XyoChoicePacketTest.swift in Sources */,
 				8CF3AE382200D26500D6EED9 /* XyoTcpTest.swift in Sources */,
 				8C7085A0225BB3EF0036F057 /* XyoJustBoundWitnessCatalogue.swift in Sources */,
 				8C7085AA225BBE490036F057 /* XyoBridgeGiveCatalogue.swift in Sources */,

@@ -27,16 +27,19 @@ class XyoTcpSocketTest : XCTestCase {
                                     queueRepository: XyoStorageBridgeQueueRepository(storage: storage))
             
             node.originState.addSigner(signer: XyoSecp256k1Signer())
+            node.blocksToBridge.removeWeight = 50
+            node.blocksToBridge.sendLimit = 100
 
             while (true) {
-                let peer = XyoTcpPeer(ip: "alpha-peers.xyo.network", port: 11000)
+                // 3.80.173.107
+                let peer = XyoTcpPeer(ip: "3.80.173.107", port: 11000)
                 let socket = XyoTcpSocket.create(peer: peer)
                 let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
                 let handler = XyoNetworkHandler(pipe: pipe)
 
                 let data = UInt32(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)
                 node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: data, withOther: data)) { (result, error) in
-                        
+                        print(error)
                 }
             }
         }

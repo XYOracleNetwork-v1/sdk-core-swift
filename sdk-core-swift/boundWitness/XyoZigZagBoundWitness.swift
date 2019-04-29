@@ -59,7 +59,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         
         return try passAndSign(numberOfWitnesses: numberOfWitnesses)
     }
-    
+
     private func passAndSign (numberOfWitnesses : Int) throws -> XyoIterableStructure {
         var toSendBack = [XyoObjectStructure]()
         
@@ -119,9 +119,8 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         try XyoIterableStructure.verify(item: transfer)
         
         let it = try transfer.getNewIterator()
-                
+
         while try it.hasNext() {
-            
             try addToLedger(item: try it.next())
         }
     }
@@ -144,9 +143,9 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         }
         
         let witness = XyoBoundWitness.createMasterArrayWithSubArray(masterSchema: XyoSchemas.WITNESS,
-                                                                        subSchema: XyoSchemas.SIGNATURE_SET,
-                                                                        masterItems: unsignedPayload,
-                                                                        subItems: signatures)
+                                                                    subSchema: XyoSchemas.SIGNATURE_SET,
+                                                                    masterItems: unsignedPayload,
+                                                                    subItems: signatures)
         try addToLedger(item: witness)
     }
 }

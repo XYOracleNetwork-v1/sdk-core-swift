@@ -23,7 +23,7 @@ public struct XyoAdvertisePacket {
         
         let sizeOfChoice = Int(XyoBuffer(data: data).getUInt8(offset: 0))
         
-        if (sizeOfChoice + 1 > data.count) {
+        if (sizeOfChoice + 1 > data.count || sizeOfChoice == 0) {
             throw XyoObjectError.OUT_OF_INDEX
         }
         

@@ -50,8 +50,7 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
                     return
                 }
                 
-                let d = socket.read(size: Int(actualSize - 4), canBlock: true)
-                    
+                let d = socket.read(size: Int(actualSize - 4), canBlock: true)                    
                 
                 completion(d)
             }
