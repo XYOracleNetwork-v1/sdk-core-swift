@@ -90,6 +90,35 @@ node.boundWitness(handler: handler, procedureCatalogue: XyoProcedureCatalogue) {
 
 
 **Using a memory pipe** 
+```swift
+let pipeOne = XyoMemoryPipe()
+let pipeTwo = XyoMemoryPipe()
+
+pipeOne.other = pipeTwo
+pipeTwo.other = pipeOne
+
+let handlerOne = XyoNetworkHandler(pipe: pipeOne)
+let handlerTwo = XyoNetworkHandler(pipe: pipeTwo)
+
+nodeOne.boundWitness(handler: handlerOne, procedureCatalogue: TestInteractionCatalogueCaseOne()) { (result, error) in
+    // this should complete first
+}
+
+nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCatalogueCaseOne()) { (result, error) in
+    // this should complete second
+}
+  ```
+  More example and bridge interactions can be found [here](https://github.com/XYOracleNetwork/sdk-core-swift/tree/docs/sdk-core-swiftTests/node/interaction)
+ 
+ 
+ **Bluetooth**
+ 
+ Bluetooth swift pipes for client and server can be found [here](https://github.com/XYOracleNetwork/sdk-xyobleinterface-swift).
+ 
+ 
+ **Other**
+ 
+ Other network pipes can be implemented as long as the follow the interface defined [here](https://github.com/XYOracleNetwork/sdk-core-swift/blob/docs/sdk-core-swift/network/XyoNetworkPipe.swift).
 
 
 ## License
