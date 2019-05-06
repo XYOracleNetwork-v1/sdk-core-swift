@@ -119,6 +119,31 @@ nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCat
  **Other**
  
  Other network pipes can be implemented as long as the follow the interface defined [here](https://github.com/XYOracleNetwork/sdk-core-swift/blob/docs/sdk-core-swift/network/XyoNetworkPipe.swift).
+ 
+ ### Adding custom data to bound witnesses.
+ 
+ To add custum data to a bound witnesses, a XyoHueresticGetter can be created:
+ 
+ ```swift
+ public struct MyCustomData: XyoHueresticGetter {
+    public func getHeuristic() -> XyoObjectStructure? {
+        if (conditionIsMet) {
+            let myData = getDataSomehow()
+            return myData
+        }
+        
+        return
+    }
+}
+ ```
+ 
+ After the getter has been created, it can be added to a node by calling:
+ 
+ ```swift
+ let myDataForBoundWitness = MyCustumData()
+ node.addHuerestic (key: "MyData", getter : myDataForBoundWitness)
+ 
+ ```
 
 
 ## License
