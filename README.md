@@ -183,6 +183,33 @@ nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCat
   
   ```
 
+## TCP Node
+
+The following code is an example of a node that bound witnesses with a server 10 times.
+
+```swift
+let storage = XyoInMemoryStorage()
+let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,
+                                                    hasher: XyoSha256())
+let state = XyoStorageOriginChainStateRepository(storage: storage)
+let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
+let node = XyoRelayNode(hasher: XyoSha256(),
+                        repositoryConfiguration: conf,
+                        queueRepository: XyoStorageBridgeQueueRepository(storage: storage))
+
+node.originState.addSigner(signer: XyoSecp256k1Signer())
+
+for i in 0..9 {
+    let peer = XyoTcpPeer(ip: "alpha-peers.xyo.network", port: 11000)
+    let socket = XyoTcpSocket.create(peer: peer)
+    let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
+    let handler = XyoNetworkHandler(pipe: pipe)
+
+    let data = UInt32(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)
+    node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: data, withOther: data)) { (result, error) in
+
+    }
+}```
 
 
 ## License
