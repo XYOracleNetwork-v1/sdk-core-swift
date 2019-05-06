@@ -132,7 +132,7 @@ nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCat
             return myData
         }
         
-        return
+        return nil
     }
 }
  ```
@@ -140,7 +140,7 @@ nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCat
  After the getter has been created, it can be added to a node by calling:
  
  ```swift
- let myDataForBoundWitness = MyCustumData()
+ let myDataForBoundWitness = MyCustomData()
  node.addHuerestic (key: "MyData", getter : myDataForBoundWitness)
  
  ```
