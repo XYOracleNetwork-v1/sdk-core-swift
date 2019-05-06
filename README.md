@@ -144,6 +144,45 @@ nodeTwo.boundWitness(handler: handlerTwo, procedureCatalogue: TestInteractionCat
  node.addHuerestic (key: "MyData", getter : myDataForBoundWitness)
  
  ```
+ 
+ 
+ ### Adding a listener to a node
+
+```swift
+ struct MyListener : XyoNodeListener {
+    /// This function will be called every time a bound witness has started
+    func onBoundWitnessStart() {
+        // update UI
+    }
+    
+    /// This function is called when a bound witness starts, but fails due to an error
+    func onBoundWitnessEndFailure() {
+        // update UI
+    }
+    
+    /// This function is called when the node discovers a new origin block, this is typicaly its new blocks
+    /// that it is creating, but will be called when a bridge discovers new blocks.
+    /// - Parameter boundWitness: The boundwitness just discovered
+    func onBoundWitnessDiscovered(boundWitness : XyoBoundWitness) {
+     // update UI
+    }
+    
+    /// This function is called every time a bound witness starts and complets successfully.
+    /// - Parameter boundWitness: The boundwitness just completed
+    func onBoundWitnessEndSuccess(boundWitness : XyoBoundWitness) {
+        // update UI
+    }
+}
+ ```
+ 
+  You may add a listener to a node by adding the following:
+  
+  ```swift
+  let listener = MyListener()
+  myNode.addListener(key: "MyListener", listener : listener)
+  
+  ```
+
 
 
 ## License
