@@ -13,7 +13,6 @@
 | Develop      | [![Build Status](https://travis-ci.org/XYOracleNetwork/sdk-core-swift.svg?branch=develop)](https://travis-ci.org/XYOracleNetwork/sdk-core-swift)      |
 
 
-
 A library to preform all core XYO Network functions.
 This includes creating an origin chain, maintaining an origin chain, negotiations for talking to other nodes, and other basic functionality.
 The library has heavily abstracted modules so that all operations will work with any crypto, storage, networking, ect.
