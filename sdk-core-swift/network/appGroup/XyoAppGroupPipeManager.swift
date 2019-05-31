@@ -87,10 +87,9 @@ public class XyoAppGroupPipeManager {
 
 extension XyoAppGroupPipeManager: XyoAppGroupManagerListener {
 
+    // Called when the pipe is released via it's close() method
     public func onClose(bundleIdentifier: String) {
         self.pipes.removeValue(forKey: bundleIdentifier)
-
-        // TODO remove file
     }
 
 }
@@ -139,7 +138,11 @@ fileprivate extension XyoAppGroupPipeManager {
         // Create the pipe, setting the initiation data
         let initiationData = XyoAdvertisePacket(data: message.initiationData)
         let pipe = self.createPipe(for: message.bundleIdentifier, initiationData: initiationData)
+
+        // Register the pipe
         self.pipes[message.bundleIdentifier] = pipe
+
+        // Notify listener that the pipe is ready
         self.listener.onPipe(pipe: pipe)
     }
 
