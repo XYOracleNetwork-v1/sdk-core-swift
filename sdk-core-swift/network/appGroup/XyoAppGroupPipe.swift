@@ -18,7 +18,11 @@ public class XyoAppGroupPipe {
     fileprivate weak var manager: XyoAppGroupManagerListener?
 
     // The return handler for the pipe
-    fileprivate var completionHandler: SendCompletionHandler?
+    fileprivate var completionHandler: SendCompletionHandler? {
+        didSet {
+            print("handler was set")
+        }
+    }
 
     // Initial data
     fileprivate let initiationData : XyoAdvertisePacket?
@@ -29,12 +33,12 @@ public class XyoAppGroupPipe {
     // The identifier of the app, used as the filename for the pipe
     fileprivate let bundleIdentifier: String
 
-    public init(groupIdentifier: String, bundleIdentifier: String, manager: XyoAppGroupManagerListener, initiationData : XyoAdvertisePacket? = nil) {
+    public init(groupIdentifier: String, identifier: String, pipeName: String, manager: XyoAppGroupManagerListener, initiationData : XyoAdvertisePacket? = nil) {
         self.initiationData = initiationData
-        self.bundleIdentifier = bundleIdentifier
+        self.bundleIdentifier = identifier
 
         // Create the filemanager and listen for write changes to the pipe file
-        self.fileManager = XyoSharedFileManager(for: bundleIdentifier, groupIdentifier: groupIdentifier)
+        self.fileManager = XyoSharedFileManager(for: identifier, filename: pipeName, groupIdentifier: groupIdentifier)
         self.fileManager?.setReadListenter(self.listenForResponse)
     }
 

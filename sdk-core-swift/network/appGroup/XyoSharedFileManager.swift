@@ -24,6 +24,8 @@ public class XyoSharedFileManager {
         static let fileExtension = "xyonetwork"
     }
 
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+
     fileprivate let identifier: String
     fileprivate let groupIdentifier: String
 
@@ -31,15 +33,27 @@ public class XyoSharedFileManager {
 
     internal var readCallback: ReadCallback?
 
-    init?(for identifier: String, groupIdentifier: String = XyoSharedFileManager.defaultGroupId) {
+    init?(for identifier: String, filename: String, allowsBackgroundExecution: Bool = false, groupIdentifier: String = XyoSharedFileManager.defaultGroupId) {
         self.identifier = identifier
         self.groupIdentifier = groupIdentifier
 
         // We can't create the manager if we don't have a valid url
         guard let baseUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: self.groupIdentifier) else { return nil }
-        self.url = baseUrl.appendingPathComponent(identifier).appendingPathExtension(Constants.fileExtension)
+        self.url = baseUrl.appendingPathComponent(filename).appendingPathExtension(Constants.fileExtension)
+
+        // Used for communication to an app in the background, this will allow for ~180 seconds of file processing time
+        if allowsBackgroundExecution {
+            backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+                self?.endBackgroundTask()
+            }
+        }
 
         self.listenForRead()
+    }
+
+    private func endBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
     }
 
     deinit {
@@ -66,7 +80,6 @@ internal extension XyoSharedFileManager {
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
                 let dictData = NSKeyedArchiver.archivedData(withRootObject: message.encoded)
                 try? dictData.write(to: url)
-                callback?(nil)
             }
 
             if error != nil { callback?(error) }
