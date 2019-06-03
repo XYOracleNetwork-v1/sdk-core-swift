@@ -11,7 +11,7 @@ import Foundation
 public class XyoSharedFileManager {
 
     internal typealias WriteCallback = (NSError?) -> Void
-    internal typealias ReadCallback = ([UInt8]?) -> ()
+    internal typealias ReadCallback = ([UInt8]?, String) -> ()
 
     public static let defaultGroupId = "group.network.xyo"
 
@@ -35,6 +35,7 @@ public class XyoSharedFileManager {
         self.identifier = identifier
         self.groupIdentifier = groupIdentifier
 
+        // We can't create the manager if we don't have a valid url
         guard let baseUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: self.groupIdentifier) else { return nil }
         self.url = baseUrl.appendingPathComponent(identifier).appendingPathExtension(Constants.fileExtension)
 
@@ -54,8 +55,8 @@ public class XyoSharedFileManager {
 internal extension XyoSharedFileManager {
 
     // Send data to the defined file
-    func write(data: [UInt8], callback: WriteCallback? = nil) {
-        let message = Message(data: data, identifier: self.identifier)
+    func write(data: [UInt8], withIdentifier: String? = nil, callback: WriteCallback? = nil) {
+        let message = Message(data: data, identifier: withIdentifier ?? self.identifier)
 
         var error: NSError?
         self.opQueue.addOperation { [weak self] in
@@ -88,7 +89,7 @@ internal extension XyoSharedFileManager {
             let message = Message.decode(containerData),
             message.identifier != self.identifier else { return }
 
-        self.readCallback?(message.data)
+        self.readCallback?(message.data, message.identifier)
     }
 }
 
