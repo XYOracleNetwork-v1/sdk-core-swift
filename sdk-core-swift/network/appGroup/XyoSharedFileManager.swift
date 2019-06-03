@@ -44,6 +44,7 @@ public class XyoSharedFileManager {
         // Used for communication to an app in the background, this will allow for ~180 seconds of file processing time
         if allowsBackgroundExecution {
             backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+                // Fired when time expires
                 self?.endBackgroundTask()
             }
         }
@@ -52,8 +53,9 @@ public class XyoSharedFileManager {
     }
 
     private func endBackgroundTask() {
-        UIApplication.shared.endBackgroundTask(backgroundTask)
-        backgroundTask = .invalid
+        // Cleanup of the task, otherwise iOS will kill the process
+        UIApplication.shared.endBackgroundTask(self.backgroundTask)
+        self.backgroundTask = .invalid
     }
 
     deinit {
