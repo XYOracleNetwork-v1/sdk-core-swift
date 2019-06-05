@@ -18,24 +18,30 @@ public class XyoAppGroupPipe {
     fileprivate weak var manager: XyoAppGroupManagerListener?
 
     // The return handler for the pipe
-    fileprivate var completionHandler: SendCompletionHandler? {
-        didSet {
-            print("handler was set")
-        }
-    }
+    fileprivate var completionHandler: SendCompletionHandler?
 
     // Initial data
-    fileprivate let initiationData : XyoAdvertisePacket?
+    fileprivate var initiationData : XyoAdvertisePacket?
 
     // Handles file management so inter-app communication can occur
-    fileprivate let fileManager: XyoSharedFileManager?
+    fileprivate var fileManager: XyoSharedFileManager?
 
     // The identifier of the app, used as the filename for the pipe
-    fileprivate let bundleIdentifier: String
+    fileprivate let identifier: String
 
-    public init(groupIdentifier: String, identifier: String, pipeName: String, manager: XyoAppGroupManagerListener, initiationData : XyoAdvertisePacket? = nil) {
+    // Used by the "server" to remove the pipe
+    fileprivate var requestorIdentifier: String?
+
+    fileprivate var firstWrite: (() -> Void)?
+
+    public init(groupIdentifier: String, identifier: String, pipeName: String, manager: XyoAppGroupManagerListener,
+                requestorIdentifier: String? = nil, initiationData : XyoAdvertisePacket? = nil) {
+
         self.initiationData = initiationData
-        self.bundleIdentifier = identifier
+        self.identifier = identifier
+
+        self.manager = manager
+        self.requestorIdentifier = requestorIdentifier
 
         // Create the filemanager and listen for write changes to the pipe file
         self.fileManager = XyoSharedFileManager(for: identifier, filename: pipeName, groupIdentifier: groupIdentifier)
@@ -44,6 +50,14 @@ public class XyoAppGroupPipe {
 
     public func setCompletionHandler(_ handler: SendCompletionHandler?) {
         self.completionHandler = handler
+    }
+
+    public func setFirstResponse(_ callback: @escaping () -> Void) {
+        self.firstWrite = callback
+    }
+
+    deinit {
+        print("pipe for \(self.requestorIdentifier ?? "<none>") DEINIT")
     }
 
 }
@@ -68,12 +82,18 @@ extension XyoAppGroupPipe: XyoNetworkPipe {
             }
         }
 
-        // Set the completion handler for the response
-        self.completionHandler = completion
+        // If we wait for a response then set the completion handler
+        if waitForResponse {
+            self.completionHandler = completion
+        } else {
+            // Notify the other end we are all done
+            completion(nil)
+        }
     }
 
     public func close() {
-        self.manager?.onClose(bundleIdentifier: self.bundleIdentifier)
+//        self.fileManager?.removeReadListener()
+        self.manager?.onClose(identifier: self.requestorIdentifier)
     }
 
 }
@@ -82,9 +102,18 @@ extension XyoAppGroupPipe: XyoNetworkPipe {
 fileprivate extension XyoAppGroupPipe {
 
     func listenForResponse(_ data: [UInt8]?, identifier: String) {
-        // The pipe file has been written to, so we callback with the result
-        // The filemanager ensures that this is not fired when the same side writes
-        self.completionHandler?(data)
+        // If this isn't the first write to the pipe, the pipe responds back with the data
+        guard firstWrite != nil else {
+            self.completionHandler?(data)
+            return
+        }
+
+        // Otherwise, we initiate the first write to the pipe
+        if let data = data {
+            self.initiationData = XyoAdvertisePacket(data: data)
+            self.firstWrite?()
+            self.firstWrite = nil
+        }
     }
 
 }

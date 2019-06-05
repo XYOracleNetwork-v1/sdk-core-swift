@@ -34,6 +34,7 @@ public class XyoSharedFileManager {
     internal var readCallback: ReadCallback?
 
     init?(for identifier: String, filename: String, allowsBackgroundExecution: Bool = false, groupIdentifier: String = XyoSharedFileManager.defaultGroupId) {
+
         self.identifier = identifier
         self.groupIdentifier = groupIdentifier
 
@@ -59,12 +60,18 @@ public class XyoSharedFileManager {
     }
 
     deinit {
+        print(Unmanaged.passUnretained(self).toOpaque())
         self.fileCoordinator.cancel()
         self.opQueue.cancelAllOperations()
     }
 
     func setReadListenter(_ readCallback: ReadCallback?) {
         self.readCallback = readCallback
+    }
+
+    func removeReadListener() {
+        self.readCallback = nil
+        self.monitor = nil
     }
 }
 
@@ -82,6 +89,7 @@ internal extension XyoSharedFileManager {
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
                 let dictData = NSKeyedArchiver.archivedData(withRootObject: message.encoded)
                 try? dictData.write(to: url)
+                callback?(nil)
             }
 
             if error != nil { callback?(error) }

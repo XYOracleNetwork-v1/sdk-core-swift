@@ -13,7 +13,7 @@ public protocol XyoAppGroupPipeListener {
 }
 
 public protocol XyoAppGroupManagerListener: class {
-    func onClose (bundleIdentifier : String)
+    func onClose (identifier : String?)
 }
 
 /// Allows for a client to request a pipe be created to connect to a server
@@ -53,26 +53,21 @@ public class XyoAppGroupPipeServer {
     }
 
     // Called from the client to ask for a pipe to be created for this connection, returning a local pipe
-    public func requestConnection(initiationData: [UInt8]?, bundleIdentifier: String, completion: ((XyoAppGroupPipe?) -> Void)? = nil) {
-        guard let initiationData = initiationData else {
-            completion?(nil)
-            return
-        }
-
+    public func requestConnection(identifier: String) -> XyoAppGroupPipe {
         // Build the pipe and return it through the completion callback
         let pipe = XyoAppGroupPipe(
             groupIdentifier: self.groupIdentifier,
-            identifier: bundleIdentifier,
-            pipeName: bundleIdentifier,
-            manager: self)
+            identifier: identifier,
+            pipeName: identifier,
+            manager: self,
+            requestorIdentifier: identifier)
 
-        self.pipes[bundleIdentifier] = pipe
+        self.pipes[identifier] = pipe
 
         // Write out the request to a file so the server can pick it up
-        self.fileManager?.write(data: initiationData, withIdentifier: bundleIdentifier)
+        self.fileManager?.write(data: [0x00], withIdentifier: identifier)
 
-        // Return the pipe
-        completion?(pipe)
+        return pipe
     }
 
 }
@@ -80,8 +75,9 @@ public class XyoAppGroupPipeServer {
 extension XyoAppGroupPipeServer: XyoAppGroupManagerListener {
 
     // Called when the pipe is released via it's close() method
-    public func onClose(bundleIdentifier: String) {
-        self.pipes.removeValue(forKey: bundleIdentifier)
+    public func onClose(identifier: String?) {
+        guard let identifier = identifier else { return }
+        self.pipes.removeValue(forKey: identifier)
     }
 
 }
@@ -91,20 +87,21 @@ fileprivate extension XyoAppGroupPipeServer {
 
     // Used by the "server" to create a matching pipe
     func receivedRequest(messageData: [UInt8]?, identifier: String) {
-        if self.pipes[identifier] == nil {
-            // Build the pipe for talking to the client
-            let pipe = XyoAppGroupPipe(
-                groupIdentifier: self.groupIdentifier,
-                identifier: Constants.serverIdentifier,
-                pipeName: identifier,
-                manager: self)
+        guard self.pipes[identifier] == nil else { return }
 
-            // Track the pipe
-            self.pipes[identifier] = pipe
+        // Build the pipe for talking to the client
+        let pipe = XyoAppGroupPipe(
+            groupIdentifier: self.groupIdentifier,
+            identifier: Constants.serverIdentifier,
+            pipeName: identifier,
+            manager: self,
+            requestorIdentifier: identifier)
 
-            // Notify the listener
-            self.listener.onPipe(pipe: pipe)
-        }
+        // Track the pipe
+        self.pipes[identifier] = pipe
+
+        // Notify the listener
+        self.listener.onPipe(pipe: pipe)
     }
 
 }
