@@ -58,6 +58,7 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         self.backgroundTask = .invalid
     }
 
+    // The client requests a connection via an app-app URL connection
     public func initiate(identifier: String) {
         // Allow this to be run in the background as you are switching to the server app
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
@@ -70,7 +71,7 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         }
 
         // Start the transfer
-        guard let pipe = self.manager?.requestConnection(identifier: String(identifier)) else { return }
+        guard let pipe = self.manager?.prepareConnection(identifier: String(identifier)) else { return }
         pipe.setFirstWrite { [weak self] in
             self?.relayNode?.boundWitness(handler: XyoNetworkHandler(pipe: pipe), procedureCatalogue: AppPipeCatalogue()) { _, _ in
                 // TODO propogate this, throw or return in callback?
@@ -78,14 +79,20 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         }
     }
 
+    // Used to setup the server side to handle the transfer of data
     public func server(handler: @escaping BoundWitnessHandler) {
         self.onPipeHandler = handler
         self.asServer = true
 
         // Create the manager if not already existing
         if self.manager == nil {
-            self.manager = XyoAppGroupPipeServer(listener: self, isServer: self.asServer)
+            self.manager = XyoAppGroupPipeServer(listener: self)
         }
+    }
+
+    // Notifes the server to allow the transfer
+    public func start(identifier: String) {
+        self.manager?.transfer(to: identifier)
     }
 
     public func onPipe(pipe: XyoNetworkPipe) {
