@@ -43,7 +43,6 @@ public class XyoAppGroupPipeServer {
         self.fileManager = XyoSharedFileManager(
             for: Constants.filename,
             filename: Constants.filename,
-            allowsBackgroundExecution: isServer,
             groupIdentifier: groupIdentifier)
 
         // The "server" listens for requests to connect

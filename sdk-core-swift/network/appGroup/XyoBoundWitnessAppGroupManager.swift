@@ -19,6 +19,8 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
 
     private var onPipeHandler: BoundWitnessHandler?
 
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+
     private class AppPipeCatalogue: XyoFlagProcedureCatalogue {
         private static let allSupportedFunctions = UInt32(XyoProcedureCatalogueFlags.BOUND_WITNESS)
 
@@ -44,8 +46,30 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         self.createNewRelayNode()
     }
 
+    deinit {
+        self.manager = nil
+        self.onPipeHandler = nil
+        self.endBackgroundTask()
+    }
+
+    private func endBackgroundTask() {
+        // Cleanup of the task, otherwise iOS will kill the process
+        UIApplication.shared.endBackgroundTask(self.backgroundTask)
+        self.backgroundTask = .invalid
+    }
+
     public func initiate(identifier: String) {
-        self.manager = XyoAppGroupPipeServer(listener: self)
+        // Allow this to be run in the background as you are switching to the server app
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+
+        // Create the manager if not already existing
+        if self.manager == nil {
+            self.manager = XyoAppGroupPipeServer(listener: self)
+        }
+
+        // Start the transfer
         guard let pipe = self.manager?.requestConnection(identifier: String(identifier)) else { return }
         pipe.setFirstWrite { [weak self] in
             self?.relayNode?.boundWitness(handler: XyoNetworkHandler(pipe: pipe), procedureCatalogue: AppPipeCatalogue()) { _, _ in
@@ -57,7 +81,11 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
     public func server(handler: @escaping BoundWitnessHandler) {
         self.onPipeHandler = handler
         self.asServer = true
-        self.manager = XyoAppGroupPipeServer(listener: self, isServer: self.asServer)
+
+        // Create the manager if not already existing
+        if self.manager == nil {
+            self.manager = XyoAppGroupPipeServer(listener: self, isServer: self.asServer)
+        }
     }
 
     public func onPipe(pipe: XyoNetworkPipe) {
