@@ -43,12 +43,12 @@ public class XyoSharedFileManager {
         self.url = baseUrl.appendingPathComponent(filename).appendingPathExtension(Constants.fileExtension)
 
         // Used for communication to an app in the background, this will allow for ~180 seconds of file processing time
-        if allowsBackgroundExecution {
-            backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-                // Fired when time expires
-                self?.endBackgroundTask()
-            }
-        }
+//        if allowsBackgroundExecution {
+//            backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+//                // Fired when time expires
+//                self?.endBackgroundTask()
+//            }
+//        }
 
         self.listenForRead()
     }
