@@ -66,10 +66,6 @@ public class XyoAppGroupPipe {
         self.firstWrite = nil
     }
 
-    deinit {
-        print("pipe for \(self.requestorIdentifier ?? "<none>") DEINIT")
-    }
-
 }
 
 // MARK: XyoNetworkPipe

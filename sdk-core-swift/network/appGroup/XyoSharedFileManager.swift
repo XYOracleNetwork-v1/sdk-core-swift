@@ -60,7 +60,6 @@ public class XyoSharedFileManager {
     }
 
     deinit {
-        print("XyoSharedFileManager DEINIT \(Unmanaged.passUnretained(self).toOpaque())")
         self.fileCoordinator.cancel()
         self.opQueue.cancelAllOperations()
         self.endBackgroundTask()
@@ -170,7 +169,6 @@ private class FileMonitor {
     }
 
     deinit {
-        print("FileMonitor DEINIT")
         self.eventSource?.cancel()
     }
 

@@ -38,7 +38,4 @@ public class XyoNetworkHandler {
             .toByteArray()
     }
 
-    deinit {
-        print("XyoNetworkHandler DEINIT")
-    }
 }
