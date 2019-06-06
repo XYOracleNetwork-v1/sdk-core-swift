@@ -63,6 +63,7 @@ public class XyoSharedFileManager {
         print("XyoSharedFileManager DEINIT \(Unmanaged.passUnretained(self).toOpaque())")
         self.fileCoordinator.cancel()
         self.opQueue.cancelAllOperations()
+        self.endBackgroundTask()
     }
 
     func setReadListenter(_ readCallback: ReadCallback?) {

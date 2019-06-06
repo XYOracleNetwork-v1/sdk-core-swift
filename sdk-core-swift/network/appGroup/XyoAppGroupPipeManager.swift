@@ -76,7 +76,12 @@ extension XyoAppGroupPipeServer: XyoAppGroupManagerListener {
 
     // Called when the pipe is released via it's close() method
     public func onClose(identifier: String?) {
-        guard let identifier = identifier else { return }
+        guard
+            let identifier = identifier,
+            let pipe = self.pipes[identifier] else { return }
+
+        pipe.cleanup()
+
         self.pipes.removeValue(forKey: identifier)
     }
 
