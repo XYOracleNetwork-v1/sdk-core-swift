@@ -60,18 +60,13 @@ public class XyoSharedFileManager {
     }
 
     deinit {
-        print(Unmanaged.passUnretained(self).toOpaque())
+        print("XyoSharedFileManager DEINIT \(Unmanaged.passUnretained(self).toOpaque())")
         self.fileCoordinator.cancel()
         self.opQueue.cancelAllOperations()
     }
 
     func setReadListenter(_ readCallback: ReadCallback?) {
         self.readCallback = readCallback
-    }
-
-    func removeReadListener() {
-        self.readCallback = nil
-        self.monitor = nil
     }
 }
 
@@ -174,6 +169,7 @@ private class FileMonitor {
     }
 
     deinit {
+        print("FileMonitor DEINIT")
         self.eventSource?.cancel()
     }
 

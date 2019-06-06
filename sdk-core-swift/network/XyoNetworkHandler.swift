@@ -37,4 +37,8 @@ public class XyoNetworkHandler {
             .put(bytes: catalogue)
             .toByteArray()
     }
+
+    deinit {
+        print("XyoNetworkHandler DEINIT")
+    }
 }

@@ -65,7 +65,7 @@ public class XyoAppGroupPipeServer {
         self.pipes[identifier] = pipe
 
         // Write out the request to a file so the server can pick it up
-        self.fileManager?.write(data: [0x00], withIdentifier: identifier)
+        self.fileManager?.write(data: [0x01], withIdentifier: identifier)
 
         return pipe
     }

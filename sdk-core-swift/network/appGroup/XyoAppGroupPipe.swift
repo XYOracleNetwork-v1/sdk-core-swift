@@ -45,7 +45,20 @@ public class XyoAppGroupPipe {
 
         // Create the filemanager and listen for write changes to the pipe file
         self.fileManager = XyoSharedFileManager(for: identifier, filename: pipeName, groupIdentifier: groupIdentifier)
-        self.fileManager?.setReadListenter(self.listenForResponse)
+        self.fileManager?.setReadListenter { [weak self] data, identifier in
+            // If this isn't the first write to the pipe, the pipe responds back with the data
+            guard self?.firstWrite != nil else {
+                self?.completionHandler?(data)
+                return
+            }
+
+            // Otherwise, we initiate the first write to the pipe
+            if let data = data {
+                self?.initiationData = XyoAdvertisePacket(data: data)
+                self?.firstWrite?()
+                self?.firstWrite = nil
+            }
+        }
     }
 
     public func setCompletionHandler(_ handler: SendCompletionHandler?) {
@@ -98,22 +111,22 @@ extension XyoAppGroupPipe: XyoNetworkPipe {
 
 }
 
-// MARK: Handles the response from the other side of the pipe
-fileprivate extension XyoAppGroupPipe {
-
-    func listenForResponse(_ data: [UInt8]?, identifier: String) {
-        // If this isn't the first write to the pipe, the pipe responds back with the data
-        guard firstWrite != nil else {
-            self.completionHandler?(data)
-            return
-        }
-
-        // Otherwise, we initiate the first write to the pipe
-        if let data = data {
-            self.initiationData = XyoAdvertisePacket(data: data)
-            self.firstWrite?()
-            self.firstWrite = nil
-        }
-    }
-
-}
+//// MARK: Handles the response from the other side of the pipe
+//fileprivate extension XyoAppGroupPipe {
+//
+//    func listenForResponse(_ data: [UInt8]?, identifier: String) {
+//        // If this isn't the first write to the pipe, the pipe responds back with the data
+//        guard firstWrite != nil else {
+//            self.completionHandler?(data)
+//            return
+//        }
+//
+//        // Otherwise, we initiate the first write to the pipe
+//        if let data = data {
+//            self.initiationData = XyoAdvertisePacket(data: data)
+//            self.firstWrite?()
+//            self.firstWrite = nil
+//        }
+//    }
+//
+//}
