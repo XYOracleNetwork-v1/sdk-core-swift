@@ -9,10 +9,15 @@ import Foundation
 
 public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
 
+    public typealias BoundWitnessHandler = (XyoNetworkHandler, XyoProcedureCatalogue, @escaping (XyoBoundWitness?, XyoError?) -> ()) -> Void
+
+    private var asServer: Bool = false
+
     private var relayNode: XyoRelayNode?
-    private lazy var manager: XyoAppGroupPipeServer = {
-        return XyoAppGroupPipeServer(listener: self)
-    }()
+
+    private var manager: XyoAppGroupPipeServer?
+
+    private var onPipeHandler: BoundWitnessHandler?
 
     private class AppPipeCatalogue: XyoFlagProcedureCatalogue {
         private static let allSupportedFunctions = UInt32(XyoProcedureCatalogueFlags.BOUND_WITNESS)
@@ -40,7 +45,8 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
     }
 
     public func initiate(identifier: String) {
-        let pipe = self.manager.requestConnection(identifier: String(identifier))
+        self.manager = XyoAppGroupPipeServer(listener: self)
+        guard let pipe = self.manager?.requestConnection(identifier: String(identifier)) else { return }
         pipe.setFirstWrite { [weak self] in
             self?.relayNode?.boundWitness(handler: XyoNetworkHandler(pipe: pipe), procedureCatalogue: AppPipeCatalogue()) { _, _ in
                 // TODO propogate this, throw or return in callback?
@@ -48,7 +54,16 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         }
     }
 
-    public func onPipe(pipe: XyoNetworkPipe) {}
+    public func server(handler: @escaping BoundWitnessHandler) {
+        self.onPipeHandler = handler
+        self.asServer = true
+        self.manager = XyoAppGroupPipeServer(listener: self, isServer: self.asServer)
+    }
+
+    public func onPipe(pipe: XyoNetworkPipe) {
+        guard self.asServer else { return }
+        self.onPipeHandler?(XyoNetworkHandler(pipe: pipe), AppPipeCatalogue(), { _, _ in })
+    }
 
     private func createNewRelayNode() {
         do {
