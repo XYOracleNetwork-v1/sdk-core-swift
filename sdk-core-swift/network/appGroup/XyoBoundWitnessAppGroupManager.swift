@@ -7,7 +7,11 @@
 
 import Foundation
 
-public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
+public protocol XyoBoundWitnessAppGroupManagerDelegate: class {
+    func complete()
+}
+
+public class XyoBoundWitnessAppGroupManager {
 
     public typealias BoundWitnessHandler = (XyoNetworkHandler, XyoProcedureCatalogue, @escaping (XyoBoundWitness?, XyoError?) -> ()) -> Void
 
@@ -18,6 +22,8 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
     private var manager: XyoAppGroupPipeServer?
 
     private var onPipeHandler: BoundWitnessHandler?
+
+    private weak var delegate: XyoBoundWitnessAppGroupManagerDelegate?
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
@@ -42,7 +48,8 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         }
     }
 
-    public init() {
+    public init(_ delegate: XyoBoundWitnessAppGroupManagerDelegate) {
+        self.delegate = delegate
         self.createNewRelayNode()
     }
 
@@ -95,11 +102,6 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         self.manager?.transfer(to: identifier)
     }
 
-    public func onPipe(pipe: XyoNetworkPipe) {
-        guard self.asServer else { return }
-        self.onPipeHandler?(XyoNetworkHandler(pipe: pipe), AppPipeCatalogue(), { _, _ in })
-    }
-
     private func createNewRelayNode() {
         do {
             let storage = XyoInMemoryStorage()
@@ -122,4 +124,16 @@ public class XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
         }
     }
 
+}
+
+extension XyoBoundWitnessAppGroupManager: XyoAppGroupPipeListener {
+
+    public func complete() {
+        self.delegate?.complete()
+    }
+
+    public func onPipe(pipe: XyoNetworkPipe) {
+        guard self.asServer else { return }
+        self.onPipeHandler?(XyoNetworkHandler(pipe: pipe), AppPipeCatalogue(), { _, _ in })
+    }
 }

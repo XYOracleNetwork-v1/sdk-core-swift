@@ -10,6 +10,7 @@ import Foundation
 
 public protocol XyoAppGroupPipeListener {
     func onPipe (pipe: XyoNetworkPipe)
+    func complete()
 }
 
 public protocol XyoAppGroupManagerListener: class {
@@ -85,6 +86,8 @@ extension XyoAppGroupPipeServer: XyoAppGroupManagerListener {
         pipe.cleanup()
 
         self.pipes.removeValue(forKey: identifier)
+
+        self.listener.complete()
     }
 
 }
