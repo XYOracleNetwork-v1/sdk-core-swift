@@ -12,6 +12,7 @@
 		31DD7AE022A1CA7200B7E3EA /* XyoAppGroupPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD7ADF22A1CA7200B7E3EA /* XyoAppGroupPipe.swift */; };
 		31DD7AE222A1E13800B7E3EA /* XyoAppGroupPipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD7AE122A1E13800B7E3EA /* XyoAppGroupPipeManager.swift */; };
 		31DD7AE422A31B2500B7E3EA /* XyoSharedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD7AE322A31B2500B7E3EA /* XyoSharedFileManager.swift */; };
+		31EB922622A98691003D34E9 /* XyoBoundWitnessAppGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EB922522A98690003D34E9 /* XyoBoundWitnessAppGroupManager.swift */; };
 		8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */; };
 		8C25B77F2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B77E2224B03E0046DCA7 /* XyoSecp256k1SignerTest.swift */; };
 		8C25B7812224DD0F0046DCA7 /* XyoOriginChainStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C25B7802224DD0F0046DCA7 /* XyoOriginChainStateRepository.swift */; };
@@ -104,6 +105,7 @@
 		31DD7ADF22A1CA7200B7E3EA /* XyoAppGroupPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoAppGroupPipe.swift; sourceTree = "<group>"; };
 		31DD7AE122A1E13800B7E3EA /* XyoAppGroupPipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoAppGroupPipeManager.swift; sourceTree = "<group>"; };
 		31DD7AE322A31B2500B7E3EA /* XyoSharedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSharedFileManager.swift; sourceTree = "<group>"; };
+		31EB922522A98690003D34E9 /* XyoBoundWitnessAppGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessAppGroupManager.swift; sourceTree = "<group>"; };
 		6029B559A437408BAA717FE3 /* Pods-sdk-core-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.release.xcconfig"; path = "Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.release.xcconfig"; sourceTree = "<group>"; };
 		71DA9A3D7E4DB2EE72B2DC1F /* Pods-sdk-core-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-core-swift.debug.xcconfig"; path = "Target Support Files/Pods-sdk-core-swift/Pods-sdk-core-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		8C25B7792224A0880046DCA7 /* XyoSecp256k1Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSecp256k1Signer.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 		31DD7ADE22A1CA4C00B7E3EA /* appGroup */ = {
 			isa = PBXGroup;
 			children = (
+				31EB922522A98690003D34E9 /* XyoBoundWitnessAppGroupManager.swift */,
 				31DD7AE322A31B2500B7E3EA /* XyoSharedFileManager.swift */,
 				31DD7ADF22A1CA7200B7E3EA /* XyoAppGroupPipe.swift */,
 				31DD7AE122A1E13800B7E3EA /* XyoAppGroupPipeManager.swift */,
@@ -801,6 +804,7 @@
 				8C54006921FFAF4B008A3CE3 /* XyoBridgingOption.swift in Sources */,
 				8C25B77A2224A0880046DCA7 /* XyoSecp256k1Signer.swift in Sources */,
 				8C6542E021FAA36F00124CB0 /* XyoNetworkPipe.swift in Sources */,
+				31EB922622A98691003D34E9 /* XyoBoundWitnessAppGroupManager.swift in Sources */,
 				8C54007121FFBAFD008A3CE3 /* XyoStorageProvider.swift in Sources */,
 				8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */,
 				8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */,
