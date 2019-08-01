@@ -30,7 +30,7 @@ public struct XyoChoicePacket {
         return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
     }
     
-    func getResponce () throws -> [UInt8] {
+    func getResponse () throws -> [UInt8] {
         if (data.count == 0) {
             throw XyoObjectError.OUT_OF_INDEX
         }

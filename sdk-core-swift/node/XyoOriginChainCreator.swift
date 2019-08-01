@@ -19,7 +19,7 @@ open class XyoOriginChainCreator {
     public let hasher : XyoHasher
     
     /// All of the huersitic getters to include inside of bound witnesses that this node will create.
-    private var heuristics = [String : XyoHueresticGetter]()
+    private var heuristics = [String : XyoHeuristicGetter]()
     
     /// All of the listeners to notify whenever a change has happened inside of the node.
     private var listeners = [String : XyoNodeListener]()
@@ -45,13 +45,13 @@ open class XyoOriginChainCreator {
     /// Adds a huerestic to the map of huerestic creaters to include in every bound witness.
     /// - Parameter key: The key of the huerestic to add
     /// - Parameter getter: The object that will return a new huerestic for each bound witness.
-    public func addHuerestic (key: String, getter : XyoHueresticGetter) {
+    public func addHeuristic (key: String, getter : XyoHeuristicGetter) {
         heuristics[key] = getter
     }
     
     /// Removes the huerestic getter from the queue of possible huerestics by its key
     /// - Parameter key: The key of the huerestic to remove.
-    public func removeHuerestic (key: String) {
+    public func removeHeuristic (key: String) {
         heuristics.removeValue(forKey: key)
     }
     
@@ -64,7 +64,7 @@ open class XyoOriginChainCreator {
     
     /// Removes a listner by its respected string.
     /// - Parameter key: The key of the lisitener to remove.
-    public func removeLostener (key: String) {
+    public func removeListener (key: String) {
         listeners.removeValue(forKey: key)
     }
     
@@ -237,7 +237,7 @@ open class XyoOriginChainCreator {
     private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
-        let hueresticPayloads = getAllHuerestics()
+        let hueresticPayloads = getAllHeuristics()
         
         var signedAdditional = [XyoObjectStructure]()
         var unsignedAdditional = [XyoObjectStructure]()
@@ -295,7 +295,7 @@ open class XyoOriginChainCreator {
     
     /// This function gets all of the huerestics from all of the huerestic getters to add to a bound witenss
     /// - Returns: All of the huerestics to add to a bound witness.
-    private func getAllHuerestics () -> XyoBoundWitnessHueresticPair {
+    private func getAllHeuristics () -> XyoBoundWitnessHueresticPair {
         var returnHuerestics = [XyoObjectStructure]()
         
         for getter in heuristics.values {
@@ -318,7 +318,7 @@ open class XyoOriginChainCreator {
         let previousHash = originState.getPreviousHash()
         let index = originState.getIndex()
         let nextPublicKey = originState.getNextPublicKey()
-        let statics = originState.getStaticHuerestics()
+        let statics = originState.getStaticHeuristics()
         
         if (previousHash != nil) {
             signedPayload.append(previousHash.unsafelyUnwrapped)

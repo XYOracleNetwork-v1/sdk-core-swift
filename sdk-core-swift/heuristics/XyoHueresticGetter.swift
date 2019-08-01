@@ -9,6 +9,6 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public protocol XyoHueresticGetter {
+public protocol XyoHeuristicGetter {
     func getHeuristic () -> XyoObjectStructure?
 }

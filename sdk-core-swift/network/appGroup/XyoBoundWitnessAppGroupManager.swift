@@ -106,7 +106,7 @@ public class XyoBoundWitnessAppGroupManager {
         do {
             let storage = XyoInMemoryStorage()
             let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
-            let state = XyoStorageOriginChainStateRepository(storage: storage)
+            let state = XyoStorageOriginStateRepository(storage: storage)
             let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
 
             let node = XyoRelayNode(hasher: XyoSha256(),

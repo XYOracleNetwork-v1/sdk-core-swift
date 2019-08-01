@@ -54,9 +54,9 @@ public protocol XyoOriginChainStateRepository {
     /// there is no reason to implement this methed.
     func commit ()
     
-    func setStaticHuerestics (huerestics: [XyoObjectStructure])
+    func setStaticHeuristics (heuristics: [XyoObjectStructure])
     
-    func getStaticHuerestics () -> [XyoObjectStructure]
+    func getStaticHeuristics () -> [XyoObjectStructure]
     
     func onBoundWitness ()
     

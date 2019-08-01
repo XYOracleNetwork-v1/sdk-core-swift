@@ -67,7 +67,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     }
     
 
-    private func sendAndRecive (didHaveData: Bool, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
+    private func sendAndReceive (didHaveData: Bool, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
         
         if (cycles == 0 && !didHaveData) {
@@ -86,7 +86,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         }
     }
     
-    private func sendAndReciveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
+    private func sendAndReceiveWithChoice (returnData: XyoIterableStructure, transfer: XyoIterableStructure?, completion: @escaping (_ : XyoIterableStructure?)->()) throws {
         handler.sendChoicePacket(catalogue: choice, reponse: returnData.getBuffer().toByteArray()) { result in
             guard let response = result else {
                 completion(nil)

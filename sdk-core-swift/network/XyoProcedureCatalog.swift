@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol XyoProcedureCatalogue {
+public protocol XyoProcedureCatalog {
     func canDo (bytes : [UInt8]) -> Bool
     func getEncodedCatalogue() -> [UInt8]
     func choose (catalogue : [UInt8]) -> [UInt8]

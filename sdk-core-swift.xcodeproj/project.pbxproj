@@ -23,7 +23,7 @@
 		8C39ABD9222C531600A3440D /* XyoMemoryPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C39ABD8222C531600A3440D /* XyoMemoryPipe.swift */; };
 		8C3E6D5E2225060100A34A22 /* XyoStorageTcpPeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */; };
 		8C3E6D602225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */; };
-		8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */; };
+		8C3E6D622225FBE800A34A22 /* XyoStorageOriginStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3E6D612225FBE800A34A22 /* XyoStorageOriginStateRepository.swift */; };
 		8C42B7C021F7C5CC006F6F86 /* sdk_core_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */; };
 		8C42B7C721F7C5CC006F6F86 /* sdk_core_swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C4F11552277702700CE3828 /* XyoChoicePacketTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4F11542277702700CE3828 /* XyoChoicePacketTest.swift */; };
@@ -118,7 +118,7 @@
 		8C39ABD8222C531600A3440D /* XyoMemoryPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoMemoryPipe.swift; sourceTree = "<group>"; };
 		8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageTcpPeerRepository.swift; sourceTree = "<group>"; };
 		8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageBridgeQueueRepository.swift; sourceTree = "<group>"; };
-		8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageOriginChainStateRepository.swift; sourceTree = "<group>"; };
+		8C3E6D612225FBE800A34A22 /* XyoStorageOriginStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageOriginStateRepository.swift; sourceTree = "<group>"; };
 		8C42B7B621F7C5CC006F6F86 /* sdk_core_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = sdk_core_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C42B7B921F7C5CC006F6F86 /* sdk_core_swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sdk_core_swift.h; sourceTree = "<group>"; };
 		8C42B7BA21F7C5CC006F6F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 		8C3E6D5C222505D300A34A22 /* repositories */ = {
 			isa = PBXGroup;
 			children = (
-				8C3E6D612225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift */,
+				8C3E6D612225FBE800A34A22 /* XyoStorageOriginStateRepository.swift */,
 				8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */,
 				8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */,
 				8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */,
@@ -780,7 +780,7 @@
 				8C54005721FF823B008A3CE3 /* XyoBoundWitnessOption.swift in Sources */,
 				8C6542CE21F80BFB00124CB0 /* XyoUnixTimeGetter.swift in Sources */,
 				8C54005521FF8143008A3CE3 /* XyoNodeListener.swift in Sources */,
-				8C3E6D622225FBE800A34A22 /* XyoStorageOriginChainStateRepository.swift in Sources */,
+				8C3E6D622225FBE800A34A22 /* XyoStorageOriginStateRepository.swift in Sources */,
 				8CF3AE402201094F00D6EED9 /* XyoAdvertisePacket.swift in Sources */,
 				8C54006721FFAE96008A3CE3 /* XyoRelayNode.swift in Sources */,
 				8C39ABD6222C508A00A3440D /* XyoRepositoryConfiguration.swift in Sources */,

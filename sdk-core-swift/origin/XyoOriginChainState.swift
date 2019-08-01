@@ -120,8 +120,8 @@ public class XyoOriginChainState {
         }
     }
     
-    public func getStaticHuerestics () -> [XyoObjectStructure] {
-        return self.repo.getStaticHuerestics()
+    public func getStaticHeuristics () -> [XyoObjectStructure] {
+        return self.repo.getStaticHeuristics()
     }
     
     /// This function creates an XYO index object from a UInt32.
