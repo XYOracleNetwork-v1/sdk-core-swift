@@ -40,7 +40,7 @@
 		8C54006D21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */; };
 		8C54006F21FFB1F9008A3CE3 /* XyoBoundWitnessHueresticPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54006E21FFB1F9008A3CE3 /* XyoBoundWitnessHueresticPair.swift */; };
 		8C54007121FFBAFD008A3CE3 /* XyoStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007021FFBAFD008A3CE3 /* XyoStorageProvider.swift */; };
-		8C54007321FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */; };
+		8C54007321FFBB95008A3CE3 /* XyoStorageProviderOriginBlockRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007221FFBB95008A3CE3 /* XyoStorageProviderOriginBlockRepository.swift */; };
 		8C54007521FFBECC008A3CE3 /* XyoInMemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007421FFBECC008A3CE3 /* XyoInMemoryStorage.swift */; };
 		8C54007A21FFC267008A3CE3 /* XyoStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007921FFC267008A3CE3 /* XyoStorageTests.swift */; };
 		8C54007C21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C54007B21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift */; };
@@ -138,7 +138,7 @@
 		8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogueFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoProcedureCatalogueFlags.swift; sourceTree = "<group>"; };
 		8C54006E21FFB1F9008A3CE3 /* XyoBoundWitnessHueresticPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessHueresticPair.swift; sourceTree = "<group>"; };
 		8C54007021FFBAFD008A3CE3 /* XyoStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageProvider.swift; sourceTree = "<group>"; };
-		8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStrageProviderOriginBlockRepository.swift; sourceTree = "<group>"; };
+		8C54007221FFBB95008A3CE3 /* XyoStorageProviderOriginBlockRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageProviderOriginBlockRepository.swift; sourceTree = "<group>"; };
 		8C54007421FFBECC008A3CE3 /* XyoInMemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoInMemoryStorage.swift; sourceTree = "<group>"; };
 		8C54007921FFC267008A3CE3 /* XyoStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStorageTests.swift; sourceTree = "<group>"; };
 		8C54007B21FFD2DC008A3CE3 /* XyoInMemoryStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoInMemoryStorageTest.swift; sourceTree = "<group>"; };
@@ -273,7 +273,7 @@
 				8C3E6D612225FBE800A34A22 /* XyoStorageOriginStateRepository.swift */,
 				8C3E6D5F2225F53200A34A22 /* XyoStorageBridgeQueueRepository.swift */,
 				8C3E6D5D2225060100A34A22 /* XyoStorageTcpPeerRepository.swift */,
-				8C54007221FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift */,
+				8C54007221FFBB95008A3CE3 /* XyoStorageProviderOriginBlockRepository.swift */,
 			);
 			path = repositories;
 			sourceTree = "<group>";
@@ -786,7 +786,7 @@
 				8C39ABD6222C508A00A3440D /* XyoRepositoryConfiguration.swift in Sources */,
 				8CF3AE362200C83C00D6EED9 /* XyoTcpSocket.swift in Sources */,
 				8C6542DB21F9644700124CB0 /* XyoZigZagBoundWitness.swift in Sources */,
-				8C54007321FFBB95008A3CE3 /* XyoStrageProviderOriginBlockRepository.swift in Sources */,
+				8C54007321FFBB95008A3CE3 /* XyoStorageProviderOriginBlockRepository.swift in Sources */,
 				8C6542CC21F8092E00124CB0 /* XyoUnixTime.swift in Sources */,
 				8C54005921FF8319008A3CE3 /* XyoOriginBlockRepository.swift in Sources */,
 				31DD7AE222A1E13800B7E3EA /* XyoAppGroupPipeManager.swift in Sources */,
