@@ -58,7 +58,7 @@ public class XyoStorageProviderOriginBlockRepository: XyoOriginBlockRepository {
         let currentIndex = try getBlockIndex()
         try currentIndex.addElement(element: hashToAdd)
         try storageProvider.write(
-            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY, 
+            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY,
             value: currentIndex.getBuffer().toByteArray()
         )
     }
