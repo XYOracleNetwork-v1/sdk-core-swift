@@ -77,7 +77,7 @@ public class XyoStorageProviderOriginBlockRepository: XyoOriginBlockRepository {
         
         let newIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: newHashes)
         try storageProvider.write(
-            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY, 
+            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY,
             value: newIndex.getBuffer().toByteArray()
         )
     }

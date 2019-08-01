@@ -18,11 +18,11 @@ public struct XyoProcedureCatalogFlags {
             return []
         }
         
-        if (intrestedInByte & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0) {
+        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0 {
             return [UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)]
         }
         
-        if (intrestedInByte & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0) {
+        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0 {
             return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
         }
         
