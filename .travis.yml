@@ -10,7 +10,7 @@ before_install:
 
 script:
   - gem install slather &&
-    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-darwin-amd64 > ./cc-test-reporter &&
+    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter &&
     chmod 777 ./cc-test-reporter &&
     ./cc-test-reporter before-build &&
     pod install &&
