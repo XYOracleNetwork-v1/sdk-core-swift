@@ -7,9 +7,9 @@ xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
 before_install:
   - gem install cocoapods --pr
   - pod repo update
+  - gem install slather
 
 before_script:
-  - gem install slather
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod 777 ./cc-test-reporter 
   - ./cc-test-reporter before-build
