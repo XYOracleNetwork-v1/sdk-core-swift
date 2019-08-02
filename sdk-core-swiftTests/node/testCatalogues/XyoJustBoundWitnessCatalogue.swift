@@ -9,8 +9,8 @@
 import Foundation
 import sdk_core_swift
 
-class TestInteractionCatalogueCaseOne : XyoFlagProcedureCatalogue {
-    private static let allSupportedFunctions = UInt32(XyoProcedureCatalogueFlags.BOUND_WITNESS)
+class TestInteractionCatalogueCaseOne : XyoFlagProcedureCatalog {
+    private static let allSupportedFunctions = UInt32(XyoProcedureCatalogFlags.BOUND_WITNESS)
     
     public init () {
         super.init(forOther: TestInteractionCatalogueCaseOne.allSupportedFunctions,
@@ -22,8 +22,8 @@ class TestInteractionCatalogueCaseOne : XyoFlagProcedureCatalogue {
             fatalError()
         }
         
-        if (intrestedFlags & UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)])) {
-            return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
+        if (intrestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)])) {
+            return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
         }
         
         fatalError()

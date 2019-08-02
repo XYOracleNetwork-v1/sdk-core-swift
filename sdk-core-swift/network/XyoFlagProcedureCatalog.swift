@@ -1,5 +1,5 @@
 //
-//  XyoFlagProcedureCatalogue.swift
+//  XyoFlagProcedureCatalog.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/28/19.
@@ -10,7 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 /// This
-open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
+open class XyoFlagProcedureCatalog: XyoProcedureCatalog {
     private let encodedCatalogue : [UInt8]
     private let encodedCatalogueWithOther : [UInt8]
     public let canDoForOther : UInt32
@@ -46,6 +46,6 @@ open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     }
     
     open func choose(catalogue: [UInt8]) -> [UInt8] {
-        return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
+        return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
     }
 }

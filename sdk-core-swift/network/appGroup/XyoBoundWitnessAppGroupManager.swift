@@ -13,7 +13,7 @@ public protocol XyoBoundWitnessAppGroupManagerDelegate: class {
 
 public class XyoBoundWitnessAppGroupManager {
 
-    public typealias BoundWitnessHandler = (XyoNetworkHandler, XyoProcedureCatalogue, @escaping (XyoBoundWitness?, XyoError?) -> ()) -> Void
+    public typealias BoundWitnessHandler = (XyoNetworkHandler, XyoProcedureCatalog, @escaping (XyoBoundWitness?, XyoError?) -> ()) -> Void
 
     private var asServer: Bool = false
 
@@ -27,8 +27,8 @@ public class XyoBoundWitnessAppGroupManager {
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
-    private class AppPipeCatalogue: XyoFlagProcedureCatalogue {
-        private static let allSupportedFunctions = UInt32(XyoProcedureCatalogueFlags.BOUND_WITNESS)
+    private class AppPipeCatalogue: XyoFlagProcedureCatalog {
+        private static let allSupportedFunctions = UInt32(XyoProcedureCatalogFlags.BOUND_WITNESS)
 
         public init () {
             super.init(forOther: AppPipeCatalogue.allSupportedFunctions,
@@ -40,8 +40,8 @@ public class XyoBoundWitnessAppGroupManager {
                 return []
             }
 
-            if (intrestedFlags & UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)])) {
-                return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
+            if (intrestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)])) {
+                return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
             }
 
             return []
@@ -105,8 +105,8 @@ public class XyoBoundWitnessAppGroupManager {
     private func createNewRelayNode() {
         do {
             let storage = XyoInMemoryStorage()
-            let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
-            let state = XyoStorageOriginChainStateRepository(storage: storage)
+            let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
+            let state = XyoStorageOriginStateRepository(storage: storage)
             let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
 
             let node = XyoRelayNode(hasher: XyoSha256(),

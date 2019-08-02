@@ -1,5 +1,5 @@
 //
-//  XyoStrageProviderOriginBlockRepository.swift
+//  XyoStorageProviderOriginBlockRepository.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/28/19.
@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
+public class XyoStorageProviderOriginBlockRepository: XyoOriginBlockRepository {
     
     private static let BLOCK_INDEX_KEY : [UInt8] = [0x00, 0x00]
     private let storageProvider : XyoStorageProvider
@@ -22,7 +22,7 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
     
     public func removeOriginBlock (originBlockHash : [UInt8]) throws {
         try storageProvider.delete(key: originBlockHash)
-        try updateBlockIndex(hashToRemove: originBlockHash)
+        try updateIndex(hashToRemove: originBlockHash)
     }
     
     public func getOriginBlock (originBlockHash : [UInt8]) throws -> XyoBoundWitness? {
@@ -43,24 +43,27 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         let value = originBlock.getBuffer().toByteArray()
         
         try storageProvider.write(key: key, value: value)
-        try updateBlockIndex(hashToAdd: hash)
+        try updateIndex(hashToAdd: hash)
     }
     
     private func getBlockIndex () throws -> XyoIterableStructure {
-        guard let value = try storageProvider.read(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY) else {
+        guard let value = try storageProvider.read(key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY) else {
             return XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: [])
         }
         
         return XyoIterableStructure(value: XyoBuffer(data: value))
     }
     
-    private func updateBlockIndex (hashToAdd : XyoObjectStructure) throws {
+    private func updateIndex (hashToAdd: XyoObjectStructure) throws {
         let currentIndex = try getBlockIndex()
         try currentIndex.addElement(element: hashToAdd)
-        try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: currentIndex.getBuffer().toByteArray())
+        try storageProvider.write(
+            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY,
+            value: currentIndex.getBuffer().toByteArray()
+        )
     }
     
-    private func updateBlockIndex (hashToRemove : [UInt8]) throws {
+    private func updateIndex (hashToRemove: [UInt8]) throws {
         var newHashes = [XyoObjectStructure]()
         let currentIndex = try getBlockIndex().getNewIterator()
         
@@ -73,7 +76,10 @@ public class XyoStrageProviderOriginBlockRepository: XyoOriginBlockRepository {
         }
         
         let newIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_UNTYPED, values: newHashes)
-        try storageProvider.write(key: XyoStrageProviderOriginBlockRepository.BLOCK_INDEX_KEY, value: newIndex.getBuffer().toByteArray())
+        try storageProvider.write(
+            key: XyoStorageProviderOriginBlockRepository.BLOCK_INDEX_KEY,
+            value: newIndex.getBuffer().toByteArray()
+        )
     }
     
     public func getAllOriginBlockHashes () -> XyoIterableStructure {

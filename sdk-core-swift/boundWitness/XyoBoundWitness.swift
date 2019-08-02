@@ -31,7 +31,7 @@ open class XyoBoundWitness : XyoIterableStructure {
         return try hasher.hash(data: getSigningData())
     }
     
-    public func signCurrent(signer : XyoSigner) throws -> XyoObjectStructure {
+    public func signCurrent (signer : XyoSigner) throws -> XyoObjectStructure {
         
         return try signer.sign(data: getSigningData())
     }

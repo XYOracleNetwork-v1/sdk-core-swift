@@ -1,5 +1,5 @@
 //
-//  XyoProcedureCatalogue.swift
+//  XyoProcedureCatalog.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/28/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct XyoProcedureCatalogueFlags {
+public struct XyoProcedureCatalogFlags {
     public static let BOUND_WITNESS : UInt = 1
     public static let TAKE_ORIGIN_CHAIN : UInt = 2
     public static let GIVE_ORIGIN_CHAIN : UInt = 4
@@ -18,14 +18,14 @@ public struct XyoProcedureCatalogueFlags {
             return []
         }
         
-        if (intrestedInByte & UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN) != 0) {
-            return [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)]
+        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0 {
+            return [UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)]
         }
         
-        if (intrestedInByte & UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN) != 0) {
-            return [UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN)]
+        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0 {
+            return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
         }
         
-         return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
+         return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
     }
 }

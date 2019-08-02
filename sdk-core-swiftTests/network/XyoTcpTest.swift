@@ -18,9 +18,9 @@ class XyoTcpSocketTest : XCTestCase {
         if (false) {
             // true test must be run manualy
             let storage = XyoInMemoryStorage()
-            let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,
+            let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,
                                                                 hasher: XyoSha256())
-            let state = XyoStorageOriginChainStateRepository(storage: storage)
+            let state = XyoStorageOriginStateRepository(storage: storage)
             let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
             let node = XyoRelayNode(hasher: XyoSha256(),
                                     repositoryConfiguration: conf,
@@ -37,8 +37,8 @@ class XyoTcpSocketTest : XCTestCase {
                 let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
                 let handler = XyoNetworkHandler(pipe: pipe)
 
-                let data = UInt32(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)
-                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: data, withOther: data)) { (result, error) in
+                let data = UInt32(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)
+                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalog(forOther: data, withOther: data)) { (result, error) in
                         print(error)
                 }
             }

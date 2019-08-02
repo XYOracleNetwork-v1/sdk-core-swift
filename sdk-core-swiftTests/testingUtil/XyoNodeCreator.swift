@@ -12,8 +12,8 @@ import sdk_core_swift
 func createNewRelayNode () -> XyoRelayNode {
     do {
         let storage = XyoInMemoryStorage()
-        let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
-        let state = XyoStorageOriginChainStateRepository(storage: storage)
+        let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
+        let state = XyoStorageOriginStateRepository(storage: storage)
         let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
         
         let node = XyoRelayNode(hasher: XyoSha256(),
