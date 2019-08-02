@@ -75,7 +75,7 @@ extension XyoAppGroupPipe: XyoNetworkPipe {
         return initiationData
     }
 
-    public func getNetworkHuerestics() -> [XyoObjectStructure] {
+    public func getNetworkHeuristics() -> [XyoObjectStructure] {
         return []
     }
 

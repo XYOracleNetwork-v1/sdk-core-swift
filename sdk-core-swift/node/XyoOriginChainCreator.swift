@@ -245,7 +245,7 @@ open class XyoOriginChainCreator {
         signedAdditional.append(contentsOf: optionPayloads.signedPayload)
         signedAdditional.append(contentsOf: hueresticPayloads.signedPayload)
         
-        signedAdditional.append(contentsOf: pipe?.getNetworkHuerestics() ?? [])
+        signedAdditional.append(contentsOf: pipe?.getNetworkHeuristics() ?? [])
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         

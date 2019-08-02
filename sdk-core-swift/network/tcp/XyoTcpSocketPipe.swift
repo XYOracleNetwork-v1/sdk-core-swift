@@ -64,7 +64,7 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
         self.socket.closeWriteStream()
     }
     
-    public func getNetworkHuerestics() -> [XyoObjectStructure] {
+    public func getNetworkHeuristics() -> [XyoObjectStructure] {
         return []
     }
     
