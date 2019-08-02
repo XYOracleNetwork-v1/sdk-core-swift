@@ -1,5 +1,5 @@
 //
-//  XyoProcedureCatalogue.swift
+//  XyoProcedureCatalog.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/28/19.

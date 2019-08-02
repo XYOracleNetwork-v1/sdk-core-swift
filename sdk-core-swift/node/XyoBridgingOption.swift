@@ -20,7 +20,7 @@ class XyoBridgingOption: XyoBoundWitnessOption {
     }
     
     func getFlag () -> [UInt8] {
-        return [UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN)]
+        return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
     }
     
     func getPair() throws -> XyoBoundWitnessHueresticPair? {

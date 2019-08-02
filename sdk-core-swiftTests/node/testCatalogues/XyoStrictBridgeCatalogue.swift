@@ -11,8 +11,8 @@ import sdk_core_swift
 
 public class XyoBridgeProcedureStrictCatalogue : XyoFlagProcedureCatalogue {
     private static let allSupportedFunctions = UInt32(
-        XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN |
-            XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN)
+        XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN |
+            XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)
     
     public init () {
         super.init(forOther: XyoBridgeProcedureStrictCatalogue.allSupportedFunctions,
@@ -24,12 +24,12 @@ public class XyoBridgeProcedureStrictCatalogue : XyoFlagProcedureCatalogue {
             return []
         }
         
-        if (intrestedFlags & UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN)])) {
-            return [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)]
+        if (intrestedFlags & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)])) {
+            return [UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)]
         }
         
-        if (intrestedFlags & UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])) {
-            return [UInt8(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN)]
+        if (intrestedFlags & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)])) {
+            return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
         }
         
         return []

@@ -37,7 +37,7 @@ class XyoTcpSocketTest : XCTestCase {
                 let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
                 let handler = XyoNetworkHandler(pipe: pipe)
 
-                let data = UInt32(XyoProcedureCatalogueFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)
+                let data = UInt32(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)
                 node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: data, withOther: data)) { (result, error) in
                         print(error)
                 }

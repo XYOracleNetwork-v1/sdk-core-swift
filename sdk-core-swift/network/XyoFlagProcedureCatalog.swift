@@ -46,6 +46,6 @@ open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
     }
     
     open func choose(catalogue: [UInt8]) -> [UInt8] {
-        return [UInt8(XyoProcedureCatalogueFlags.BOUND_WITNESS)]
+        return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
     }
 }

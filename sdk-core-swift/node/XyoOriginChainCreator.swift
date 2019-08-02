@@ -106,7 +106,7 @@ open class XyoOriginChainCreator {
     /// - Parameter procedureCatalogue: The catalogue to respect when creating a bound witness.
     /// - Parameter completion: The completion to call when the bound witness has been completed.
     public func boundWitness (handler : XyoNetworkHandler,
-                              procedureCatalogue: XyoProcedureCatalogue,
+                              procedureCatalogue: XyoProcedureCatalog,
                               completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
         
         if (currentBoundWitnessSession != nil) {
@@ -143,7 +143,7 @@ open class XyoOriginChainCreator {
         // is server, initation data is the clients catalogue, so we must choose one
         do {
             let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: XyoProcedureCatalogueFlags.flip(flags: choice), completion: completion)
+            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: XyoProcedureCatalogFlags.flip(flags: choice), completion: completion)
         } catch {
             completion(nil, XyoError.UNKNOWN_ERROR)
         }
@@ -163,7 +163,7 @@ open class XyoOriginChainCreator {
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
                                                                 handler: handler,
-                                                                choice: XyoProcedureCatalogueFlags.flip(flags: choice))
+                                                                choice: XyoProcedureCatalogFlags.flip(flags: choice))
             
             currentBoundWitnessSession = boundWitness
             boundWitness.doBoundWitness(transfer: startingData) { result in
