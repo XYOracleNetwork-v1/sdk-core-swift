@@ -35,7 +35,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
             }
             
             if (try !getIsCompleted()) {
-                try sendAndRecive(didHaveData: transfer != nil, transfer: transfer) { response in
+                try sendAndReceive(didHaveData: transfer != nil, transfer: transfer) { response in
                     do {
                         if (self.cycles == 0 && transfer != nil && response == nil) {
                             throw XyoError.RESPONSE_IS_NULL
@@ -71,7 +71,7 @@ class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
         let returnData = try incomingData(transfer: transfer, endpoint: (cycles == 0 && didHaveData))
         
         if (cycles == 0 && !didHaveData) {
-            try sendAndReciveWithChoice(returnData : returnData, transfer: transfer, completion: completion)
+            try sendAndReceiveWithChoice(returnData : returnData, transfer: transfer, completion: completion)
             return
         }
         
