@@ -129,7 +129,7 @@ open class XyoOriginChainCreator {
                 
                 do {
                     let adv = XyoChoicePacket(data: responseWithTheirChoice)
-                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponce()))
+                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponse()))
                     let choice = try adv.getChoice()
                     self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: choice, completion: completion)
                 } catch {
@@ -267,7 +267,7 @@ open class XyoOriginChainCreator {
     /// this is a recurssive cycle.
     /// - Parameter boundWitness: A new bound witness to unpack.
     private func unpackNewBoundWitness (boundWitness : XyoBoundWitness) throws {
-        let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
+        let subblocks = try XyoOriginBoundWitnessUtil.getBridgedBlocks(boundWitness: boundWitness)
         let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
                                                                                                  boundWitness: boundWitness)
         try repositoryConfiguration.originBlock.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
