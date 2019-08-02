@@ -9,7 +9,7 @@
 import Foundation
 import sdk_core_swift
 
-public class XyoBridgeProcedureCatalogue : XyoFlagProcedureCatalogue {
+public class XyoBridgeProcedureCatalogue : XyoFlagProcedureCatalog {
     private static let allSupportedFunctions = UInt32(
         XyoProcedureCatalogFlags.BOUND_WITNESS |
         XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN |

@@ -80,7 +80,7 @@
 		8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
 		8CA10E7121F7D4E70005A57F /* sdk_objectmodel_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */; };
 		8CA10E7421F7D9B60005A57F /* XyoSchemas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */; };
-		8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift */; };
+		8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift */; };
 		8CF3AE3321FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE3221FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift */; };
 		8CF3AE362200C83C00D6EED9 /* XyoTcpSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE352200C83C00D6EED9 /* XyoTcpSocket.swift */; };
 		8CF3AE382200D26500D6EED9 /* XyoTcpTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */; };
@@ -177,7 +177,7 @@
 		8CA10E6B21F7D31B0005A57F /* XyoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoError.swift; sourceTree = "<group>"; };
 		8CA10E6E21F7D3830005A57F /* XyoSchemas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSchemas.swift; sourceTree = "<group>"; };
 		8CA10E7021F7D4E70005A57F /* sdk_objectmodel_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = sdk_objectmodel_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoFlagProcedureCatalogue.swift; sourceTree = "<group>"; };
+		8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoFlagProcedureCatalog.swift; sourceTree = "<group>"; };
 		8CF3AE3221FFE7CD00D6EED9 /* XyoFlagPrecedureCatalogueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoFlagPrecedureCatalogueTest.swift; sourceTree = "<group>"; };
 		8CF3AE352200C83C00D6EED9 /* XyoTcpSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpSocket.swift; sourceTree = "<group>"; };
 		8CF3AE372200D26500D6EED9 /* XyoTcpTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoTcpTest.swift; sourceTree = "<group>"; };
@@ -517,7 +517,7 @@
 				8C54006C21FFAFB7008A3CE3 /* XyoProcedureCatalogFlags.swift */,
 				8C6542DF21FAA36F00124CB0 /* XyoNetworkPipe.swift */,
 				8C54008321FFE138008A3CE3 /* XyoProcedureCatalog.swift */,
-				8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift */,
+				8CF3AE3021FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift */,
 				8CF3AE3B2200FF7400D6EED9 /* XyoNetworkHandler.swift */,
 				8CF3AE3D2201033900D6EED9 /* XyoChoicePacket.swift */,
 				8CF3AE3F2201094F00D6EED9 /* XyoAdvertisePacket.swift */,
@@ -792,7 +792,7 @@
 				31DD7AE222A1E13800B7E3EA /* XyoAppGroupPipeManager.swift in Sources */,
 				8C54005321FF735C008A3CE3 /* XyoOriginChainState.swift in Sources */,
 				8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */,
-				8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalogue.swift in Sources */,
+				8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
 				8C25B7812224DD0F0046DCA7 /* XyoOriginChainStateRepository.swift in Sources */,

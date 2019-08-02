@@ -27,7 +27,7 @@ public class XyoBoundWitnessAppGroupManager {
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
-    private class AppPipeCatalogue: XyoFlagProcedureCatalogue {
+    private class AppPipeCatalogue: XyoFlagProcedureCatalog {
         private static let allSupportedFunctions = UInt32(XyoProcedureCatalogFlags.BOUND_WITNESS)
 
         public init () {

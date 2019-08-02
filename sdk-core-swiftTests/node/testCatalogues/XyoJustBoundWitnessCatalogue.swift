@@ -9,7 +9,7 @@
 import Foundation
 import sdk_core_swift
 
-class TestInteractionCatalogueCaseOne : XyoFlagProcedureCatalogue {
+class TestInteractionCatalogueCaseOne : XyoFlagProcedureCatalog {
     private static let allSupportedFunctions = UInt32(XyoProcedureCatalogFlags.BOUND_WITNESS)
     
     public init () {

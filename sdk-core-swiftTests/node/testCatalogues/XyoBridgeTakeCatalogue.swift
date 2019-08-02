@@ -9,7 +9,7 @@
 import Foundation
 import sdk_core_swift
 
-class TestTakeOriginChainCatalogue : XyoFlagProcedureCatalogue {
+class TestTakeOriginChainCatalogue : XyoFlagProcedureCatalog {
     
     public init () {
         super.init(forOther: UInt32(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN),
