@@ -11,7 +11,7 @@ before_install:
 script:
   - gem install slather
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod 777 ./cc-test-reporter &&
+  - chmod 777 ./cc-test-reporter 
   - ./cc-test-reporter before-build
   - pod install &&
     xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.1,name\=iPhone\ X build test | xcpretty &&
