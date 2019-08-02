@@ -1,5 +1,5 @@
 //
-//  XyoHueresticGetter.swift
+//  XyoHeureiticGetter.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/22/19.

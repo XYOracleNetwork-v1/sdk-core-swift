@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public struct XyoUnixTimeGetter: XyoHueresticGetter {
+public struct XyoUnixTimeGetter: XyoHeuristicGetter {
     public func getHeuristic() -> XyoObjectStructure? {
         return XyoUnixTime.createNow()
     }

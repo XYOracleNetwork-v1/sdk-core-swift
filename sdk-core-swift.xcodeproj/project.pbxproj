@@ -56,7 +56,7 @@
 		8C6542BF21F7FB0800124CB0 /* XyoSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542BE21F7FB0800124CB0 /* XyoSigner.swift */; };
 		8C6542C421F7FC3600124CB0 /* XyoStubSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C321F7FC3600124CB0 /* XyoStubSigner.swift */; };
 		8C6542C721F8023500124CB0 /* XyoBoundWitnessTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */; };
-		8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */; };
+		8C6542CA21F808CC00124CB0 /* XyoHeuristicGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542C921F808CC00124CB0 /* XyoHeuristicGetter.swift */; };
 		8C6542CC21F8092E00124CB0 /* XyoUnixTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */; };
 		8C6542CE21F80BFB00124CB0 /* XyoUnixTimeGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */; };
 		8C6542D121F9180A00124CB0 /* XyoUnixTimeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6542D021F9180A00124CB0 /* XyoUnixTimeTest.swift */; };
@@ -154,7 +154,7 @@
 		8C6542BE21F7FB0800124CB0 /* XyoSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoSigner.swift; sourceTree = "<group>"; };
 		8C6542C321F7FC3600124CB0 /* XyoStubSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoStubSigner.swift; sourceTree = "<group>"; };
 		8C6542C621F8023500124CB0 /* XyoBoundWitnessTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBoundWitnessTest.swift; sourceTree = "<group>"; };
-		8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoHueresticGetter.swift; sourceTree = "<group>"; };
+		8C6542C921F808CC00124CB0 /* XyoHeuristicGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoHeuristicGetter.swift; sourceTree = "<group>"; };
 		8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTime.swift; sourceTree = "<group>"; };
 		8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTimeGetter.swift; sourceTree = "<group>"; };
 		8C6542D021F9180A00124CB0 /* XyoUnixTimeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUnixTimeTest.swift; sourceTree = "<group>"; };
@@ -492,7 +492,7 @@
 		8C6542C821F808A300124CB0 /* heuristics */ = {
 			isa = PBXGroup;
 			children = (
-				8C6542C921F808CC00124CB0 /* XyoHueresticGetter.swift */,
+				8C6542C921F808CC00124CB0 /* XyoHeuristicGetter.swift */,
 				8C6542CB21F8092E00124CB0 /* XyoUnixTime.swift */,
 				8C6542CD21F80BFB00124CB0 /* XyoUnixTimeGetter.swift */,
 			);
@@ -791,7 +791,7 @@
 				8C54005921FF8319008A3CE3 /* XyoOriginBlockRepository.swift in Sources */,
 				31DD7AE222A1E13800B7E3EA /* XyoAppGroupPipeManager.swift in Sources */,
 				8C54005321FF735C008A3CE3 /* XyoOriginChainState.swift in Sources */,
-				8C6542CA21F808CC00124CB0 /* XyoHueresticGetter.swift in Sources */,
+				8C6542CA21F808CC00124CB0 /* XyoHeristicGetter.swift in Sources */,
 				8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
