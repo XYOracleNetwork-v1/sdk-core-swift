@@ -10,7 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 /// This
-open class XyoFlagProcedureCatalogue : XyoProcedureCatalogue {
+open class XyoFlagProcedureCatalog : XyoProcedureCatalog {
     private let encodedCatalogue : [UInt8]
     private let encodedCatalogueWithOther : [UInt8]
     public let canDoForOther : UInt32
