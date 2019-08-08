@@ -42,7 +42,7 @@ class XyoMemoryPipe : XyoNetworkPipe {
 
     }
     
-    func getNetworkHuerestics() -> [XyoObjectStructure] {
+    func getNetworkHeuristics() -> [XyoObjectStructure] {
         return []
     }
     

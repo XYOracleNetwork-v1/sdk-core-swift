@@ -37,4 +37,5 @@ public class XyoNetworkHandler {
             .put(bytes: catalogue)
             .toByteArray()
     }
+
 }

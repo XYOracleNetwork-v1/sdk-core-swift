@@ -18,24 +18,28 @@ class XyoTcpSocketTest : XCTestCase {
         if (false) {
             // true test must be run manualy
             let storage = XyoInMemoryStorage()
-            let blocks = XyoStrageProviderOriginBlockRepository(storageProvider: storage,
+            let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,
                                                                 hasher: XyoSha256())
-            let state = XyoStorageOriginChainStateRepository(storage: storage)
+            let state = XyoStorageOriginStateRepository(storage: storage)
             let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
             let node = XyoRelayNode(hasher: XyoSha256(),
                                     repositoryConfiguration: conf,
                                     queueRepository: XyoStorageBridgeQueueRepository(storage: storage))
             
             node.originState.addSigner(signer: XyoSecp256k1Signer())
+            node.blocksToBridge.removeWeight = 50
+            node.blocksToBridge.sendLimit = 100
 
             while (true) {
-                let peer = XyoTcpPeer(ip: "localhost", port: 11000)
+                // 3.80.173.107
+                let peer = XyoTcpPeer(ip: "3.80.173.107", port: 11000)
                 let socket = XyoTcpSocket.create(peer: peer)
                 let pipe = XyoTcpSocketPipe(socket: socket, initiationData: nil)
                 let handler = XyoNetworkHandler(pipe: pipe)
 
-                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalogue(forOther: 0xff, withOther: 0xff)) { (result, error) in
-                        
+                let data = UInt32(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN | XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)
+                node.boundWitness(handler: handler, procedureCatalogue: XyoFlagProcedureCatalog(forOther: data, withOther: data)) { (result, error) in
+                        print(error)
                 }
             }
         }

@@ -19,7 +19,7 @@ open class XyoOriginChainCreator {
     public let hasher : XyoHasher
     
     /// All of the huersitic getters to include inside of bound witnesses that this node will create.
-    private var heuristics = [String : XyoHueresticGetter]()
+    private var heuristics = [String : XyoHeuristicGetter]()
     
     /// All of the listeners to notify whenever a change has happened inside of the node.
     private var listeners = [String : XyoNodeListener]()
@@ -45,13 +45,13 @@ open class XyoOriginChainCreator {
     /// Adds a huerestic to the map of huerestic creaters to include in every bound witness.
     /// - Parameter key: The key of the huerestic to add
     /// - Parameter getter: The object that will return a new huerestic for each bound witness.
-    public func addHuerestic (key: String, getter : XyoHueresticGetter) {
+    public func addHeuristic (key: String, getter : XyoHeuristicGetter) {
         heuristics[key] = getter
     }
     
     /// Removes the huerestic getter from the queue of possible huerestics by its key
     /// - Parameter key: The key of the huerestic to remove.
-    public func removeHuerestic (key: String) {
+    public func removeHeuristic (key: String) {
         heuristics.removeValue(forKey: key)
     }
     
@@ -64,7 +64,7 @@ open class XyoOriginChainCreator {
     
     /// Removes a listner by its respected string.
     /// - Parameter key: The key of the lisitener to remove.
-    public func removeLostener (key: String) {
+    public func removeListener (key: String) {
         listeners.removeValue(forKey: key)
     }
     
@@ -82,6 +82,7 @@ open class XyoOriginChainCreator {
     }
     
     /// Self signs the nodes origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
+    /// This function will only throw if there is something invalid in the statics in the originState
     public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
             let additional = try getAdditionalPayloads(flag: [], pipe: nil)
@@ -105,7 +106,7 @@ open class XyoOriginChainCreator {
     /// - Parameter procedureCatalogue: The catalogue to respect when creating a bound witness.
     /// - Parameter completion: The completion to call when the bound witness has been completed.
     public func boundWitness (handler : XyoNetworkHandler,
-                              procedureCatalogue: XyoProcedureCatalogue,
+                              procedureCatalogue: XyoProcedureCatalog,
                               completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
         
         if (currentBoundWitnessSession != nil) {
@@ -128,8 +129,9 @@ open class XyoOriginChainCreator {
                 
                 do {
                     let adv = XyoChoicePacket(data: responseWithTheirChoice)
-                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponce()))
-                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: try adv.getChoice(), completion: completion)
+                    let startingData = XyoIterableStructure(value: XyoBuffer(data: try adv.getResponse()))
+                    let choice = try adv.getChoice()
+                    self.doBoundWitnessWithPipe(startingData: startingData, handler: handler, choice: choice, completion: completion)
                 } catch {
                     completion(nil, XyoError.UNKNOWN_ERROR)
                     return
@@ -141,7 +143,7 @@ open class XyoOriginChainCreator {
         // is server, initation data is the clients catalogue, so we must choose one
         do {
             let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
-            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: choice, completion: completion)
+            doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: XyoProcedureCatalogFlags.flip(flags: choice), completion: completion)
         } catch {
             completion(nil, XyoError.UNKNOWN_ERROR)
         }
@@ -155,13 +157,13 @@ open class XyoOriginChainCreator {
     private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8], completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
     
         do {
-            let options = getBoundWitneesesOptionsForFlag(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)])
-            let additional = try getAdditionalPayloads(flag: [UInt8(XyoProcedureCatalogueFlags.GIVE_ORIGIN_CHAIN)], pipe: handler.pipe)
+            let options = getBoundWitneesesOptionsForFlag(flag: choice)
+            let additional = try getAdditionalPayloads(flag: choice, pipe: handler.pipe)
             let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
                                                                 unsignedPayload: additional.unsignedPayload,
                                                                 handler: handler,
-                                                                choice: choice)
+                                                                choice: XyoProcedureCatalogFlags.flip(flags: choice))
             
             currentBoundWitnessSession = boundWitness
             boundWitness.doBoundWitness(transfer: startingData) { result in
@@ -235,7 +237,7 @@ open class XyoOriginChainCreator {
     private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHueresticPair {
         let options = getBoundWitneesesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
-        let hueresticPayloads = getAllHuerestics()
+        let hueresticPayloads = getAllHeuristics()
         
         var signedAdditional = [XyoObjectStructure]()
         var unsignedAdditional = [XyoObjectStructure]()
@@ -243,7 +245,7 @@ open class XyoOriginChainCreator {
         signedAdditional.append(contentsOf: optionPayloads.signedPayload)
         signedAdditional.append(contentsOf: hueresticPayloads.signedPayload)
         
-        signedAdditional.append(contentsOf: pipe?.getNetworkHuerestics() ?? [])
+        signedAdditional.append(contentsOf: pipe?.getNetworkHeuristics() ?? [])
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         
@@ -265,7 +267,7 @@ open class XyoOriginChainCreator {
     /// this is a recurssive cycle.
     /// - Parameter boundWitness: A new bound witness to unpack.
     private func unpackNewBoundWitness (boundWitness : XyoBoundWitness) throws {
-        let subblocks = try XyoOriginBoundWitnessUtil.getBridgeBlocks(boundWitness: boundWitness)
+        let subblocks = try XyoOriginBoundWitnessUtil.getBridgedBlocks(boundWitness: boundWitness)
         let boundWitnessWithoughtSubBlocks = try XyoBoundWitnessUtil.removeIdFromUnsignedPayload(id: XyoSchemas.BRIDGE_BLOCK_SET.id,
                                                                                                  boundWitness: boundWitness)
         try repositoryConfiguration.originBlock.addOriginBlock(originBlock: boundWitnessWithoughtSubBlocks)
@@ -293,7 +295,7 @@ open class XyoOriginChainCreator {
     
     /// This function gets all of the huerestics from all of the huerestic getters to add to a bound witenss
     /// - Returns: All of the huerestics to add to a bound witness.
-    private func getAllHuerestics () -> XyoBoundWitnessHueresticPair {
+    private func getAllHeuristics () -> XyoBoundWitnessHueresticPair {
         var returnHuerestics = [XyoObjectStructure]()
         
         for getter in heuristics.values {
@@ -316,7 +318,7 @@ open class XyoOriginChainCreator {
         let previousHash = originState.getPreviousHash()
         let index = originState.getIndex()
         let nextPublicKey = originState.getNextPublicKey()
-        let statics = originState.getStaticHuerestics()
+        let statics = originState.getStaticHeuristics()
         
         if (previousHash != nil) {
             signedPayload.append(previousHash.unsafelyUnwrapped)
@@ -332,7 +334,9 @@ open class XyoOriginChainCreator {
         return signedPayload
     }
     
-    /// This function gets
+    /// This function gets all of the bound witness options for a paticular flag
+    /// - Parameter flag: The flag to check bound witness options for
+    /// - Returns: All of the options that have that flag set
     private func getBoundWitneesesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
         var retunOptions = [XyoBoundWitnessOption]()
         
@@ -352,6 +356,10 @@ open class XyoOriginChainCreator {
         return retunOptions
     }
     
+    /// This function loops over all of the options obtains obtained from getBoundWitneesesOptionsForFlag(), and returns
+    /// all of the huerestics that those options have
+    /// - Parameter options: The options to get the huerestics from
+    /// - Returns: All of the huerestics contained in the options
     private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) throws -> XyoBoundWitnessHueresticPair {
         var signedPayloads = [XyoObjectStructure]()
         var unsignedPayloads = [XyoObjectStructure]()

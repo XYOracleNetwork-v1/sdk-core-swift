@@ -50,7 +50,9 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
                     return
                 }
                 
-                completion(socket.read(size: Int(actualSize - 4), canBlock: true))
+                let d = socket.read(size: Int(actualSize - 4), canBlock: true)                    
+                
+                completion(d)
             }
         } else {
             completion(nil)
@@ -62,7 +64,7 @@ public class XyoTcpSocketPipe: XyoNetworkPipe {
         self.socket.closeWriteStream()
     }
     
-    public func getNetworkHuerestics() -> [XyoObjectStructure] {
+    public func getNetworkHeuristics() -> [XyoObjectStructure] {
         return []
     }
     

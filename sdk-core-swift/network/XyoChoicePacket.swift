@@ -11,6 +11,10 @@ import sdk_objectmodel_swift
 
 public struct XyoChoicePacket {
     private let data : [UInt8]
+
+    init(data : [UInt8]) {
+        self.data = data
+    }
     
     func getChoice () throws -> [UInt8] {
         if (data.count == 0) {
@@ -19,21 +23,21 @@ public struct XyoChoicePacket {
         
         let sizeOfChoice = getSizeOfChoice()
         
-        if (sizeOfChoice + 1 > data.count) {
+        if (sizeOfChoice + 1 > data.count || sizeOfChoice == 0) {
             throw XyoObjectError.OUT_OF_INDEX
         }
         
         return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
     }
     
-    func getResponce () throws -> [UInt8] {
+    func getResponse () throws -> [UInt8] {
         if (data.count == 0) {
             throw XyoObjectError.OUT_OF_INDEX
         }
         
         let sizeOfChoice = getSizeOfChoice()
         
-        if (sizeOfChoice + 1 > data.count) {
+        if (sizeOfChoice + 1 > data.count || sizeOfChoice == 0) {
             throw XyoObjectError.OUT_OF_INDEX
         }
         
@@ -42,9 +46,5 @@ public struct XyoChoicePacket {
     
     private func getSizeOfChoice () -> Int {
         return Int(XyoBuffer(data: data).getUInt8(offset: 0))
-    }
-    
-    init(data : [UInt8]) {
-        self.data = data
     }
 }

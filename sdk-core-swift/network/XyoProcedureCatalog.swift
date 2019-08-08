@@ -1,5 +1,5 @@
 //
-//  XyoProcedureCatalogue.swift
+//  XyoProcedureCatalog.swift
 //  sdk-core-swift
 //
 //  Created by Carter Harrison on 1/28/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol XyoProcedureCatalogue {
+public protocol XyoProcedureCatalog {
     func canDo (bytes : [UInt8]) -> Bool
     func getEncodedCatalogue() -> [UInt8]
     func choose (catalogue : [UInt8]) -> [UInt8]

@@ -17,7 +17,7 @@ public struct XyoOriginBoundWitnessUtil {
     /// will return nil. This function will return the bridged blocks from the first party that has it.
     /// - Parameter boundWitness:  The bound witness to extract the bridge blocks from.
     /// - Returns: The brist blocks of the first party that has it, if any.
-    public static func getBridgeBlocks (boundWitness : XyoBoundWitness) throws -> XyoIterableStructure? {
+    public static func getBridgedBlocks (boundWitness : XyoBoundWitness) throws -> XyoIterableStructure? {
         let witnesses = try boundWitness.get(id: XyoSchemas.WITNESS.id)
         
         for witness in witnesses {
