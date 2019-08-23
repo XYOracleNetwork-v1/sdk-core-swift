@@ -2,7 +2,19 @@
 
 If you are getting started with Swift and iOS development, or if you need a simple integration guide for the XYO Core Swift Library
 
-## App Structure - Swift with Xcode and Cocoapods
+## Table of Contents
+
+-   [Title](#sample-swift-project)
+-   [App Structure](#app-structure)
+-   [Using Xcode](#using-xcode)
+-   [Create the Project](#create-the-project)
+-   [Project Design](#project-design)
+-   [Add Location](#add-location)
+-   [Conclusion](#conclusion)
+
+
+## App Structure 
+- Swift with Xcode and Cocoapods
 
 [Click here for an introduction to integrate a new Xcode project with CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
@@ -21,6 +33,8 @@ When creating the configuration for the emulator, we recommend using a mid-range
 ### This sample app is best for mobile devices
 
 This Sample App Example is best for mobile devices since bound witnessing is optimal on mobile. Integration into your application should be based on a mobile app architecture. 
+
+## Create the Project
 
 ### Install Pod and Start Up Project
 
@@ -98,6 +112,8 @@ extension ViewController : XyoNodeListener {
   }
 }
 ```
+
+## Project Design
 
 Before we can actually display the hash we need to set up the UI
 
@@ -327,7 +343,7 @@ Go ahead and save the project and run the build by clicking on the play button o
 
 You should now see the `Create Origin` button and when you tap it you should see a response on the screen with the hash value of the newly created bound witness chain. You can tap again for another bound witness chain. 
 
-## Add a Location Heuristic
+## Add Location
 
 Let's keep going. We want to add a heuristic and see what heuristic we are adding. We'll add a GPS location to our bound witness chain.
 
@@ -449,5 +465,10 @@ Now rebuild and run the app.
 
 When you tap or click (in a simulator) the `create origin` button, you should see the GPS cooridnate appear right before the hash. 
 
+## Conclusion
+
 You have now created an origin chain and added the gps heuristic to the origin chain. 
+
+Made with 🔥and ❄️ by [XY - The Persistent Company](https://www.xy.company)
+
 
