@@ -25,6 +25,10 @@
 -   [License](#license)
 -   [Credits](#credits)
 
+This `README.md` document is an overview of the common methods that you may need when integrating the XYO Core SDK into your project. 
+
+For an easy to use entry integration guide, take a look at our [Sample App Guide](/Sample/README.md)
+
 A library to preform all core XYO Network functions.
 This includes creating an origin chain, maintaining an origin chain, negotiations for talking to other nodes, and other basic functionality.
 The library has heavily abstracted modules so that all operations will work with any crypto, storage, networking, ect.
