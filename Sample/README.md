@@ -62,6 +62,8 @@ All of our work will be in the `ViewController.swift` file
 
 For this integration guide we will do our work in the view controller. 
 
+[Go here for the source code of the complete project](https://github.com/XYOracleNetwork/sdk-core-swift/blob/master/Sample/StarterCoreSwiftXYO/ViewController.swift)
+
 We want to start by importing our `core_swift` and `objectmodel` SDKs
 
 ```swift
@@ -152,7 +154,7 @@ private lazy var doBoundWitnessButton: UIButton = {
   button.setTitle("Create Origin", for: UIControl.State.normal)
 
   return button
-}
+}()
 ```
 
 Add logic to the button
@@ -215,8 +217,6 @@ private func layout() {
 
   doBoundWitness.translatesAutoresizingMaskIntoConstraints = false
   doBoundWitness.bottomAnchor.constraint(equalTo: doBoundWitnessButton.topAnchor, constant: -80).isActive = true
-  doBoundWitness.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-  doBoundWitness.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -80).isActive = true
 
 }
 ```
