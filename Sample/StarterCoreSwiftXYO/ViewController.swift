@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     private lazy var doBoundWitnessButton: UIButton = {
         let button = UIButton(type: UIButton.ButtonType.roundedRect)
         
-        button.setTitle("Bound Witness", for: UIControl.State.normal)
+        button.setTitle("Create Origin", for: UIControl.State.normal)
         
         return button
     }()
@@ -139,7 +139,7 @@ extension ViewController : XyoHeuristicGetter {
             return nil
         }
         
-        doLocation.text = "BW GPS \(lat), \(lng)"
+        doLocation.text = "\(lat), \(lng)"
         
         let encodedLat = XyoObjectStructure.newInstance(schema: XyoSchemas.LAT, bytes: XyoBuffer(data: anyToBytes(lat)))
         let encodedLng = XyoObjectStructure.newInstance(schema: XyoSchemas.LNG, bytes: XyoBuffer(data: anyToBytes(lng)))
