@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  StarterCoreSwiftXYO
 //
-//  Created by Phillip Lorenzo on 8/19/19.
+//  Updated by Phillip Lorenzo on 9/05/19.
 //  Copyright © 2019 XYO Network. All rights reserved.
 //
 
@@ -24,6 +24,14 @@ class ViewController: UIViewController {
         let button = UIButton(type: UIButton.ButtonType.roundedRect)
         
         button.setTitle("Create Origin", for: UIControl.State.normal)
+        
+        return button
+    }()
+    
+    private lazy var heuristicViewButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.roundedRect)
+        
+        button.setTitle("View Additional Heuristics", for: UIControl.State.normal)
         
         return button
     }()
@@ -71,11 +79,11 @@ class ViewController: UIViewController {
         node.addHeuristic(key: "gps", getter: self)
         locationManager.startUpdatingLocation()
         layoutButton()
+        heuristicButton()
         layout()
     }
     
     private func layout () {
-        _ = view.safeAreaInsets
         appTitle.text = "Sample XYO App"
         
         view.addSubview(appTitle)
@@ -109,9 +117,23 @@ class ViewController: UIViewController {
         doBoundWitnessButton.addGestureRecognizer(click)
     }
     
+    private func heuristicButton () {
+        view.addSubview(heuristicViewButton)
+        heuristicViewButton.translatesAutoresizingMaskIntoConstraints = false
+        heuristicViewButton.centerYAnchor.constraint(equalTo: doBoundWitnessButton.bottomAnchor, constant: 200).isActive = true
+        heuristicViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let click = UITapGestureRecognizer(target: self, action: #selector(addHeuristicView(_:)))
+        heuristicViewButton.addGestureRecognizer(click)
+    }
+    
     @objc func onButtonClick (_ sender: UITapGestureRecognizer) {
         print("doing bound witness")
         try? node.selfSignOriginChain()
+    }
+    
+    @objc func addHeuristicView (_ sender: UITapGestureRecognizer) {
+        print("add heuristic")
     }
 }
 
@@ -124,8 +146,6 @@ extension ViewController : XyoNodeListener {
     func onBoundWitnessEndSuccess(boundWitness: XyoBoundWitness) {
         let hash = (try? boundWitness.getHash(hasher: hasher))?.getBuffer().toByteArray().toHexString()
         doBoundWitness.text = hash
-//        doBoundWitnessButton.setTitle(hash ?? "error", for: UIControl.State.normal)
-        
     }
 }
 
@@ -152,6 +172,5 @@ extension ViewController : XyoHeuristicGetter {
         var value = value
         return withUnsafeBytes(of: &value) { Array($0) }.reversed()
     }
-    
     
 }

@@ -22,10 +22,10 @@ public class XyoNetworkHandler {
         pipe.send(data: buffer, waitForResponse: true, completion: completion)
     }
     
-    func sendChoicePacket (catalogue : [UInt8], reponse : [UInt8], completion: @escaping (_: [UInt8]?)->()) {
+    func sendChoicePacket (catalogue : [UInt8], response : [UInt8], completion: @escaping (_: [UInt8]?)->()) {
         let buffer = XyoBuffer()
             .put(bytes: getSizeEncodedCatalogue(catalogue: catalogue))
-            .put(bytes: reponse)
+            .put(bytes: response)
             .toByteArray()
         
         return pipe.send(data: buffer, waitForResponse: true, completion: completion)

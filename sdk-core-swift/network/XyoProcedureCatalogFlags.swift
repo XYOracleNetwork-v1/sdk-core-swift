@@ -14,15 +14,15 @@ public struct XyoProcedureCatalogFlags {
     public static let GIVE_ORIGIN_CHAIN : UInt = 4
     
     public static func flip (flags: [UInt8]) -> [UInt8] {
-        guard let intrestedInByte = flags.last else {
+        guard let interestedInByte = flags.last else {
             return []
         }
         
-        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0 {
+        if interestedInByte & UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN) != 0 {
             return [UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN)]
         }
         
-        if intrestedInByte & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0 {
+        if interestedInByte & UInt8(XyoProcedureCatalogFlags.GIVE_ORIGIN_CHAIN) != 0 {
             return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
         }
         

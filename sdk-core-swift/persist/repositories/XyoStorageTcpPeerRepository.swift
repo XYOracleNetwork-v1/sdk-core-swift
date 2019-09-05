@@ -61,15 +61,15 @@ public class XyoStorageTcpPeerRepository : XyoTcpPeerRepository {
     }
     
     private func savePeerList (peers : [XyoTcpPeer]) {
-        var structers = [XyoObjectStructure]()
+        var structures = [XyoObjectStructure]()
         
         for peer in peers {
             let content = XyoBuffer(data: Array(tcpPeerToStringPeer(peer: peer).utf8))
             let structure = XyoObjectStructure.newInstance(schema: XyoSchemas.BLOB, bytes: content)
-            structers.append(structure)
+            structures.append(structure)
         }
         
-        let encodedIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_TYPED, values: structers).getBuffer().toByteArray()
+        let encodedIndex = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.ARRAY_TYPED, values: structures).getBuffer().toByteArray()
         
         do {
             try storage.write(key: XyoStorageTcpPeerRepository.PEER_ARRAY_INDEX_KEY, value: encodedIndex)

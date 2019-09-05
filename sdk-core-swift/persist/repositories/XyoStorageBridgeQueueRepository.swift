@@ -117,14 +117,14 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
         var structures = [XyoObjectStructure]()
         
         for item in items {
-            structures.append(item.toStructre())
+            structures.append(item.toStructure())
         }
         
         do {
             let encodedIndex = try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.ARRAY_TYPED, values: structures).getBuffer().toByteArray()
             try store.write(key: XyoStorageBridgeQueueRepository.QUEUE_ARRAY_INDEX_KEY, value: encodedIndex)
         } catch {
-            // todo handle this error
+            // TODO: handle this error
         }
     }
     
@@ -138,7 +138,7 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
 }
 
 extension XyoBridgeQueueItem {
-    func toStructre () -> XyoObjectStructure {
+    func toStructure () -> XyoObjectStructure {
         let weightStructure = XyoObjectStructure.newInstance(schema: XyoSchemas.BLOB, bytes: XyoBuffer().put(bits: UInt32(self.weight)))
         let hashStructre = self.hash
         
