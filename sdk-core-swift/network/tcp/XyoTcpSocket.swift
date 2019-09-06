@@ -106,7 +106,7 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
         CFStreamEventType.endEncountered.rawValue |
         CFStreamEventType.errorOccurred.rawValue)
     
-    private func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
+    public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch eventCode {
         case Stream.Event.endEncountered:
             closeReadStream()

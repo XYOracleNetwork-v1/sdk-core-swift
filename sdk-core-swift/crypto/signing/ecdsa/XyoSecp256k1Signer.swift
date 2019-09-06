@@ -78,7 +78,7 @@ public class XyoSecp256k1Signer : XyoSigner {
         var bytes = [UInt8](repeating: 0, count: length)
         let status = SecRandomCopyBytes(kSecRandomDefault, length, &bytes)
         if status == errSecSuccess {
-            return Data(bytes: bytes)
+            return Data(bytes)
         }
         fatalError()
     }

@@ -650,10 +650,11 @@
 				TargetAttributes = {
 					8C42B7B521F7C5CC006F6F86 = {
 						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1030;
 					};
 					8C42B7BE21F7C5CC006F6F86 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -791,7 +792,7 @@
 				8C54005921FF8319008A3CE3 /* XyoOriginBlockRepository.swift in Sources */,
 				31DD7AE222A1E13800B7E3EA /* XyoAppGroupPipeManager.swift in Sources */,
 				8C54005321FF735C008A3CE3 /* XyoOriginChainState.swift in Sources */,
-				8C6542CA21F808CC00124CB0 /* XyoHeristicGetter.swift in Sources */,
+				8C6542CA21F808CC00124CB0 /* XyoHeuristicGetter.swift in Sources */,
 				8CF3AE3121FFE30D00D6EED9 /* XyoFlagProcedureCatalog.swift in Sources */,
 				8C6542B321F7E8A100124CB0 /* XyoHasher.swift in Sources */,
 				8C6542B521F7E97F00124CB0 /* XyoSha256.swift in Sources */,
@@ -810,7 +811,7 @@
 				8C6542B021F7E36200124CB0 /* XyoBoundWitness.swift in Sources */,
 				31DD7AE422A31B2500B7E3EA /* XyoSharedFileManager.swift in Sources */,
 				8CA10E6F21F7D3830005A57F /* XyoSchemas.swift in Sources */,
-				8C54006F21FFB1F9008A3CE3 /* XyoBoundWitnessHeristicPair.swift in Sources */,
+				8C54006F21FFB1F9008A3CE3 /* XyoBoundWitnessHeuristicPair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,7 +1004,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1030,7 +1031,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "network.xyo.sdk-core-swift";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1050,7 +1051,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "network.xyo.sdk-core-swiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1070,7 +1071,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "network.xyo.sdk-core-swiftTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

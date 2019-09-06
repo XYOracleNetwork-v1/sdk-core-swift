@@ -8,8 +8,9 @@
 
 Pod::Spec.new do |s|
   s.name             = 'sdk-core-swift'
-  s.version          = '3.0.0'
+  s.version          = '3.0.1'
   s.summary          = 'Core Library for XYO Network in Swift.'
+  s.swift_version    = '5.0'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -24,15 +25,15 @@ The XYO protocol for creating origin-blocks is specified in the XYO Yellow Paper
 DESC
 
   s.homepage         = 'https://github.com/XYOracleNetwork/sdk-core-swift'
-  s.license          = { :type => 'MIT', :file => 'LICENSE.txt' }
-  s.author           = { 'Carter Harrison' => 'carterjharrison@gmail.com' }
+  s.license          = { :type => 'LGPL3', :file => 'LICENSE' }
+  s.author           = { 'Carter Harrison' => 'carter@xyo.network' }
   s.source           = { :git => 'https://github.com/XYOracleNetwork/sdk-core-swift.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'sdk-core-swift/**/*.{swift}'
-  s.swift_version = '4.2.0'
-  s.dependency 'sdk-objectmodel-swift', '~> 0.1.2-beta.3'
+  s.swift_version = '5.0'
+  s.dependency 'sdk-objectmodel-swift', '~> 3.0'
   s.dependency 'secp256k1.swift'
   
 
