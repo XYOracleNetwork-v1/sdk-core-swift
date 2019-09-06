@@ -13,10 +13,10 @@ import sdk_objectmodel_swift
 /// to origin blocks, not bound witnesses.
 public struct XyoOriginBoundWitnessUtil {
     
-    /// This function extracts the bridge blocks from the bound witness witnesses, if non is found,
+    /// This function extracts the bridge blocks from the bound witnesses, if none is found,
     /// will return nil. This function will return the bridged blocks from the first party that has it.
-    /// - Parameter boundWitness:  The bound witness to extract the bridge blocks from.
-    /// - Returns: The brist blocks of the first party that has it, if any.
+    /// - Parameter boundWitness:  The bound witness to extract the bridged blocks from.
+    /// - Returns: The bridged blocks of the first party that has it, if any.
     public static func getBridgedBlocks (boundWitness : XyoBoundWitness) throws -> XyoIterableStructure? {
         let witnesses = try boundWitness.get(id: XyoSchemas.WITNESS.id)
         

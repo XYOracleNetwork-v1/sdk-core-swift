@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-public struct XyoBoundWitnessHueresticPair {
+public struct XyoBoundWitnessHeuristicPair {
     let unsignedPayload : [XyoObjectStructure]
     let signedPayload : [XyoObjectStructure]
     

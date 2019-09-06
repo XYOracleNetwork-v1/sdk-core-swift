@@ -10,7 +10,7 @@ import Foundation
 
 public class XyoTcpSocket : NSObject, StreamDelegate {
     private static let MAX_READ_SIZE_K_BYTES = 200
-    private var clientContect = CFStreamClientContext()
+    private var clientContext = CFStreamClientContext()
     private let writeStream : OutputStream
     private let readStream : InputStream
     
@@ -23,12 +23,12 @@ public class XyoTcpSocket : NSObject, StreamDelegate {
         CFWriteStreamSetClient(writeStream,
                                XyoTcpSocket.allCFFlags,
                                writeCallback,
-                               &clientContect)
+                               &clientContext)
         
         CFReadStreamSetClient(readStream,
                               XyoTcpSocket.allCFFlags,
                               readCallback,
-                              &clientContect)
+                              &clientContext)
         
         super.init()
         

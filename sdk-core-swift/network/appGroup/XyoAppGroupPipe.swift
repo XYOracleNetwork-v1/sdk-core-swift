@@ -80,7 +80,7 @@ extension XyoAppGroupPipe: XyoNetworkPipe {
     }
 
     public func send(data: [UInt8], waitForResponse: Bool, completion: @escaping ([UInt8]?) -> ()) {
-        // Write to the pipe file, which will trigger the
+        // Write to the pipe file, which will trigger the completion handler
         self.fileManager?.write(data: data) { error in
             guard error == nil else {
                 completion(nil)

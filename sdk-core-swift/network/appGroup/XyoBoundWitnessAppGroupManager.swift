@@ -36,11 +36,11 @@ public class XyoBoundWitnessAppGroupManager {
         }
 
         override public func choose(catalogue: [UInt8]) -> [UInt8] {
-            guard let intrestedFlags = catalogue.last else {
+            guard let interestedFlags = catalogue.last else {
                 return []
             }
 
-            if (intrestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)])) {
+            if (interestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)])) {
                 return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
             }
 
@@ -105,7 +105,7 @@ public class XyoBoundWitnessAppGroupManager {
     private func createNewRelayNode() {
         do {
             let storage = XyoInMemoryStorage()
-            let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,hasher: XyoSha256())
+            let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage, hasher: XyoSha256())
             let state = XyoStorageOriginStateRepository(storage: storage)
             let conf = XyoRepositoryConfiguration(originState: state, originBlock: blocks)
 

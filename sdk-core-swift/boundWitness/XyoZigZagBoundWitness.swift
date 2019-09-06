@@ -42,7 +42,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
             return try getReturnFromIncomming(numberOfWitnesses: getNumberOfWitnessesFromTransfer(transfer: transfer), endpoint: endpoint)
         }
         
-        return try encodeTrnasfer(items: [])
+        return try encodeTransfer(items: [])
     }
     
     private func getReturnFromIncomming (numberOfWitnesses : Int, endpoint : Bool) throws -> XyoIterableStructure {
@@ -54,7 +54,7 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
                 elements.append(try it.next())
             }
             
-            return try encodeTrnasfer(items: elements)
+            return try encodeTransfer(items: elements)
         }
         
         return try passAndSign(numberOfWitnesses: numberOfWitnesses)
@@ -80,10 +80,10 @@ class XyoZigZagBoundWitness : XyoBoundWitness {
         
         toSendBack.append(witnesses[witnesses.count - 1])
         
-        return try encodeTrnasfer(items: toSendBack)
+        return try encodeTransfer(items: toSendBack)
     }
     
-    private func encodeTrnasfer (items: [XyoObjectStructure]) throws -> XyoIterableStructure {
+    private func encodeTransfer (items: [XyoObjectStructure]) throws -> XyoIterableStructure {
         var fetters = [XyoObjectStructure]()
         var witnesses = [XyoObjectStructure]()
         

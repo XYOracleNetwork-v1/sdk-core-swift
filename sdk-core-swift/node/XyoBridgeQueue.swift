@@ -10,8 +10,8 @@ import Foundation
 import sdk_objectmodel_swift
 
 
-/// This class is ment to hold hashes and a value so that one can maintain a list of blocks that
-/// they need to ofload. This is used by the XyoRelayNode. Both sentinels and bridges need this
+/// This class is meant to hold hashes and a value so that one can maintain a list of blocks that
+/// they need to offload. This is used by the XyoRelayNode. Both sentinels and bridges need this
 // functionality.
 public class XyoBridgeQueue {
     
@@ -22,8 +22,8 @@ public class XyoBridgeQueue {
     /// getBlocksToBridge() returns)
     public var sendLimit = 10
     
-    /// How many times to bridge a block before it shoudl be removed from the queue, after this
-    /// happens, the hash of the block can be gotten from getBlocksToRemove()
+    /// How many times to bridge a block before it should be removed from the queue, after this
+    /// happens, the hash of the block can be retrieved from getBlocksToRemove()
     public var removeWeight = 3
     
     /// Creates a new instance of XyoBridgeQueue
@@ -55,7 +55,7 @@ public class XyoBridgeQueue {
         repo.incrementWeights(hashes: hashes)
     }
     
-    // it is possable to leak blocks if this function is called, the blocks are removed in the queue, before the block repository.
+    // it is possible to leak blocks if this function is called, the blocks are removed in the queue, before the block repository.
     func getBlocksToRemove () -> [XyoObjectStructure] {
         let blocksToBridge = repo.getQueue()
         var toRemoveHashes = [XyoObjectStructure]()

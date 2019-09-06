@@ -8,18 +8,18 @@
 
 import Foundation
 
-/// This repository is ment to persist the state of tcp peers, although this is not called
+/// This repository is meant to persist the state of tcp peers, although this is not called
 /// in the XYO core, it may be used by other nodes and applications to persist the nodes that
 /// they know about.
 public protocol XyoTcpPeerRepository {
     
     /// This function should pick a random peer in all of the peers. This does not need to be
-    /// truely random.
-    /// - Returns: A random peer out of all the peers, and if non exist, will return nil.
+    /// truly random.
+    /// - Returns: A random peer out of all the peers, and if none exist, will return nil.
     func getRandomPeer () -> XyoTcpPeer?
     
     /// This function should get all of the peers held in the repo.
-    /// - Returns: Returns all of the peers insise of the repo, in no particular order.
+    /// - Returns: Returns all of the peers inside of the repo, in no particular order.
     func getPeers () -> [XyoTcpPeer]
     
     /// Adds a peer to the repository. This function should persist the peer in no particular order.

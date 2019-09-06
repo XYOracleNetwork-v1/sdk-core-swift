@@ -10,7 +10,7 @@ import Foundation
 import sdk_objectmodel_swift
 
 public struct XyoSchemas {
-    // offical schemas
+    // official schemas
     public static let ARRAY_TYPED =             XyoObjectSchema(id: 01, encodingCatalogue: 0xb0)
     public static let ARRAY_UNTYPED =           XyoObjectSchema(id: 01, encodingCatalogue: 0xa0)
     public static let BW =                      XyoObjectSchema(id: 02, encodingCatalogue: 0xa0)

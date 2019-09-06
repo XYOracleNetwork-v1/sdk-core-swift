@@ -12,13 +12,13 @@ import sdk_objectmodel_swift
 /// This class acts as a the main entry point for creating and maintaining an origin chain.
 open class XyoOriginChainCreator {
     
-    /// The reposiotry configuration that the origin chain creator will use to perisit state.
+    /// The repository configuration that the origin chain creator will use to perisit state.
     public let repositoryConfiguration : XyoRepositoryConfiguration
     
     /// The hasher to use when hashing origin blocks.
     public let hasher : XyoHasher
     
-    /// All of the huersitic getters to include inside of bound witnesses that this node will create.
+    /// All of the heuristic getters to include inside of bound witnesses that this node will create.
     private var heuristics = [String : XyoHeuristicGetter]()
     
     /// All of the listeners to notify whenever a change has happened inside of the node.
@@ -36,28 +36,28 @@ open class XyoOriginChainCreator {
     
     /// Creates a new instance of an origin chain creator
     /// - Parameter hasher: The hasher to use when hashing bound witnesses.
-    /// - Parameter repositoryConfiguration: The repositories to use when presisting state.
+    /// - Parameter repositoryConfiguration: The repositories to use when persisting state.
     public init(hasher : XyoHasher, repositoryConfiguration: XyoRepositoryConfiguration) {
         self.hasher = hasher
         self.repositoryConfiguration = repositoryConfiguration
     }
     
-    /// Adds a huerestic to the map of huerestic creaters to include in every bound witness.
-    /// - Parameter key: The key of the huerestic to add
-    /// - Parameter getter: The object that will return a new huerestic for each bound witness.
+    /// Adds a heuristic to the map of heuristic creaters to include in every bound witness.
+    /// - Parameter key: The key of the heuristic to add
+    /// - Parameter getter: The object that will return a new heuristic for each bound witness.
     public func addHeuristic (key: String, getter : XyoHeuristicGetter) {
         heuristics[key] = getter
     }
     
-    /// Removes the huerestic getter from the queue of possible huerestics by its key
-    /// - Parameter key: The key of the huerestic to remove.
+    /// Removes the heuristic getter from the queue of possible heuristics by its key
+    /// - Parameter key: The key of the heuristic to remove.
     public func removeHeuristic (key: String) {
         heuristics.removeValue(forKey: key)
     }
     
-    /// Adds a lieter to recive all node related callbacks. Note, when callbacks are called, they are blocking.
-    /// - Parameter key: The key of the l;istener so that is can be retrived in the future.
-    /// - Parameter listener: The listener to notify of evenes.
+    /// Adds a listener to receive all node related callbacks. Note, when callbacks are called, they are blocking.
+    /// - Parameter key: The key of the listener so that it can be retrived in the future.
+    /// - Parameter listener: The listener to notify of events.
     public func addListener (key: String, listener : XyoNodeListener) {
         listeners[key] = listener
     }
@@ -81,8 +81,8 @@ open class XyoOriginChainCreator {
         boundWitnessOptions.removeValue(forKey: key)
     }
     
-    /// Self signs the nodes origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
-    /// This function will only throw if there is something invalid in the statics in the originState
+    /// Self signs the node's origin chain, will call back to the onBoundWitnessCompleted callback listener when done.
+    /// This function will only throw if there is something invalid in the statics in originState
     public func selfSignOriginChain () throws {
         if (currentBoundWitnessSession == nil) {
             let additional = try getAdditionalPayloads(flag: [], pipe: nil)
@@ -100,9 +100,9 @@ open class XyoOriginChainCreator {
         throw XyoError.BW_IS_IN_PROGRESS
     }
     
-    /// This is the most signifacant function in the node. It allows for the creation of bound witnesses. This is the
+    /// This is the most significant function in the node. It allows for the creation of bound witnesses. This is the
     /// primary bound witness access point besides selfSignOriginChain()
-    /// - Parameter handler: The network handler to talk to the other node with. (its a pipe helper)
+    /// - Parameter handler: The network handler to talk to the other node with. (it's a pipe helper)
     /// - Parameter procedureCatalogue: The catalogue to respect when creating a bound witness.
     /// - Parameter completion: The completion to call when the bound witness has been completed.
     public func boundWitness (handler : XyoNetworkHandler,
@@ -119,7 +119,7 @@ open class XyoOriginChainCreator {
         if (handler.pipe.getInitiationData() == nil) {
             // is client
             
-            // send first neogeoation, response is their choice
+            // send first negotiation, response is their choice
             handler.sendCataloguePacket(catalogue: procedureCatalogue.getEncodedCatalogue()) { result in
                 guard let responseWithTheirChoice = result else {
                     self.onBoundWitnessFailure()
@@ -140,7 +140,7 @@ open class XyoOriginChainCreator {
             return
         }
         
-        // is server, initation data is the clients catalogue, so we must choose one
+        // is server, initation data is the client's catalogue, so we must choose one
         do {
             let choice = procedureCatalogue.choose(catalogue: try handler.pipe.getInitiationData().unsafelyUnwrapped.getChoice())
             doBoundWitnessWithPipe(startingData: nil, handler: handler, choice: XyoProcedureCatalogFlags.flip(flags: choice), completion: completion)
@@ -149,15 +149,15 @@ open class XyoOriginChainCreator {
         }
     }
     
-    /// This function preformed a bound witness after the neogeoation has been handled.
-    /// - Parameter startingData: The first data that was recived through the pipe, only if you act as a client.
+    /// This function performs a bound witness after the negotiation has been handled.
+    /// - Parameter startingData: The first data that was received through the pipe, only if you act as a client.
     /// - Parameter handler: The network handler to communicate with the other peer for.
     /// - Parameter choice: The choice of the bound witness.
     /// - Parameter completion: The completion to call when the bound witness has been completed.
     private func doBoundWitnessWithPipe (startingData : XyoIterableStructure?, handler : XyoNetworkHandler, choice : [UInt8], completion: @escaping (_: XyoBoundWitness?, _: XyoError?)->()) {
     
         do {
-            let options = getBoundWitneesesOptionsForFlag(flag: choice)
+            let options = getBoundWitnessesOptionsForFlag(flag: choice)
             let additional = try getAdditionalPayloads(flag: choice, pipe: handler.pipe)
             let boundWitness = try XyoZigZagBoundWitnessSession(signers: originState.getSigners(),
                                                                 signedPayload: try makeSignedPayload(additional: additional.signedPayload),
@@ -205,7 +205,7 @@ open class XyoOriginChainCreator {
         }
     }
     
-    /// This function should be called whenever a bound witness has staarted.
+    /// This function should be called whenever a bound witness has started.
     private func onBoundWitnessStart () {
         for listener in listeners.values {
             listener.onBoundWitnessStart()
@@ -230,12 +230,12 @@ open class XyoOriginChainCreator {
         }
     }
     
-    /// This function gets all of the bound witness options and huerestics to add to an upcomming bound witness.
-    /// This function is called before evey bound witness.
+    /// This function gets all of the bound witness options and heuristics to add to an upcoming bound witness.
+    /// This function is called before every bound witness.
     /// - Parameter flag: The choice of the bound witness to get the payloads from.
     /// - Returns: Returns a all of the bound witness options for a new bound witness.
-    private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHueresticPair {
-        let options = getBoundWitneesesOptionsForFlag(flag: flag)
+    private func getAdditionalPayloads (flag : [UInt8], pipe: XyoNetworkPipe?) throws -> XyoBoundWitnessHeuristicPair {
+        let options = getBoundWitnessesOptionsForFlag(flag: flag)
         let optionPayloads = try getBoundWitnessesOptions(options: options)
         let hueresticPayloads = getAllHeuristics()
         
@@ -249,10 +249,10 @@ open class XyoOriginChainCreator {
         unsignedAdditional.append(contentsOf: optionPayloads.unsignedPayload)
         unsignedAdditional.append(contentsOf: hueresticPayloads.unsignedPayload)
         
-        return XyoBoundWitnessHueresticPair(signedPayload: signedAdditional, unsignedPayload: unsignedAdditional)
+        return XyoBoundWitnessHeuristicPair(signedPayload: signedAdditional, unsignedPayload: unsignedAdditional)
     }
     
-    /// This function unpackes a bound witness is a recursive maner and ads new blocks to the origin block repository,
+    /// This function unpacks a bound witness in a recursive manner and adds new blocks to the origin block repository,
     /// otherwise known as the de-onioner ;).
     /// - Parameter boundWitness: The bound witness to unpack.
     private func unpackBoundWitness (boundWitness : XyoBoundWitness) throws {
@@ -263,8 +263,8 @@ open class XyoOriginChainCreator {
         }
     }
     
-    /// This function unpackes a block that is not in the block reposiotry, and will filter all bridge blocks found to unpackBoundWitness()
-    /// this is a recurssive cycle.
+    /// This function unpacks a block that is not in the block reposiotry, and will filter all bridged blocks found to unpackBoundWitness()
+    /// this is a recursive cycle.
     /// - Parameter boundWitness: A new bound witness to unpack.
     private func unpackNewBoundWitness (boundWitness : XyoBoundWitness) throws {
         let subblocks = try XyoOriginBoundWitnessUtil.getBridgedBlocks(boundWitness: boundWitness)
@@ -293,9 +293,9 @@ open class XyoOriginChainCreator {
         originState.addOriginBlock(hash: hash)
     }
     
-    /// This function gets all of the huerestics from all of the huerestic getters to add to a bound witenss
-    /// - Returns: All of the huerestics to add to a bound witness.
-    private func getAllHeuristics () -> XyoBoundWitnessHueresticPair {
+    /// This function gets all of the heuristics from all of the heuristic getters to add to a bound witenss
+    /// - Returns: All of the heuristics to add to a bound witness.
+    private func getAllHeuristics () -> XyoBoundWitnessHeuristicPair {
         var returnHuerestics = [XyoObjectStructure]()
         
         for getter in heuristics.values {
@@ -306,12 +306,12 @@ open class XyoOriginChainCreator {
             }
         }
         
-        return XyoBoundWitnessHueresticPair(signedPayload: returnHuerestics, unsignedPayload: [])
+        return XyoBoundWitnessHeuristicPair(signedPayload: returnHuerestics, unsignedPayload: [])
     }
     
     /// This function makes an array of objects to include inside of the signed payload, this includes
     /// the previous hash index, and next public key. Also along with additional payloads.
-    /// - Parameter additional: The other huerstics to add to signed payload.
+    /// - Parameter additional: The other heuristics to add to signed payload.
     /// - Returns: An array of eveything to include inside of the bound witness.
     private func makeSignedPayload (additional : [XyoObjectStructure]) throws -> [XyoObjectStructure] {
         var signedPayload = additional
@@ -334,10 +334,10 @@ open class XyoOriginChainCreator {
         return signedPayload
     }
     
-    /// This function gets all of the bound witness options for a paticular flag
+    /// This function gets all of the bound witness options for a particular flag
     /// - Parameter flag: The flag to check bound witness options for
     /// - Returns: All of the options that have that flag set
-    private func getBoundWitneesesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
+    private func getBoundWitnessesOptionsForFlag (flag : [UInt8]) -> [XyoBoundWitnessOption] {
         var retunOptions = [XyoBoundWitnessOption]()
         
         for option in boundWitnessOptions.values {
@@ -356,11 +356,11 @@ open class XyoOriginChainCreator {
         return retunOptions
     }
     
-    /// This function loops over all of the options obtains obtained from getBoundWitneesesOptionsForFlag(), and returns
-    /// all of the huerestics that those options have
-    /// - Parameter options: The options to get the huerestics from
-    /// - Returns: All of the huerestics contained in the options
-    private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) throws -> XyoBoundWitnessHueresticPair {
+    /// This function loops over all of the options obtained from getBoundWitnessesOptionsForFlag(), and returns
+    /// all of the heuristics that those options have
+    /// - Parameter options: The options to get the heuristics from
+    /// - Returns: All of the heuristics contained in the options
+    private func getBoundWitnessesOptions (options : [XyoBoundWitnessOption]) throws -> XyoBoundWitnessHeuristicPair {
         var signedPayloads = [XyoObjectStructure]()
         var unsignedPayloads = [XyoObjectStructure]()
         
@@ -373,6 +373,6 @@ open class XyoOriginChainCreator {
             }
         }
         
-        return XyoBoundWitnessHueresticPair(signedPayload: signedPayloads, unsignedPayload: unsignedPayloads)
+        return XyoBoundWitnessHeuristicPair(signedPayload: signedPayloads, unsignedPayload: unsignedPayloads)
     }
 }
