@@ -16,8 +16,8 @@ public class XyoOriginChainState {
     /// The repository that the origin state will talk to, to persist all of the data.
     public let repo : XyoOriginChainStateRepository
     
-    /// The on deck signers to be added to the after the next public key has gone inside of a bound witness.
-    /// This array acts as a queue where the first element next key on deck.
+    /// The on deck signers to be added to after the next public key has gone inside of a bound witness.
+    /// This array acts as a queue where the first element is the next key on deck.
     private var waitingSigners : [XyoSigner] = []
     
     /// This varable acts as a temporary state holder to put the next public key in the next bound witness.
@@ -29,14 +29,14 @@ public class XyoOriginChainState {
         self.repo = repository
     }
 
-    /// Gets the index to include in the current bound wirness
-    /// - Returns: The previous index + 1, to include in the nex bound witness
+    /// Gets the index to include in the current bound witness
+    /// - Returns: The previous index + 1, to include in the next bound witness
     public func getIndex () -> XyoObjectStructure {
         return repo.getIndex() ?? XyoOriginChainState.createIndex(index: 0)
     }
     
     /// Gets the previous hash to inlucde in the current bound witness.
-    /// - Returns: The hash of the previous block, wrapped inside of a pervious hash object, will.
+    /// - Returns: The hash of the previous block, wrapped inside of a previous hash object, will
     /// return nil, if no block has been made yet.
     public func getPreviousHash () -> XyoObjectStructure? {
         return repo.getPreviousHash()
@@ -84,7 +84,7 @@ public class XyoOriginChainState {
     }
     
     /// This function should be called every time a bound witness is completed, to update the state.
-    /// The repositry state should also be commited after this function is called.
+    /// The repository state should also be committed after this function is called.
     /// - Parameter hash: The hash of the bound witness to add to the origin state (this will become the previous hash).
     public func addOriginBlock (hash : XyoObjectStructure) {
         do {
@@ -101,7 +101,7 @@ public class XyoOriginChainState {
     }
     
     
-    /// This function takes the current index in the reposiotry, adds 1, and then saves it to the repository.
+    /// This function takes the current index in the repository, adds 1, and then saves it to the repository.
     private func incrementIndex () {
         do {
             let index = try getIndex().getValueCopy().getUInt32(offset: 0)
@@ -133,7 +133,7 @@ public class XyoOriginChainState {
         return XyoObjectStructure.newInstance(schema: XyoSchemas.INDEX, bytes: buffer)
     }
     
-    /// This function creates a xyo previuous hash object from an xyo hash object
+    /// This function creates a xyo previous hash object from an xyo hash object
     /// - Parameter hash: The hash to put inside of the previous hash object.
     /// - Returns: The encoded previous hash object.
     public static func createPreviousHash (hash : XyoObjectStructure) throws -> XyoObjectStructure {

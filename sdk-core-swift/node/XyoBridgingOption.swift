@@ -23,7 +23,7 @@ class XyoBridgingOption: XyoBoundWitnessOption {
         return [UInt8(XyoProcedureCatalogFlags.TAKE_ORIGIN_CHAIN)]
     }
     
-    func getPair() throws -> XyoBoundWitnessHueresticPair? {
+    func getPair() throws -> XyoBoundWitnessHeuristicPair? {
         blocksInTransit = bridgeQueue.getBlocksToBridge()
         var blocks = [XyoObjectStructure]()
         var blockHashes = [XyoObjectStructure]()
@@ -41,7 +41,7 @@ class XyoBridgingOption: XyoBoundWitnessOption {
             let hashSet = try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.BRIDGE_HASH_SET, values: blockHashes)
             let blockSet = XyoIterableStructure.createUntypedIterableObject(schema: XyoSchemas.BRIDGE_BLOCK_SET, values: blocks)
 
-            return XyoBoundWitnessHueresticPair(signedPayload: [hashSet], unsignedPayload: [blockSet])
+            return XyoBoundWitnessHeuristicPair(signedPayload: [hashSet], unsignedPayload: [blockSet])
         }
 
         return nil

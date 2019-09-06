@@ -9,7 +9,7 @@
 import Foundation
 import sdk_objectmodel_swift
 
-/// A reposiroty to facilate the storage of origin chain chain state related items. It is optional to implement a caching
+/// A repository to facilitate the storage of origin chain state related items. It is optional to implement a caching
 /// mechanism behind this repo, but it is highly recomended. This repo does not need to persist any data until the
 /// commit() function is called. No getter should have a defualt value.
 public protocol XyoOriginChainStateRepository {
@@ -36,13 +36,13 @@ public protocol XyoOriginChainStateRepository {
     
     /// This function should get all of the current signers that are being persisted.
     /// This function is called called before evey bound witness to get the signers to sign with. The value of the signers
-    /// should never change withough the putSigner() function being called on an XyoOriginChainState instance.
-    /// - Returns: Will return a list of all of the current signers in the repo. Will never retun nil, but will return an
+    /// should never change without the putSigner() function being called on an XyoOriginChainState instance.
+    /// - Returns: Will return a list of all of the current signers in the repo. Will never return nil, but will return an
     /// empty list.
     func getSigners () -> [XyoSigner]
     
     /// This function should remove getSigners()[0], or not remove the oldest signer if none are in the repo.
-    /// This function is called whenever a user is roatating keys.
+    /// This function is called whenever a user is rotating keys.
     func removeOldestSigner()
     
     /// This function should add a signer to the end of the signer list.
@@ -51,7 +51,7 @@ public protocol XyoOriginChainStateRepository {
     func putSigner (signer : XyoSigner)
     
     /// This function is called after every bound witness to persist the state, if there is non caching implemented,
-    /// there is no reason to implement this methed.
+    /// there is no reason to implement this method.
     func commit ()
     
     func setStaticHeuristics (heuristics: [XyoObjectStructure])

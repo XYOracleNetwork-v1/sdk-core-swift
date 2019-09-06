@@ -117,7 +117,7 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
         var structures = [XyoObjectStructure]()
         
         for item in items {
-            structures.append(item.toStructre())
+            structures.append(item.toStructure())
         }
         
         do {
@@ -138,7 +138,7 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
 }
 
 extension XyoBridgeQueueItem {
-    func toStructre () -> XyoObjectStructure {
+    func toStructure () -> XyoObjectStructure {
         let weightStructure = XyoObjectStructure.newInstance(schema: XyoSchemas.BLOB, bytes: XyoBuffer().put(bits: UInt32(self.weight)))
         let hashStructre = self.hash
         

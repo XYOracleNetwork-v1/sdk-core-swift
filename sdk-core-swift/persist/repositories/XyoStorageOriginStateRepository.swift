@@ -18,7 +18,7 @@ public class XyoStorageOriginStateRepository: XyoOriginChainStateRepository {
     private let store : XyoStorageProvider
     private static let ORIGIN_STATE_INDEX_KEY =     Array("ORIGIN_STATE_INDEX_KEY".utf8)
     private static let ORIGIN_HASH_INDEX_KEY =      Array("ORIGIN_HASH_INDEX_KEY".utf8)
-    private static let ORIGIN_STATTICS_KEY =        Array("ORIGIN_STATICS_KEY".utf8)
+    private static let ORIGIN_STATICS_KEY =        Array("ORIGIN_STATICS_KEY".utf8)
     private static let ORIGIN_LAST_TIME =           Array("ORIGIN_LAST_TIME".utf8)
     
     public init(storage : XyoStorageProvider) {
@@ -70,7 +70,7 @@ public class XyoStorageOriginStateRepository: XyoOriginChainStateRepository {
                 .getBuffer()
                 .toByteArray()
             
-            try store.write(key: XyoStorageOriginStateRepository.ORIGIN_STATTICS_KEY, value: encodedStatics)
+            try store.write(key: XyoStorageOriginStateRepository.ORIGIN_STATICS_KEY, value: encodedStatics)
             
             if (indexCache != nil) {
                 let encodedIndex = indexCache!.getBuffer().toByteArray()
@@ -109,7 +109,7 @@ public class XyoStorageOriginStateRepository: XyoOriginChainStateRepository {
     }
     
     private func getStoreStatics () throws -> [XyoObjectStructure] {
-        guard let encodedStatics = try store.read(key: XyoStorageOriginStateRepository.ORIGIN_STATTICS_KEY) else {
+        guard let encodedStatics = try store.read(key: XyoStorageOriginStateRepository.ORIGIN_STATICS_KEY) else {
             return []
         }
         
@@ -132,7 +132,7 @@ public class XyoStorageOriginStateRepository: XyoOriginChainStateRepository {
             
             try self.store.write(key: XyoStorageOriginStateRepository.ORIGIN_LAST_TIME, value: encodedDate)
         } catch {
-            // do not store bound witness date if it can not be stored
+            // do not store bound witness date if it cannot be stored
         }
         
     }
