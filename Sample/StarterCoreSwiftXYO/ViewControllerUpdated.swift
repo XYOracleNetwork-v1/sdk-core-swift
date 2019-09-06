@@ -120,7 +120,7 @@ class ViewController: UIViewController {
     private func heuristicButton () {
         view.addSubview(heuristicViewButton)
         heuristicViewButton.translatesAutoresizingMaskIntoConstraints = false
-        heuristicViewButton.centerYAnchor.constraint(equalTo: doBoundWitnessButton.bottomAnchor, 
+        heuristicViewButton.centerYAnchor.constraint(equalTo: doBoundWitnessButton.bottomAnchor,
           constant: 200).isActive = true
         heuristicViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
