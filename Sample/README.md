@@ -1,6 +1,10 @@
-# Sample Swift Project - iOS Example
+# Sample Swift Project 
 
-If you are getting started with Swift and iOS development, or if you need a simple integration guide for the XYO Core Swift Library
+- iOS Example
+
+If you are getting started with Swift and iOS development you should be able to use this guide, although this guide is recommended for those familiar with iOS development and the Swift language. This is a simplified guide to integrate the XYO Core Swift SDK.
+
+[For the source code refer to this link](https://github.com/XYOracleNetwork/sdk-core-swift/blob/master/Sample/StarterCoreSwiftXYO/ViewController.swift)
 
 ## Table of Contents
 
@@ -221,7 +225,7 @@ private func layout() {
 }
 ```
 
-Now we can include the layouts and see what we get
+Now we can include the layouts in our primary view 
 
 ```swift
 override func viewDidLoad() {
@@ -463,7 +467,7 @@ Now we can add our `doLocation` view to our Layout
 
 Now rebuild and run the app. 
 
-When you tap or click (in a simulator) the `create origin` button, you should see the GPS cooridnate appear right before the hash. 
+When you tap or click (in a simulator) the `create origin` button, you should see the GPS coordinate appear right before the hash. 
 
 ## Conclusion
 
