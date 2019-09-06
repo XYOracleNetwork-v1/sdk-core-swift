@@ -124,7 +124,7 @@ public class XyoStorageBridgeQueueRepository: XyoBridgeQueueRepository {
             let encodedIndex = try XyoIterableStructure.createTypedIterableObject(schema: XyoSchemas.ARRAY_TYPED, values: structures).getBuffer().toByteArray()
             try store.write(key: XyoStorageBridgeQueueRepository.QUEUE_ARRAY_INDEX_KEY, value: encodedIndex)
         } catch {
-            // TODO: handle this error
+            // todo handle this error
         }
     }
     

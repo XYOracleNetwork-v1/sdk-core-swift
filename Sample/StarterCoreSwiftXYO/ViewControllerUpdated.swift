@@ -120,7 +120,8 @@ class ViewController: UIViewController {
     private func heuristicButton () {
         view.addSubview(heuristicViewButton)
         heuristicViewButton.translatesAutoresizingMaskIntoConstraints = false
-        heuristicViewButton.centerYAnchor.constraint(equalTo: doBoundWitnessButton.bottomAnchor, constant: 200).isActive = true
+        heuristicViewButton.centerYAnchor.constraint(equalTo: doBoundWitnessButton.bottomAnchor, 
+          constant: 200).isActive = true
         heuristicViewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         let click = UITapGestureRecognizer(target: self, action: #selector(addHeuristicView(_:)))
@@ -172,5 +173,4 @@ extension ViewController : XyoHeuristicGetter {
         var value = value
         return withUnsafeBytes(of: &value) { Array($0) }.reversed()
     }
-    
 }
