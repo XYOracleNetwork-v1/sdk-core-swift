@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'sdk-core-swift'
-  s.version          = '3.0.1'
+  s.version          = '3.0.2'
   s.summary          = 'Core Library for XYO Network in Swift.'
   s.swift_version    = '5.0'
 

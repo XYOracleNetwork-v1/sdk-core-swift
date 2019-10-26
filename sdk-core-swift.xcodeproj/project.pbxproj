@@ -613,7 +613,7 @@
 				26498EF62363BDB200951168 /* PBXTargetDependency */,
 			);
 			name = "sdk-core-swiftTests";
-			productName = sdk-core-swiftTests;
+			productName = "sdk-core-swiftTests";
 			productReference = 26498EEF2363BDB200951168 /* sdk-core-swiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -845,7 +845,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HFUC9P67W4;
-				INFOPLIST_FILE = sdk-core-swiftTests/Info.plist;
+				INFOPLIST_FILE = "sdk-core-swiftTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -865,7 +865,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HFUC9P67W4;
-				INFOPLIST_FILE = sdk-core-swiftTests/Info.plist;
+				INFOPLIST_FILE = "sdk-core-swiftTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1008,6 +1008,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30002;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1020,6 +1021,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "network.xyo.sdk-core-swift";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1036,6 +1038,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 30002;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1048,6 +1051,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "network.xyo.sdk-core-swift";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
