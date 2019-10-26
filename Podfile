@@ -8,6 +8,10 @@ target 'sdk-core-swift' do
   pod 'secp256k1.swift'
 
   target 'sdk-core-swiftTests' do
+
+    pod 'sdk-objectmodel-swift', '~> 3.0'
+    pod 'secp256k1.swift'
+    
     inherit! :search_paths
     # Pods for testing
   end

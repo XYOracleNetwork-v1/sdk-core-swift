@@ -1,10 +1,10 @@
 os: osx
-osx_image: xcode10.2
+osx_image: xcode11.2
 language: objective-c
 cache: cocoapods
 xcode_project: sdk-core-swift.xcodeproj 
 xcode_scheme: sdk-core-swift
-xcode_destination: platform=iOS Simulator,OS=11.3,name=iPhone X
+xcode_destination: platform=iOS Simulator,OS=13.1,name=iPhone X
 
 script:
   - gem install slather &&
@@ -12,7 +12,7 @@ script:
     chmod 777 ./cc-test-reporter &&
     ./cc-test-reporter before-build &&
     pod deintegrate &&
-    xcodebuild -project sdk-core-swift.xcodeproj -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.1,name\=iPhone\ X build test | xcpretty &&
+    xcodebuild -project sdk-core-swift.xcodeproj -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.1,name\=iPhone\ X build test | xcpretty &&
     slather coverage -x --scheme sdk-core-swift sdk-core-swift.xcodeproj &&
     ./cc-test-reporter after-build
 
