@@ -15,7 +15,7 @@ import sdk_objectmodel_swift
 class XyoTcpSocketTest : XCTestCase {
     
     func testClient () throws {
-        if (false) {
+        /*if (false) {
             // true test must be run manualy
             let storage = XyoInMemoryStorage()
             let blocks = XyoStorageProviderOriginBlockRepository(storageProvider: storage,
@@ -42,7 +42,7 @@ class XyoTcpSocketTest : XCTestCase {
                         print(error)
                 }
             }
-        }
+        }*/
     }
 }
 
