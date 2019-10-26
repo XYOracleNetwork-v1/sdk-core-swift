@@ -65,6 +65,9 @@ class XyoBoundWitnessTest: XCTestCase {
         let boundWitness = XyoBoundWitness(value: XyoBuffer(data: rawBoundWitness))
         
         let hash = try boundWitness.getHash(hasher: XyoSha256()).getBuffer().toByteArray()
+      
+      print("CalcHash: \(hash.toHexString())")
+        print("ExpectHash: \(expectedHash)")
         
         XCTAssertEqual(expectedHash, hash)
     }
