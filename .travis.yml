@@ -6,12 +6,23 @@ xcode_project: sdk-core-swift.xcodeproj
 xcode_scheme: sdk-core-swift
 xcode_destination: platform=iOS Simulator,OS=12.2,name=iPhone X
 
+before_install:
+  - gem install cocoapods --pr
+  - pod repo update
+
+install:
+  - gem install slather
+  - gem install xcpretty
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod 777 ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
 script:
-  - gem install slather &&
-    gem install xcpretty &&
-    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-darwin-amd64 > ./cc-test-reporter &&
-    chmod 777 ./cc-test-reporter &&
-    ./cc-test-reporter before-build &&
-    xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.2,name\=iPhone\ X build test | xcpretty &&
-    slather coverage -x --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj &&
-    ./cc-test-reporter after-build
+  - pod install
+  - xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.2,name\=iPhone\ X build test | xcpretty
+
+after_script:
+  - slather coverage -x --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj
+  - ./cc-test-reporter after-build
