@@ -15,9 +15,9 @@ install:
   - gem install xcpretty
 
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod 777 ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-0.6.3-darwin-amd64 > ./cc-test-reporter &&
+    chmod 777 ./cc-test-reporter &&
+    ./cc-test-reporter before-build 
 
 script:
   - pod install
