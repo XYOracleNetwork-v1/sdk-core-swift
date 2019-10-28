@@ -13,4 +13,5 @@ script:
     chmod 777 ./cc-test-reporter &&
     ./cc-test-reporter before-build &&
     xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.2,name\=iPhone\ X build test | xcpretty &&
+    slather coverage -s --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj &&
     ./cc-test-reporter after-build
