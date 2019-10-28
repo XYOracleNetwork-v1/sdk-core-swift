@@ -89,8 +89,9 @@ internal extension XyoSharedFileManager {
     // Unpacks the file change and returns the message data, ensuring the sender is not the same
     func validateRead() {
         guard
-            let containerData = NSKeyedUnarchiver.unarchiveObject(withFile: self.url.path) as? Data,
-            let message = Message.decode(containerData),
+            let fileData = try? Data(contentsOf: self.url),
+            let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(fileData) as? Data,
+            let message = Message.decode(unarchivedData),
             message.identifier != self.identifier else { return }
 
         self.readCallback?(message.data, message.identifier)
