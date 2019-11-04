@@ -9,6 +9,10 @@
 import Foundation
 import sdk_objectmodel_swift
 
+/* 
+  A simple unix time heuristic 
+*/
+
 public class XyoUnixTime : XyoObjectStructure {
     
     public func getUnixTime() throws -> UInt64 {
