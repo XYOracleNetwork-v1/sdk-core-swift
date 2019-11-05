@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 import sdk_core_swift
-import sdk_objectmodel_swift
 
 class ViewController: UIViewController {
     private let locationManager = CLLocationManager()
