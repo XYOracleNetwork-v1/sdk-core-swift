@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 import secp256k1
 
 public class XyoSecp256k1Signer : XyoSigner {

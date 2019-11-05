@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 class XyoZigZagBoundWitnessSession: XyoZigZagBoundWitness {
     private static let maxNumberOfCycles = 10

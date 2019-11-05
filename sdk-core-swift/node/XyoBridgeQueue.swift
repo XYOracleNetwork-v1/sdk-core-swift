@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 
 /// This class is meant to hold hashes and a value so that one can maintain a list of blocks that

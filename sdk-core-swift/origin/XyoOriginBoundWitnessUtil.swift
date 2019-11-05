@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// A struct to help with the orgin related utilities of an origin chain. These functions are concepts related
 /// to origin blocks, not bound witnesses.

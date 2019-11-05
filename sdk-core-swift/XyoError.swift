@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 public enum XyoError : Error {
     case EXTREME_TESTING_ERROR // used for testing

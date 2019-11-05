@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 public class XyoBridgeQueueItem {
     var weight : Int

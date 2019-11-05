@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 class XyoZigZagBoundWitness : XyoBoundWitness {
     private let signers : [XyoSigner]

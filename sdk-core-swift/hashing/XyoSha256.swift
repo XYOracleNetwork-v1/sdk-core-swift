@@ -8,7 +8,6 @@
 
 import Foundation
 import CommonCrypto
-import sdk_objectmodel_swift
 
 public struct XyoSha256 : XyoHasher {
     public init () {}
