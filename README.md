@@ -1,6 +1,6 @@
-[logo]: https://cdn.xy.company/img/brand/XY_Logo_GitHub.png
+[logo]: https://cdn.xy.company/img/brand/XYO_full_colored.png
 
-[![logo]](https://xy.company)
+[![logo]](https://xyo.network)
 
 # sdk-core-swift
 
@@ -268,6 +268,8 @@ for i in 0..9 {
 ```
 
 ## License
-See the [LICENSE.md](LICENSE) file for license details.
 
-Made with 🔥and ❄️ by [XY - The Persistent Company](https://www.xy.company)
+See the [LICENSE](LICENSE) file for license details.
+
+Made with 🔥and ❄️ by [XYO](https://www.xyo.network)
+
