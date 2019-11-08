@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-import sdk_objectmodel_swift
 @testable import sdk_core_swift
 
 struct XyoOriginBlockRepositoryTests {

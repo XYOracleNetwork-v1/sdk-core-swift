@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 open class XyoRelayNode : XyoOriginChainCreator, XyoNodeListener {
    

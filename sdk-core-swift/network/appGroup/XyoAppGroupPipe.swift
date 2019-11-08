@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// Uses a shared file between the same app group to transmit data between apps
 public class XyoAppGroupPipe {

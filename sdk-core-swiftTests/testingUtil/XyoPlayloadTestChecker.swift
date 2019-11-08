@@ -8,7 +8,6 @@
 
 import Foundation
 import sdk_core_swift
-import sdk_objectmodel_swift
 
 
 func getFetterItem (boundWitness: XyoBoundWitness, itemId: UInt8, partyIndex: Int) -> XyoObjectStructure? {

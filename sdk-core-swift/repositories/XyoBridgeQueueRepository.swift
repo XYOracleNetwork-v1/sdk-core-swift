@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// A repository to facilitate the persistence of a queue, or a series of weights and hashes. It is optional to implement a caching
 /// mechanism behind this repo, but it is highly recommended. This repo does not need to persist any data until the

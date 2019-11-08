@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// This interface acts as a way of changing data inside a bound witness based
 /// on the flag of the negotiation. This can be added to a node in the XyoOriginChainCreator class

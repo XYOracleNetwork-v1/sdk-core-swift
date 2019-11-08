@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 public protocol XyoNetworkPipe {
     func getInitiationData() -> XyoAdvertisePacket?

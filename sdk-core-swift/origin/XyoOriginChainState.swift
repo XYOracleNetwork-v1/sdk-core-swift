@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// A call to manage an XyoOriginChainStateRepository such that when a origin block has been created,
 /// it will update the repository to reflect the current root state of the node.

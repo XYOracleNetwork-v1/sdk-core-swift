@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// This class acts as a the main entry point for creating and maintaining an origin chain.
 open class XyoOriginChainCreator {
