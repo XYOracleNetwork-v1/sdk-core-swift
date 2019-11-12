@@ -22,7 +22,7 @@ class XyoBufferTest: XCTestCase {
     
     func testPutBytes () {
         let buffer = XyoBuffer()
-        let bytes : [UInt8] = [0x13, 0x37]
+        let bytes: [UInt8] = [0x13, 0x37]
         buffer.put(bytes: bytes)
         
         XCTAssertEqual(buffer.toByteArray(), bytes)
@@ -30,7 +30,7 @@ class XyoBufferTest: XCTestCase {
     
     func testPutUInt8 () {
         let buffer = XyoBuffer()
-        let byte : UInt8 = 0xff
+        let byte: UInt8 = 0xff
         buffer.put(bits: byte)
         
         XCTAssertEqual(buffer.toByteArray(), [byte])
@@ -38,7 +38,7 @@ class XyoBufferTest: XCTestCase {
     
     func testPutUInt16() {
         let buffer = XyoBuffer()
-        let int : UInt16 = 0x05
+        let int: UInt16 = 0x05
         buffer.put(bits : int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x05])
@@ -46,7 +46,7 @@ class XyoBufferTest: XCTestCase {
     
     func testPutUInt32() {
         let buffer = XyoBuffer()
-        let int : UInt32 = 0x05
+        let int: UInt32 = 0x05
         buffer.put(bits : int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x00, 0x00, 0x05])
@@ -55,7 +55,7 @@ class XyoBufferTest: XCTestCase {
     func testPutUInt64() {
         let buffer = XyoBuffer()
         let int : UInt64 = 0x05
-        buffer.put(bits : int)
+        buffer.put(bits: int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
     }
@@ -93,7 +93,7 @@ class XyoBufferTest: XCTestCase {
     }
     
     func testGetUInt64 () {
-        let int : UInt64 = 0x05
+        let int: UInt64 = 0x05
         let buffer = XyoBuffer(data: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
         let got = buffer.getUInt64(offset: 0)
         
@@ -124,7 +124,7 @@ class XyoBufferTest: XCTestCase {
         let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
         let subSchema = subBuffer.getSchema(offset: 0)
-        
+
         XCTAssertEqual(subSchema.id, 3)
         XCTAssertEqual(subSchema.encodingCatalogue, 2)
     }

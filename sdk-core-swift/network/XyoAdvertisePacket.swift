@@ -17,13 +17,13 @@ public struct XyoAdvertisePacket {
     
     func getChoice () throws -> [UInt8] {
         if (data.count == 0) {
-            throw XyoObjectError.OUT_OF_INDEX
+            throw XyoObjectError.OUTOFINDEX
         }
         
         let sizeOfChoice = Int(XyoBuffer(data: data).getUInt8(offset: 0))
         
         if (sizeOfChoice + 1 > data.count || sizeOfChoice == 0) {
-            throw XyoObjectError.OUT_OF_INDEX
+            throw XyoObjectError.OUTOFINDEX
         }
         
         return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()

@@ -46,7 +46,7 @@ open class XyoObjectStructure {
     
     internal func checkIndex (index: Int) throws {
         if index > value.getSize() {
-            throw XyoObjectError.OUT_OF_INDEX
+            throw XyoObjectError.OUTOFINDEX
         }
     }
     
@@ -66,11 +66,11 @@ open class XyoObjectStructure {
     public static func newInstance (schema: XyoObjectSchema, bytes: XyoBuffer) -> XyoObjectStructure {
         return XyoObjectStructure(value: encode(schema: schema, bytes: bytes))
     }
-    
+
     static func encode (schema: XyoObjectSchema, bytes: XyoBuffer) -> XyoBuffer {
         let buffer = XyoBuffer()
         let size = bytes.toByteArray().count
-        let typeOfSize = XyoByteUtil.getBestSize(size : size)
+        let typeOfSize = XyoByteUtil.getBestSize(size: size)
         buffer.put(schema: XyoObjectSchema.create(
             id: schema.id,
             isIterable: schema.getIsIterable(),

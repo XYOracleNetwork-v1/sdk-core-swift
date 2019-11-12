@@ -32,7 +32,7 @@ class XyoObjectIteratorTest: XCTestCase {
             XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
         ]
         
-        let expectedIterable : [UInt8] = [0x20, 0xff,   // root header
+        let expectedIterable: [UInt8] = [0x20, 0xff,   // root header
                                           0x0b,         // size of entire array
                                           0x00, 0x55,   // header of element [0]
                                           0x03,         // size of element [0]
@@ -52,12 +52,12 @@ class XyoObjectIteratorTest: XCTestCase {
                                                     isTypedIterable: true,
                                                     sizeIdentifier: XyoObjectSize.ONE)
         
-        let values : [XyoObjectStructure] = [
+        let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
             XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
         ]
         
-        let expectedIterable : [UInt8] = [0x30, 0xff, // root header
+        let expectedIterable: [UInt8] = [0x30, 0xff, // root header
                                           0x09,       // size of entire array
                                           0x00, 0x55, // header for all elements
                                           0x03,       // size of element [0]
@@ -84,7 +84,7 @@ class XyoObjectIteratorTest: XCTestCase {
                 let bytes = try iterable.next().getBuffer().toByteArray()
                 XCTAssertEqual(bytes, [0x00, 0x42, 0x02, 0x37])
             } else {
-                throw XyoObjectError.OUT_OF_INDEX
+                throw XyoObjectError.OUTOFINDEX
             }
             
             index += 1
@@ -92,7 +92,8 @@ class XyoObjectIteratorTest: XCTestCase {
     }
     
     func testObjectIteratorTyped () throws {
-        let iterableStructure = XyoIterableStructure(value: XyoBuffer(data: [0x30, 0x41, 0x07, 0x00, 0x44, 0x02, 0x13, 0x02, 0x37]))
+        let iterableStructure = XyoIterableStructure(value:
+            XyoBuffer(data: [0x30, 0x41, 0x07, 0x00, 0x44, 0x02, 0x13, 0x02, 0x37]))
         let iterable = try iterableStructure.getNewIterator()
         var index = 0
         
@@ -104,7 +105,7 @@ class XyoObjectIteratorTest: XCTestCase {
                 let bytes = try iterable.next().getBuffer().toByteArray()
                 XCTAssertEqual(bytes, [0x00, 0x44, 0x02, 0x37])
             } else {
-                throw XyoObjectError.OUT_OF_INDEX
+                throw XyoObjectError.OUTOFINDEX
             }
             
             index += 1
@@ -150,7 +151,7 @@ class XyoObjectIteratorTest: XCTestCase {
         
         let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
-            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
+            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
         ]
         
         let itemToAdd = XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
@@ -193,7 +194,7 @@ class XyoObjectIteratorTest: XCTestCase {
             // this is expected
         }
         
-        throw XyoObjectError.OUT_OF_INDEX
+        throw XyoObjectError.OUTOFINDEX
     }
     
 }

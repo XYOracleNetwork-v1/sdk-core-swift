@@ -19,8 +19,7 @@ class XyoByteUtiltest: XCTestCase {
         let arrayThree: [UInt8] = [0x07, 0x08, 0x09]
         
         let totalArray: [[UInt8]] = [arrayOne, arrayTwo, arrayThree]
-        
-    
+
         XCTAssertEqual(XyoByteUtil.concatAll(arrays: totalArray), expectedArray)
     }
     

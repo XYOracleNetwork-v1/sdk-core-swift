@@ -9,7 +9,7 @@
 import Foundation
 
 open class XyoIterableStructure: XyoObjectStructure {
-    private var globalSchema: XyoObjectSchema? = nil
+    private var globalSchema: XyoObjectSchema?
     
     public func getNewIterator () throws -> XyoObjectIterator {
         return try XyoObjectIterator(currentOffset: readOwnHeader(), structure: self, isTyped: globalSchema != nil)
@@ -34,14 +34,14 @@ open class XyoIterableStructure: XyoObjectStructure {
         while try iterator.hasNext() {
             let item = try iterator.next()
             
-            if (index == otherIndex) {
+            if index == otherIndex {
                 return item
             }
             
             otherIndex += 1
         }
         
-        throw XyoObjectError.OUT_OF_INDEX
+        throw XyoObjectError.OUTOFINDEX
     }
 
     public func get (structId: UInt8) throws -> [XyoObjectStructure] {
@@ -68,10 +68,10 @@ open class XyoIterableStructure: XyoObjectStructure {
     
     private func readItemUntyped (offset: Int) throws -> XyoObjectStructure {
         let schemaOfItem =  value.getSchema(offset: offset)
-        let sizeOfObject = readSizeOfObject(sizeIdentifier : schemaOfItem.getSizeIdentifier(), offset: offset + 2)
+        let sizeOfObject = readSizeOfObject(sizeIdentifier: schemaOfItem.getSizeIdentifier(), offset: offset + 2)
         
         if sizeOfObject == 0 {
-            throw XyoObjectError.SIZE_ZERO
+            throw XyoObjectError.SIZEZERO
         }
         
         let start = offset + value.allowedOffset
@@ -92,7 +92,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let sizeOfObject = readSizeOfObject(sizeIdentifier: schemaOfItem.getSizeIdentifier(), offset: offset)
         
         if sizeOfObject == 0 {
-            throw XyoObjectError.SIZE_ZERO
+            throw XyoObjectError.SIZEZERO
         }
         
         let start = offset + value.allowedOffset
@@ -117,7 +117,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let totalSize = readSizeOfObject(sizeIdentifier: setHeader.getSizeIdentifier(), offset: 2)
         
         if !setHeader.getIsIterable() {
-            throw XyoObjectError.NOT_ITERABLE
+            throw XyoObjectError.NOTITERABLE
         }
         
         if setHeader.getIsTypedIterable() && totalSize != setHeader.getSizeIdentifier().rawValue {
@@ -141,7 +141,7 @@ open class XyoIterableStructure: XyoObjectStructure {
                 return
             }
             
-            throw XyoObjectError.WRONG_TYPE
+            throw XyoObjectError.WRONGTYPE
         }
         
         buffer.put(buffer: element.getBuffer())
@@ -213,7 +213,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         }
         
         if values.isEmpty {
-            throw XyoObjectError.NO_ELEMENTS
+            throw XyoObjectError.NOELEMENTS
         }
         
         let buffer = XyoBuffer()
@@ -229,12 +229,12 @@ open class XyoIterableStructure: XyoObjectStructure {
     
     public static func verify (item: XyoIterableStructure) throws {
         let iterableItem = try item.getNewIterator()
-        
+
         while try iterableItem.hasNext() {
             let value = try iterableItem.next()
 
             if value is XyoIterableStructure {
-                try verify(item: (value as! XyoIterableStructure))
+                try verify(item: (value as? XyoIterableStructure))
             }
         }
     }

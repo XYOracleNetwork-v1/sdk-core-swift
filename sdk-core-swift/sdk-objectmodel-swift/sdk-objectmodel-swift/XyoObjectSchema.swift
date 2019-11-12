@@ -12,8 +12,8 @@ public struct XyoObjectSchema {
     public let schemaId: UInt8
     public let encodingCatalogue: UInt8
     
-    public init(id: UInt8, encodingCatalogue: UInt8) {
-        self.id = id
+    public init(schemaId: UInt8, encodingCatalogue: UInt8) {
+        self.id = schemaId
         self.encodingCatalogue = encodingCatalogue
     }
     
@@ -77,7 +77,7 @@ public struct XyoObjectSchema {
 
         return 0x00
     }
-    
+
     private static func getSizeIdentifierByte (sizeIdentifier: XyoObjectSize) -> UInt8 {
         switch sizeIdentifier {
         case (XyoObjectSize.ONE):
