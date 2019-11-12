@@ -188,7 +188,7 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
     
     public static func createUntypedIterableObject (
-        schema: XyoObjectSchema, 
+        schema: XyoObjectSchema,
         values: [XyoObjectStructure]) -> XyoIterableStructure {
         return XyoIterableStructure(value: encodeUntypedIterableObject(schema: schema, values: values))
     }
