@@ -27,7 +27,7 @@ public struct XyoByteUtil {
         if size + 2 <= UInt16.max {
             return XyoObjectSize.TWO
         }
-        
+
         if size + 4 <= UInt32.max {
             return XyoObjectSize.FOUR
         }

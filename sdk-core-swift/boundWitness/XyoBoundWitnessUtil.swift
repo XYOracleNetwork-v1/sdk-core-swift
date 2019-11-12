@@ -30,7 +30,7 @@ public struct XyoBoundWitnessUtil {
         var newWitnessContents : [XyoObjectStructure] = []
         
         guard let typedWitness = witness as? XyoIterableStructure else {
-            throw XyoObjectError.NOT_ITERABLE
+            throw XyoObjectError.NOTITERABLE
         }
         
         let it = try typedWitness.getNewIterator()
