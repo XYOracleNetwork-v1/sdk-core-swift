@@ -31,7 +31,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let iterator = try getNewIterator()
         var otherIndex = 0
         
-        while (try iterator.hasNext()) {
+        while try iterator.hasNext() {
             let item = try iterator.next()
             
             if (index == otherIndex) {
@@ -194,7 +194,7 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
     
     public static func encodeUntypedIterableObject (
-        schema: XyoObjectSchema, 
+        schema: XyoObjectSchema,
         values: [XyoObjectStructure]) -> XyoBuffer {
         if schema.getIsTypedIterable() {
             fatalError("Schema is not untyped.")

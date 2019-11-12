@@ -44,22 +44,22 @@ public struct XyoObjectSchema {
     public func getIsTypedIterable() -> Bool {
         return encodingCatalogue & 0x10 != 0
     }
-    
+
     public func toByteArray () -> [UInt8] {
         return [encodingCatalogue, id]
     }
-    
+
     public static func create(
-        objectId: UInt8, 
-        isIterable: Bool, 
-        isTypedIterable: Bool, 
+        objectId: UInt8,
+        isIterable: Bool,
+        isTypedIterable: Bool,
         sizeIdentifier: XyoObjectSize) -> XyoObjectSchema {
         let iterableByte: UInt8 = getIterableByte(isIterable: isIterable)
         let isTypedIterableByte: UInt8 = getIsTypedByte(isTyped: isTypedIterable)
         let sizeIdentifierByte: UInt8 = getSizeIdentifierByte(sizeIdentifier: sizeIdentifier)
         let encodingCatalogue: UInt8 = iterableByte | isTypedIterableByte | sizeIdentifierByte
-        
-        return XyoObjectSchema(id: objectId, encodingCatalogue : encodingCatalogue)
+
+        return XyoObjectSchema(id: objectId, encodingCatalogue: encodingCatalogue)
     }
     
     private static func getIterableByte(isIterable: Bool) -> UInt8 {
