@@ -9,11 +9,11 @@
 import Foundation
 
 public class XyoBuffer {
-    private let lastOffset : Int?
-    let allowedOffset : Int
-    internal var data : [UInt8]
+    private let lastOffset: Int?
+    let allowedOffset: Int
+    internal var data: [UInt8]
     
-    public init(data : [UInt8], allowedOffset: Int, lastOffset : Int?) {
+    public init(data: [UInt8], allowedOffset: Int, lastOffset: Int?) {
         self.data = data
         self.allowedOffset = allowedOffset
         
@@ -28,7 +28,7 @@ public class XyoBuffer {
         self.data = data.data
         self.allowedOffset = allowedOffset
         
-        if (lastOffset == self.data.count) {
+        if lastOffset == self.data.count {
             self.lastOffset = nil
         } else {
             self.lastOffset = lastOffset
@@ -96,18 +96,18 @@ public class XyoBuffer {
         return (one+two+three+four)+(five+six+seven+eight)
     }
     
-    public func copyRangeOf(from : Int, to : Int) -> XyoBuffer {
+    public func copyRangeOf(from: Int, toInt: Int) -> XyoBuffer {
         let returnBuffer = XyoBuffer()
         
-        for i in from...to - 1 {
-            returnBuffer.put(bits: getUInt8(offset: i))
+        for index in from...toInt - 1 {
+            returnBuffer.put(bits: getUInt8(offset: index))
         }
         
         return returnBuffer
     }
 
     @discardableResult
-    public func put(schema : XyoObjectSchema) -> XyoBuffer {
+    public func put(schema: XyoObjectSchema) -> XyoBuffer {
         let schemaBytes = schema.toByteArray()
         data.append(schemaBytes[0])
         data.append(schemaBytes[1])
@@ -115,26 +115,26 @@ public class XyoBuffer {
     }
     
     @discardableResult
-    public func put(bytes : [UInt8]) -> XyoBuffer {
+    public func put(bytes: [UInt8]) -> XyoBuffer {
         data.append(contentsOf: bytes)
         return self
     }
     
     @discardableResult
-    public func put(bits : UInt8) -> XyoBuffer {
+    public func put(bits: UInt8) -> XyoBuffer {
         data.append(bits)
         return self
     }
     
     @discardableResult
-    public func put(bits : UInt16) -> XyoBuffer {
+    public func put(bits: UInt16) -> XyoBuffer {
         data.append(UInt8((bits >> 8) & 0xFF))
         data.append(UInt8(bits & 0xFF))
         return self
     }
     
     @discardableResult
-    public func put(bits : UInt32) -> XyoBuffer {
+    public func put(bits: UInt32) -> XyoBuffer {
         data.append(UInt8((bits >> 24) & 0xFF))
         data.append(UInt8((bits >> 16) & 0xFF))
         data.append(UInt8((bits >> 8) & 0xFF))
@@ -143,7 +143,7 @@ public class XyoBuffer {
     }
     
     @discardableResult
-    public func put(bits : UInt64) -> XyoBuffer {
+    public func put(bits: UInt64) -> XyoBuffer {
         data.append(UInt8((bits >> 56) & 0xFF))
         data.append(UInt8((bits >> 48) & 0xFF))
         data.append(UInt8((bits >> 40) & 0xFF))
@@ -156,7 +156,7 @@ public class XyoBuffer {
     }
     
     @discardableResult
-    public func put (buffer : XyoBuffer) -> XyoBuffer {
+    public func put (buffer: XyoBuffer) -> XyoBuffer {
         return put(bytes: buffer.toByteArray())
     }
 }

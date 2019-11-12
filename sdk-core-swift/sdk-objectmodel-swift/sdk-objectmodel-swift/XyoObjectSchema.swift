@@ -9,10 +9,10 @@
 import Foundation
 
 public struct XyoObjectSchema {
-    public let id : UInt8
-    public let encodingCatalogue : UInt8
+    public let schemaId: UInt8
+    public let encodingCatalogue: UInt8
     
-    public init(id : UInt8, encodingCatalogue : UInt8) {
+    public init(id: UInt8, encodingCatalogue: UInt8) {
         self.id = id
         self.encodingCatalogue = encodingCatalogue
     }
@@ -22,15 +22,15 @@ public struct XyoObjectSchema {
         // masking the first two bits to get the result
         // 0xC0 == 11000000
         
-        if (encodingCatalogue & 0xc0 == 0x00) {
+        if encodingCatalogue & 0xc0 == 0x00 {
             return XyoObjectSize.ONE
         }
         
-        if (encodingCatalogue & 0xc0 == 0x40) {
+        if encodingCatalogue & 0xc0 == 0x40 {
             return XyoObjectSize.TWO
         }
         
-        if (encodingCatalogue & 0xc0 == 0x80) {
+        if encodingCatalogue & 0xc0 == 0x80 {
             return XyoObjectSize.FOUR
         }
         
@@ -49,42 +49,46 @@ public struct XyoObjectSchema {
         return [encodingCatalogue, id]
     }
     
-    public static func create (id : UInt8, isIterable : Bool, isTypedIterable: Bool, sizeIdentifier : XyoObjectSize) -> XyoObjectSchema {
-        let iterableByte : UInt8 = getIterableByte(isIterable : isIterable)
-        let isTypedIterableByte : UInt8 = getIsTypedByte(isTyped : isTypedIterable)
-        let sizeIdentifierByte : UInt8 = getSizeIdentifierByte(sizeIdentifier : sizeIdentifier)
-        let encodingCatalogue : UInt8 = iterableByte | isTypedIterableByte | sizeIdentifierByte
+    public static func create(
+        objectId: UInt8, 
+        isIterable: Bool, 
+        isTypedIterable: Bool, 
+        sizeIdentifier: XyoObjectSize) -> XyoObjectSchema {
+        let iterableByte: UInt8 = getIterableByte(isIterable: isIterable)
+        let isTypedIterableByte: UInt8 = getIsTypedByte(isTyped: isTypedIterable)
+        let sizeIdentifierByte: UInt8 = getSizeIdentifierByte(sizeIdentifier: sizeIdentifier)
+        let encodingCatalogue: UInt8 = iterableByte | isTypedIterableByte | sizeIdentifierByte
         
-        return XyoObjectSchema(id: id, encodingCatalogue : encodingCatalogue)
+        return XyoObjectSchema(id: objectId, encodingCatalogue : encodingCatalogue)
     }
     
-    private static func getIterableByte(isIterable : Bool) -> UInt8 {
-        if (isIterable) {
+    private static func getIterableByte(isIterable: Bool) -> UInt8 {
+        if isIterable {
             return 0x20
         }
-        
+
         return 0x00
     }
     
-    private static func getIsTypedByte (isTyped : Bool) -> UInt8 {
-        if (isTyped) {
+    private static func getIsTypedByte (isTyped: Bool) -> UInt8 {
+        if isTyped {
             return 0x10
         }
-        
+
         return 0x00
     }
     
-    private static func getSizeIdentifierByte (sizeIdentifier : XyoObjectSize) -> UInt8 {
+    private static func getSizeIdentifierByte (sizeIdentifier: XyoObjectSize) -> UInt8 {
         switch sizeIdentifier {
         case (XyoObjectSize.ONE):
             return 0x00
-        
+
         case (XyoObjectSize.TWO):
             return 0x40
-    
+
         case (XyoObjectSize.FOUR):
             return 0x80
-        
+
         case (XyoObjectSize.EIGHT):
             return 0xc0
         }

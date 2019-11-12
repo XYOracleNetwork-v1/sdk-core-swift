@@ -14,7 +14,7 @@ import XCTest
 class XyoSha256Test: XCTestCase {
     
     func testSha256Value() throws {
-        let calibration : [UInt8] = [0x01, 0x02, 0x03]
+        let calibration: [UInt8] = [0x01, 0x02, 0x03]
         let expectedHash = "039058C6F2C0CB492C533B0A4D14EF77CC0F78ABCCCED5287D84A1A2011CFB81".hexStringToBytes()
         let actualHash = XyoSha256().hash(data: calibration)
         

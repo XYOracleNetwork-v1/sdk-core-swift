@@ -68,8 +68,8 @@ internal extension XyoSharedFileManager {
 
             // Create the message with the data and write to the file
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
-              let dictData = try? NSKeyedArchiver.archivedData(withRootObject: encoded, requiringSecureCoding:true)
-                try? dictData?.write(to: url)
+              let dictData = try? NSKeyedArchiver.archivedData(withRootObject:encoded, requiringSecureCoding:true)
+                try? dictData?.write(to:url)
                 callback?(nil)
             }
 

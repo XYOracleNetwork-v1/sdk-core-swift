@@ -9,7 +9,7 @@
 import Foundation
 
 public struct XyoByteUtil {
-    public static func concatAll(arrays : [[UInt8]]) -> [UInt8] {
+    public static func concatAll(arrays: [[UInt8]]) -> [UInt8] {
         var masterBuffer = [UInt8]()
         
         for array in arrays {
@@ -19,19 +19,18 @@ public struct XyoByteUtil {
         return masterBuffer
     }
     
-    public static func getBestSize (size : Int) -> XyoObjectSize {
-        if (size + 1 <= UInt8.max) {
+    public static func getBestSize (size: Int) -> XyoObjectSize {
+        if size + 1 <= UInt8.max {
             return XyoObjectSize.ONE
         }
         
-        if (size + 2 <= UInt16.max) {
+        if size + 2 <= UInt16.max {
             return XyoObjectSize.TWO
         }
         
-        if (size + 4 <= UInt32.max) {
+        if size + 4 <= UInt32.max {
             return XyoObjectSize.FOUR
         }
-        
         return XyoObjectSize.EIGHT
     }
 }

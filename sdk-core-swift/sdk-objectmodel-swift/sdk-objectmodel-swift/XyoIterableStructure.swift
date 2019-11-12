@@ -9,49 +9,49 @@
 import Foundation
 
 open class XyoIterableStructure: XyoObjectStructure {
-    private var globalSchema : XyoObjectSchema? = nil
+    private var globalSchema: XyoObjectSchema? = nil
     
     public func getNewIterator () throws -> XyoObjectIterator {
-        return try XyoObjectIterator(currentOffset : readOwnHeader(), structure : self, isTyped : globalSchema != nil)
+        return try XyoObjectIterator(currentOffset: readOwnHeader(), structure: self, isTyped: globalSchema != nil)
     }
     
     public func getCount () throws -> Int {
         let sizeIt = try self.getNewIterator()
-        var i = 0
+        var index = 0
         
-        while (try sizeIt.hasNext()) {
-            i += 1
+        while try sizeIt.hasNext() {
+            index += 1
             try sizeIt.next()
         }
         
-        return i
+        return index
     }
     
-    public func get (index : Int) throws -> XyoObjectStructure {
-        let it = try getNewIterator()
-        var i = 0
+    public func get (index: Int) throws -> XyoObjectStructure {
+        let iterator = try getNewIterator()
+        var otherIndex = 0
         
-        while (try it.hasNext()) {
-            let item = try it.next()
+        while (try iterator.hasNext()) {
+            let item = try iterator.next()
             
-            if (index == i) {
+            if (index == otherIndex) {
                 return item
             }
             
-            i += 1
+            otherIndex += 1
         }
         
         throw XyoObjectError.OUT_OF_INDEX
     }
     
-    public func get (id : UInt8) throws -> [XyoObjectStructure] {
-        let it = try getNewIterator()
+    public func get (structId: UInt8) throws -> [XyoObjectStructure] {
+        let iterator = try getNewIterator()
         var itemsThatFollowId = [XyoObjectStructure]()
         
-        while (try it.hasNext()) {
-            let item = try it.next()
+        while try iterator.hasNext() {
+            let item = try iterator.next()
             
-            if (try item.getSchema().id == id) {
+            if try item.getSchema().id == structId {
                 itemsThatFollowId.append(item)
             }
             
@@ -60,19 +60,19 @@ open class XyoIterableStructure: XyoObjectStructure {
        return itemsThatFollowId
     }
     
-    func readItemAtOffset (offset : Int) throws -> XyoObjectStructure {
-        if (globalSchema == nil) {
+    func readItemAtOffset (offset: Int) throws -> XyoObjectStructure {
+        if globalSchema == nil {
             return try readItemUntyped(offset: offset)
         }
         
         return try readItemTyped(offset: offset, schemaOfItem: globalSchema!)
     }
     
-    private func readItemUntyped (offset : Int) throws -> XyoObjectStructure {
+    private func readItemUntyped (offset: Int) throws -> XyoObjectStructure {
         let schemaOfItem =  value.getSchema(offset: offset)
         let sizeOfObject = readSizeOfObject(sizeIdentifier : schemaOfItem.getSizeIdentifier(), offset: offset + 2)
         
-        if (sizeOfObject == 0) {
+        if sizeOfObject == 0 {
             throw XyoObjectError.SIZE_ZERO
         }
         
@@ -83,17 +83,17 @@ open class XyoIterableStructure: XyoObjectStructure {
         
         let object = XyoBuffer(data: value, allowedOffset: start, lastOffset: end)
         
-        if (schemaOfItem.getIsIterable()) {
+        if schemaOfItem.getIsIterable() {
             return XyoIterableStructure(value: object)
         }
         
         return XyoObjectStructure(value: object)
     }
     
-    private func readItemTyped (offset : Int, schemaOfItem : XyoObjectSchema) throws -> XyoObjectStructure {
-        let sizeOfObject = readSizeOfObject(sizeIdentifier : schemaOfItem.getSizeIdentifier(), offset: offset)
+    private func readItemTyped (offset: Int, schemaOfItem: XyoObjectSchema) throws -> XyoObjectStructure {
+        let sizeOfObject = readSizeOfObject(sizeIdentifier: schemaOfItem.getSizeIdentifier(), offset: offset)
         
-        if (sizeOfObject == 0) {
+        if sizeOfObject == 0 {
             throw XyoObjectError.SIZE_ZERO
         }
         
@@ -104,7 +104,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         
         let object = XyoBuffer(data: value, allowedOffset: start, lastOffset: end)
         
-        if (schemaOfItem.getIsIterable()) {
+        if schemaOfItem.getIsIterable() {
             return XyoIterableStructure(value: object, schema: schemaOfItem)
         }
         
@@ -118,11 +118,11 @@ open class XyoIterableStructure: XyoObjectStructure {
         try checkIndex(index: 2 + setHeader.getSizeIdentifier().rawValue)
         let totalSize = readSizeOfObject(sizeIdentifier: setHeader.getSizeIdentifier(), offset: 2)
         
-        if (!setHeader.getIsIterable()) {
+        if !setHeader.getIsIterable() {
             throw XyoObjectError.NOT_ITERABLE
         }
         
-        if (setHeader.getIsTypedIterable() && totalSize != setHeader.getSizeIdentifier().rawValue) {
+        if setHeader.getIsTypedIterable() && totalSize != setHeader.getSizeIdentifier().rawValue {
             globalSchema = value.getSchema(offset: setHeader.getSizeIdentifier().rawValue + 2)
             return 4 + setHeader.getSizeIdentifier().rawValue
         }
@@ -131,13 +131,13 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
     
     // todo make this not copy
-    public func addElement (element : XyoObjectStructure) throws {
+    public func addElement (element: XyoObjectStructure) throws {
         let buffer = try getValueCopy()
         
-        if (try self.getSchema().getIsTypedIterable()) {
+        if try self.getSchema().getIsTypedIterable() {
             _ = try readOwnHeader()
             
-            if (try element.getSchema().id == (self.globalSchema?.id)) {
+            if try element.getSchema().id == (self.globalSchema?.id) {
                 buffer.put(buffer: element.getBuffer().copyRangeOf(from: 2, to: try element.getSize() + 2))
                 value = XyoObjectStructure.encode(schema: try self.getSchema(), bytes: buffer)
                 return
@@ -152,11 +152,11 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
     
     public class XyoObjectIterator {
-        private var isTyped : Bool
-        private var structure : XyoIterableStructure
-        private var currentOffset : Int = 0
+        private var isTyped: Bool
+        private var structure: XyoIterableStructure
+        private var currentOffset: Int = 0
         
-        public init(currentOffset : Int, structure : XyoIterableStructure, isTyped : Bool) {
+        public init(currentOffset: Int, structure: XyoIterableStructure, isTyped: Bool) {
             self.structure = structure
             self.currentOffset = currentOffset
             self.isTyped = isTyped
@@ -171,7 +171,7 @@ open class XyoIterableStructure: XyoObjectStructure {
             
             let nextItem = try structure.readItemAtOffset(offset: currentOffset)
             
-            if (isTyped) {
+            if isTyped {
                 currentOffset += try nextItem.getSize()
             } else {
                 currentOffset += try nextItem.getSize() + 2
@@ -181,16 +181,22 @@ open class XyoIterableStructure: XyoObjectStructure {
         }
     }
     
-    public static func createTypedIterableObject (schema : XyoObjectSchema, values: [XyoObjectStructure]) throws -> XyoIterableStructure {
+    public static func createTypedIterableObject (
+        schema: XyoObjectSchema, 
+        values: [XyoObjectStructure]) throws -> XyoIterableStructure {
         return XyoIterableStructure(value: try encodeTypedIterableObject(schema: schema, values: values))
     }
     
-    public static func createUntypedIterableObject (schema : XyoObjectSchema, values: [XyoObjectStructure]) -> XyoIterableStructure {
+    public static func createUntypedIterableObject (
+        schema: XyoObjectSchema, 
+        values: [XyoObjectStructure]) -> XyoIterableStructure {
         return XyoIterableStructure(value: encodeUntypedIterableObject(schema: schema, values: values))
     }
     
-    public static func encodeUntypedIterableObject (schema : XyoObjectSchema, values: [XyoObjectStructure]) -> XyoBuffer {
-        if (schema.getIsTypedIterable()) {
+    public static func encodeUntypedIterableObject (
+        schema: XyoObjectSchema, 
+        values: [XyoObjectStructure]) -> XyoBuffer {
+        if schema.getIsTypedIterable() {
             fatalError("Schema is not untyped.")
         }
         
@@ -203,12 +209,12 @@ open class XyoIterableStructure: XyoObjectStructure {
         return XyoObjectStructure.encode(schema: schema, bytes: buffer)
     }
     
-    static func encodeTypedIterableObject(schema : XyoObjectSchema, values: [XyoObjectStructure]) throws -> XyoBuffer {
-        if (!schema.getIsTypedIterable()) {
+    static func encodeTypedIterableObject(schema: XyoObjectSchema, values: [XyoObjectStructure]) throws -> XyoBuffer {
+        if !schema.getIsTypedIterable() {
             fatalError("Schema is not typed.")
         }
         
-        if (values.isEmpty) {
+        if values.isEmpty {
             throw XyoObjectError.NO_ELEMENTS
         }
         
@@ -219,21 +225,19 @@ open class XyoIterableStructure: XyoObjectStructure {
         for item in values {
             buffer.put(buffer: item.value.copyRangeOf(from: 2, to: item.value.getSize()))
         }
-        
         return XyoObjectStructure.encode(schema: schema, bytes: buffer)
         
     }
     
-    public static func verify (item : XyoIterableStructure) throws {
-        let it = try item.getNewIterator()
+    public static func verify (item: XyoIterableStructure) throws {
+        let iterableItem = try item.getNewIterator()
         
-        while try it.hasNext() {
-            let value = try it.next()
-            
-            if (value is XyoIterableStructure) {
+        while try iterableItem.hasNext() {
+            let value = try iterableItem.next()
+
+            if value is XyoIterableStructure {
                 try verify(item: (value as! XyoIterableStructure))
             }
         }
     }
-    
 }
