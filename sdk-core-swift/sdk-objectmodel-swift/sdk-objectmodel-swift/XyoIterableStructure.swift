@@ -43,20 +43,18 @@ open class XyoIterableStructure: XyoObjectStructure {
         
         throw XyoObjectError.OUT_OF_INDEX
     }
-    
+
     public func get (structId: UInt8) throws -> [XyoObjectStructure] {
         let iterator = try getNewIterator()
         var itemsThatFollowId = [XyoObjectStructure]()
-        
+
         while try iterator.hasNext() {
             let item = try iterator.next()
             
             if try item.getSchema().id == structId {
                 itemsThatFollowId.append(item)
             }
-            
         }
-        
        return itemsThatFollowId
     }
     
@@ -182,7 +180,7 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
     
     public static func createTypedIterableObject (
-        schema: XyoObjectSchema, 
+        schema: XyoObjectSchema,
         values: [XyoObjectStructure]) throws -> XyoIterableStructure {
         return XyoIterableStructure(value: try encodeTypedIterableObject(schema: schema, values: values))
     }
