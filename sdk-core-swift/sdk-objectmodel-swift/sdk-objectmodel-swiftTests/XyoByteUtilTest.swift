@@ -45,5 +45,5 @@ class XyoByteUtiltest: XCTestCase {
     func testGetBestSizeEight () {
         XCTAssertEqual(XyoObjectSize.EIGHT, XyoByteUtil.getBestSize(size: Int(UInt32.max)))
         XCTAssertEqual(XyoObjectSize.EIGHT, XyoByteUtil.getBestSize(size: Int(UInt32.max) * Int(UInt32(4))))
-    } 
+    }
 }
