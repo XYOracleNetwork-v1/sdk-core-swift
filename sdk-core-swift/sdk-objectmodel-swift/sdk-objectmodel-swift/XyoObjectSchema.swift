@@ -11,36 +11,36 @@ import Foundation
 public struct XyoObjectSchema {
     public let schemaId: UInt8
     public let encodingCatalogue: UInt8
-    
+
     public init(schemaId: UInt8, encodingCatalogue: UInt8) {
         self.id = schemaId
         self.encodingCatalogue = encodingCatalogue
     }
-    
+
     public func getSizeIdentifier () -> XyoObjectSize {
-        
+
         // masking the first two bits to get the result
         // 0xC0 == 11000000
-        
+
         if encodingCatalogue & 0xc0 == 0x00 {
             return XyoObjectSize.ONE
         }
-        
+
         if encodingCatalogue & 0xc0 == 0x40 {
             return XyoObjectSize.TWO
         }
-        
+
         if encodingCatalogue & 0xc0 == 0x80 {
             return XyoObjectSize.FOUR
         }
-        
+
         return XyoObjectSize.EIGHT
     }
-    
+
     public func getIsIterable() -> Bool {
         return encodingCatalogue & 0x20 != 0
     }
-    
+
     public func getIsTypedIterable() -> Bool {
         return encodingCatalogue & 0x10 != 0
     }

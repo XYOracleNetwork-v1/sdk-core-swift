@@ -11,13 +11,13 @@ import XCTest
 @testable import sdk_objectmodel_swift
 
 class XyoUInt8ToHexStringTest: XCTestCase {
-    
+
     func testCaseOne () {
         let bytes: [UInt8] = [0x13, 0x37]
-        
+
         XCTAssertEqual(bytes.toHexString(), "0x1337")
     }
-    
+
     func testCaseTwo () {
         let bytes: [UInt8] = [0xff, 0xff]
 

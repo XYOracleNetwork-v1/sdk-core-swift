@@ -11,11 +11,11 @@ import Foundation
 public struct XyoByteUtil {
     public static func concatAll(arrays: [[UInt8]]) -> [UInt8] {
         var masterBuffer = [UInt8]()
-        
+
         for array in arrays {
             masterBuffer.append(contentsOf: array)
         }
-        
+
         return masterBuffer
     }
 
