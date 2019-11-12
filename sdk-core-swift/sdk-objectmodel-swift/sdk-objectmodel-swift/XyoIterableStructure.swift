@@ -226,7 +226,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         return XyoObjectStructure.encode(schema: schema, bytes: buffer)
         
     }
-    
+
     public static func verify (item: XyoIterableStructure) throws {
         let iterableItem = try item.getNewIterator()
 

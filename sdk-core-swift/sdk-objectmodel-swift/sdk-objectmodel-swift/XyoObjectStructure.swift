@@ -49,7 +49,7 @@ open class XyoObjectStructure {
             throw XyoObjectError.OUTOFINDEX
         }
     }
-    
+
     func readSizeOfObject (sizeIdentifier: XyoObjectSize, offset: Int) -> Int {
         switch sizeIdentifier {
         case XyoObjectSize.ONE:
