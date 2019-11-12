@@ -47,14 +47,14 @@ class XyoBufferTest: XCTestCase {
     func testPutUInt32() {
         let buffer = XyoBuffer()
         let int: UInt32 = 0x05
-        buffer.put(bits : int)
+        buffer.put(bits: int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x00, 0x00, 0x05])
     }
     
     func testPutUInt64() {
         let buffer = XyoBuffer()
-        let int : UInt64 = 0x05
+        let int: UInt64 = 0x05
         buffer.put(bits: int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
@@ -119,7 +119,7 @@ class XyoBufferTest: XCTestCase {
         
         XCTAssertEqual(8, buffer.getSize())
     }
-    
+
     func testSubSchema () {
         let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)

@@ -69,7 +69,7 @@ public struct XyoObjectSchema {
 
         return 0x00
     }
-    
+
     private static func getIsTypedByte (isTyped: Bool) -> UInt8 {
         if isTyped {
             return 0x10

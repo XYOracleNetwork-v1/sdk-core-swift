@@ -27,7 +27,7 @@ class XyoObjectIteratorTest: XCTestCase {
                                             isTypedIterable: false,
                                             sizeIdentifier: XyoObjectSize.ONE)
         
-        let values : [XyoObjectStructure] = [
+        let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
             XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
         ]
@@ -120,7 +120,7 @@ class XyoObjectIteratorTest: XCTestCase {
         
         let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
-            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
+            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
         ]
         
         let itemToAdd = XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
@@ -196,5 +196,4 @@ class XyoObjectIteratorTest: XCTestCase {
         
         throw XyoObjectError.OUTOFINDEX
     }
-    
 }

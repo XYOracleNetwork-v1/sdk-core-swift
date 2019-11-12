@@ -51,7 +51,7 @@ struct XyoBase58 {
             zerosToRemove += 1
         }
         base58.removeFirst(zerosToRemove)
-        
+
         while 0 < zerosCount {
             str = "\(str)1"
             zerosCount -= 1
