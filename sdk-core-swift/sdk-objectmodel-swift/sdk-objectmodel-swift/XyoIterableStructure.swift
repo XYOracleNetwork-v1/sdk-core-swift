@@ -224,7 +224,7 @@ open class XyoIterableStructure: XyoObjectStructure {
             buffer.put(buffer: item.value.copyRangeOf(from: 2, to: item.value.getSize()))
         }
         return XyoObjectStructure.encode(schema: schema, bytes: buffer)
-        
+
     }
 
     public static func verify (item: XyoIterableStructure) throws {

@@ -29,7 +29,7 @@ class XyoObjectIteratorTest: XCTestCase {
         
         let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
-            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
+            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
         ]
         
         let expectedIterable: [UInt8] = [0x20, 0xff,   // root header
@@ -54,7 +54,7 @@ class XyoObjectIteratorTest: XCTestCase {
         
         let values: [XyoObjectStructure] = [
             XyoObjectStructure.newInstance(schema: itemOneSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
-            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37])),
+            XyoObjectStructure.newInstance(schema: itemTwoSchema, bytes: XyoBuffer(data: [0x13, 0x37]))
         ]
         
         let expectedIterable: [UInt8] = [0x30, 0xff, // root header
@@ -193,7 +193,7 @@ class XyoObjectIteratorTest: XCTestCase {
             return
             // this is expected
         }
-        
+ 
         throw XyoObjectError.OUTOFINDEX
     }
 }

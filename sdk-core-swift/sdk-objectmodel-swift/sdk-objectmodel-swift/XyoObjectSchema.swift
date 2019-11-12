@@ -61,7 +61,7 @@ public struct XyoObjectSchema {
 
         return XyoObjectSchema(id: objectId, encodingCatalogue: encodingCatalogue)
     }
-    
+
     private static func getIterableByte(isIterable: Bool) -> UInt8 {
         if isIterable {
             return 0x20

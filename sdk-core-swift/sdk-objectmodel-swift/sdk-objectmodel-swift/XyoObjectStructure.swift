@@ -43,7 +43,7 @@ open class XyoObjectStructure {
         try checkIndex(index: sizeOfSize + 2)
         return readSizeOfObject(sizeIdentifier: (try getSchema()).getSizeIdentifier(), offset: 2)
     }
-    
+
     internal func checkIndex (index: Int) throws {
         if index > value.getSize() {
             throw XyoObjectError.OUTOFINDEX

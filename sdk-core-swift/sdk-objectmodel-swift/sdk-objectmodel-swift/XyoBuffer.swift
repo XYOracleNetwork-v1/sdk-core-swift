@@ -154,7 +154,7 @@ public class XyoBuffer {
         data.append(UInt8(bits & 0xFF))
         return self
     }
-    
+
     @discardableResult
     public func put (buffer: XyoBuffer) -> XyoBuffer {
         return put(bytes: buffer.toByteArray())
