@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import sdk_objectmodel_swift
 
-class XyoBufferTest : XCTestCase {
+class XyoBufferTest: XCTestCase {
     
     func testPutSchema () {
         let buffer = XyoBuffer()
@@ -62,31 +62,31 @@ class XyoBufferTest : XCTestCase {
     
     func testGetSchema () {
         let schema = XyoObjectSchema(id: 0x13, encodingCatalogue: 0x37)
-        let buffer = XyoBuffer(data : schema.toByteArray())
+        let buffer = XyoBuffer(data: schema.toByteArray())
         let got = buffer.getSchema(offset: 0)
         
         XCTAssertEqual(got.toByteArray(), schema.toByteArray())
     }
     
     func testGetUInt8 () {
-        let int : UInt8 = 0x15
-        let buffer = XyoBuffer(data : [int])
+        let int: UInt8 = 0x15
+        let buffer = XyoBuffer(data: [int])
         let got = buffer.getUInt8(offset: 0)
         
         XCTAssertEqual(got, int)
     }
     
     func testGetUInt16 () {
-        let int : UInt16 = 0x05
-        let buffer = XyoBuffer(data : [0x00, 0x05])
+        let int: UInt16 = 0x05
+        let buffer = XyoBuffer(data: [0x00, 0x05])
         let got = buffer.getUInt16(offset: 0)
         
         XCTAssertEqual(got, int)
     }
     
     func testGetUInt32 () {
-        let int : UInt32 = 0x05
-        let buffer = XyoBuffer(data : [0x00, 0x00, 0x00, 0x05])
+        let int: UInt32 = 0x05
+        let buffer = XyoBuffer(data: [0x00, 0x00, 0x00, 0x05])
         let got = buffer.getUInt32(offset: 0)
         
         XCTAssertEqual(got, int)
@@ -94,39 +94,38 @@ class XyoBufferTest : XCTestCase {
     
     func testGetUInt64 () {
         let int : UInt64 = 0x05
-        let buffer = XyoBuffer(data : [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
+        let buffer = XyoBuffer(data: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
         let got = buffer.getUInt64(offset: 0)
         
         XCTAssertEqual(got, int)
     }
     
     func testSubByteArray () {
-        let buffer = XyoBuffer(data : [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
+        let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
         
         XCTAssertEqual([0x02, 0x03], subBuffer.toByteArray())
     }
     
     func testSubSize () {
-        let buffer = XyoBuffer(data : [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
+        let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
         
         XCTAssertEqual(2, subBuffer.getSize())
     }
     
     func testSize () {
-        let buffer = XyoBuffer(data : [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
+        let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         
         XCTAssertEqual(8, buffer.getSize())
     }
     
     func testSubSchema () {
-        let buffer = XyoBuffer(data : [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
+        let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
         let subSchema = subBuffer.getSchema(offset: 0)
         
         XCTAssertEqual(subSchema.id, 3)
         XCTAssertEqual(subSchema.encodingCatalogue, 2)
     }
-    
 }

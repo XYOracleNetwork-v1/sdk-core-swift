@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 import sdk_core_swift
 
-class XyoSecp256k1SignerTest : XCTestCase {
+class XyoSecp256k1SignerTest: XCTestCase {
     
     func testGetPublicKey () throws {
         let privateKey = "DECCC9FA76EF2D0D90D5C5C9807C25E5429C5202D35A8F5D5C9A3CD7DE0B26EF".hexStringToBytes()
@@ -26,7 +26,7 @@ class XyoSecp256k1SignerTest : XCTestCase {
         let privateKey = "DECCC9FA76EF2D0D90D5C5C9807C25E5429C5202D35A8F5D5C9A3CD7DE0B26EF".hexStringToBytes()
         let signer = XyoSecp256k1Signer(privateKeyNum: privateKey)
         
-        let _ = signer.sign(data: [0x00])
+        _ = signer.sign(data: [0x00])
         // must assert with auth because sigs are non-deterministic
     }
     

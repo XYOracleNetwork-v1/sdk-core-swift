@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import sdk_objectmodel_swift
 
-class XyoObjectStructureTest : XCTestCase {
+class XyoObjectStructureTest: XCTestCase {
     
     func testGetBuffer () {
         let schema = XyoObjectSchema.create(id: 0xff, isIterable: false, isTypedIterable: false, sizeIdentifier: XyoObjectSize.ONE)
@@ -20,7 +20,8 @@ class XyoObjectStructureTest : XCTestCase {
     }
     
     func testGetValue () throws {
-        let schema = XyoObjectSchema.create(id: 0xff, isIterable: false, isTypedIterable: false, sizeIdentifier: XyoObjectSize.ONE)
+        let schema = XyoObjectSchema.create(
+            id: 0xff, isIterable: false, isTypedIterable: false, sizeIdentifier: XyoObjectSize.ONE)
         let structure = XyoObjectStructure.newInstance(schema: schema, bytes: XyoBuffer(data: [0x13, 0x37]))
         
         XCTAssertEqual(try structure.getValueCopy().toByteArray(), [0x13, 0x37])
@@ -33,5 +34,4 @@ class XyoObjectStructureTest : XCTestCase {
         
         _ = try structuer.getValueCopy()
     }
-    
 }

@@ -16,7 +16,7 @@ public struct XyoSha256 : XyoHasher {
       var digest = Data(count: Int(CC_SHA256_DIGEST_LENGTH))
       
       digest.withUnsafeMutableBytes { sha256Buffer in
-        data.withUnsafeBytes { buffer in
+        data.withUnsafeBytes {
           _ = CC_SHA256(data, CC_LONG(data.count), sha256Buffer.bindMemory(to: UInt8.self).baseAddress)
         }
       }
