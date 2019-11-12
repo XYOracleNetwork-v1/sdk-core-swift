@@ -18,7 +18,7 @@ public struct XyoByteUtil {
         
         return masterBuffer
     }
-    
+
     public static func getBestSize (size: Int) -> XyoObjectSize {
         if size + 1 <= UInt8.max {
             return XyoObjectSize.ONE

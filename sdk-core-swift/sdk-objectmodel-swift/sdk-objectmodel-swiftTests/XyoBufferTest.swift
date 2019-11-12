@@ -39,7 +39,7 @@ class XyoBufferTest: XCTestCase {
     func testPutUInt16() {
         let buffer = XyoBuffer()
         let int: UInt16 = 0x05
-        buffer.put(bits : int)
+        buffer.put(bits: int)
         
         XCTAssertEqual(buffer.toByteArray(), [0x00, 0x05])
     }
@@ -116,7 +116,7 @@ class XyoBufferTest: XCTestCase {
     
     func testSize () {
         let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
-        
+
         XCTAssertEqual(8, buffer.getSize())
     }
 

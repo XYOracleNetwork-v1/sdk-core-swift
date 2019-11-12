@@ -20,7 +20,7 @@ class XyoUInt8ToHexStringTest: XCTestCase {
     
     func testCaseTwo () {
         let bytes: [UInt8] = [0xff, 0xff]
-        
+
         XCTAssertEqual(bytes.toHexString(), "0xFFFF")
     }
 

@@ -42,7 +42,7 @@ struct XyoBase58 {
             
             length = index
         }
-        
+
         // skip leading zeros
         var zerosToRemove = 0
         var str = ""
