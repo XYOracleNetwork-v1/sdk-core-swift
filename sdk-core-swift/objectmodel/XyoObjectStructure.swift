@@ -30,11 +30,11 @@ open class XyoObjectStructure {
         return typedSchema ?? value.getSchema(offset: 0)
     }
 
-    public func getValueCopy () throws -> XyoBuffer {        
+    public func getValueCopy () throws -> XyoBuffer {
         let startIndex = 2 + (try getSchema()).getSizeIdentifier().rawValue + value.allowedOffset
         let endIndex = startIndex + (try getSize()) - (try getSchema()).getSizeIdentifier().rawValue
         try checkIndex(index: endIndex -  value.allowedOffset)
-        
+
         return XyoBuffer(data: value, allowedOffset: startIndex, lastOffset: endIndex)
     }
 
@@ -45,7 +45,7 @@ open class XyoObjectStructure {
     }
 
     internal func checkIndex (index: Int) throws {
-        if (index > value.getSize()) {
+        if index > value.getSize() {
             throw XyoObjectError.OUTOFINDEX
         }
     }
@@ -70,18 +70,21 @@ open class XyoObjectStructure {
     static func encode (schema: XyoObjectSchema, bytes: XyoBuffer) -> XyoBuffer {
         let buffer = XyoBuffer()
         let size = bytes.toByteArray().count
-        let typeOfSize = XyoByteUtil.getBestSize(size : size)
-        buffer.put(schema : XyoObjectSchema.create(id: schema.id, isIterable: schema.getIsIterable(), isTypedIterable: schema.getIsTypedIterable(), sizeIdentifier: typeOfSize))
+        let typeOfSize = XyoByteUtil.getBestSize(size: size)
+        buffer.put(schema: XyoObjectSchema.create(id: schema.id,
+                                                  isIterable: schema.getIsIterable(),
+                                                  isTypedIterable: schema.getIsTypedIterable(),
+                                                  sizeIdentifier: typeOfSize))
 
         switch typeOfSize {
         case XyoObjectSize.ONE:
-            buffer.put(bits : UInt8(size + 1))
+            buffer.put(bits: UInt8(size + 1))
         case XyoObjectSize.TWO:
-            buffer.put(bits : UInt16(size + 2))
+            buffer.put(bits: UInt16(size + 2))
         case XyoObjectSize.FOUR:
-            buffer.put(bits : UInt32(size + 4))
+            buffer.put(bits: UInt32(size + 4))
         case XyoObjectSize.EIGHT:
-            buffer.put(bits : UInt64(size + 8))
+            buffer.put(bits: UInt64(size + 8))
         }
 
         return buffer.put(bytes: bytes.toByteArray())

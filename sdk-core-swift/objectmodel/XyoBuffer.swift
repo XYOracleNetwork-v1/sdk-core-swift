@@ -92,14 +92,14 @@ public class XyoBuffer {
         let three = UInt64(data[allowedOffset + offset + 5]) << 16
         let two = UInt64(data[allowedOffset + offset + 6]) << 8
         let one = UInt64(data[allowedOffset + offset + 7])
-        
+
         return (one+two+three+four)+(five+six+seven+eight)
     }
 
-    public func copyRangeOf(from: Int, to: Int) -> XyoBuffer {
+    public func copyRangeOf(from: Int, toEnd: Int) -> XyoBuffer {
         let returnBuffer = XyoBuffer()
 
-        for index in from...to - 1 {
+        for index in from...toEnd - 1 {
             returnBuffer.put(bits: getUInt8(offset: index))
         }
 

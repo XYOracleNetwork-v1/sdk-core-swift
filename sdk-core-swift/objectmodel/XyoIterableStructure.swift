@@ -9,7 +9,7 @@
 import Foundation
 
 open class XyoIterableStructure: XyoObjectStructure {
-    private var globalSchema: XyoObjectSchema? = nil
+    private var globalSchema: XyoObjectSchema?
 
     public func getNewIterator () throws -> XyoObjectIterator {
         return try XyoObjectIterator(currentOffset: readOwnHeader(), structure: self, isTyped: globalSchema != nil)
@@ -44,14 +44,14 @@ open class XyoIterableStructure: XyoObjectStructure {
         throw XyoObjectError.OUTOFINDEX
     }
 
-    public func get (id: UInt8) throws -> [XyoObjectStructure] {
+    public func get (objectId: UInt8) throws -> [XyoObjectStructure] {
         let iterator = try getNewIterator()
         var itemsThatFollowId = [XyoObjectStructure]()
 
         while try iterator.hasNext() {
             let item = try iterator.next()
 
-            if try item.getSchema().id == id {
+            if try item.getSchema().id == objectId {
                 itemsThatFollowId.append(item)
             }
 
@@ -138,7 +138,7 @@ open class XyoIterableStructure: XyoObjectStructure {
             _ = try readOwnHeader()
 
             if try element.getSchema().id == (self.globalSchema?.id) {
-                buffer.put(buffer: element.getBuffer().copyRangeOf(from: 2, to: try element.getSize() + 2))
+                buffer.put(buffer: element.getBuffer().copyRangeOf(from: 2, toEnd: try element.getSize() + 2))
                 value = XyoObjectStructure.encode(schema: try self.getSchema(), bytes: buffer)
                 return
             }
@@ -181,15 +181,18 @@ open class XyoIterableStructure: XyoObjectStructure {
         }
     }
 
-    public static func createTypedIterableObject (schema: XyoObjectSchema, values: [XyoObjectStructure]) throws -> XyoIterableStructure {
+    public static func createTypedIterableObject (schema: XyoObjectSchema,
+                                                  values: [XyoObjectStructure]) throws -> XyoIterableStructure {
         return XyoIterableStructure(value: try encodeTypedIterableObject(schema: schema, values: values))
     }
 
-    public static func createUntypedIterableObject (schema: XyoObjectSchema, values: [XyoObjectStructure]) -> XyoIterableStructure {
+    public static func createUntypedIterableObject (schema: XyoObjectSchema,
+                                                    values: [XyoObjectStructure]) -> XyoIterableStructure {
         return XyoIterableStructure(value: encodeUntypedIterableObject(schema: schema, values: values))
     }
 
-    public static func encodeUntypedIterableObject (schema: XyoObjectSchema, values: [XyoObjectStructure]) -> XyoBuffer {
+    public static func encodeUntypedIterableObject (schema: XyoObjectSchema,
+                                                    values: [XyoObjectStructure]) -> XyoBuffer {
         if (schema.getIsTypedIterable()) {
             fatalError("Schema is not untyped.")
         }
@@ -204,11 +207,11 @@ open class XyoIterableStructure: XyoObjectStructure {
     }
 
     static func encodeTypedIterableObject(schema: XyoObjectSchema, values: [XyoObjectStructure]) throws -> XyoBuffer {
-        if (!schema.getIsTypedIterable()) {
+        if !schema.getIsTypedIterable() {
             fatalError("Schema is not typed.")
         }
 
-        if (values.isEmpty) {
+        if values.isEmpty {
             throw XyoObjectError.NOELEMENTS
         }
 
@@ -217,20 +220,20 @@ open class XyoIterableStructure: XyoObjectStructure {
         buffer.put(schema: try values[0].getSchema())
 
         for item in values {
-            buffer.put(buffer: item.value.copyRangeOf(from: 2, to: item.value.getSize()))
+            buffer.put(buffer: item.value.copyRangeOf(from: 2, toEnd: item.value.getSize()))
         }
 
         return XyoObjectStructure.encode(schema: schema, bytes: buffer)
 
     }
 
-    public static func verify (item : XyoIterableStructure) throws {
+    public static func verify (item: XyoIterableStructure) throws {
         let iterator = try item.getNewIterator()
 
         while try iterator.hasNext() {
             let value = try iterator.next()
 
-            if (value is XyoIterableStructure) {
+            if value is XyoIterableStructure {
                 try verify(item: (value as! XyoIterableStructure))
             }
         }
