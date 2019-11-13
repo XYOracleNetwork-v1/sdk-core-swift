@@ -88,7 +88,7 @@ class XyoBufferTest: XCTestCase {
         let int: UInt32 = 0x05
         let buffer = XyoBuffer(data: [0x00, 0x00, 0x00, 0x05])
         let got = buffer.getUInt32(offset: 0)
-    
+
         XCTAssertEqual(got, int)
     }
 
@@ -96,21 +96,21 @@ class XyoBufferTest: XCTestCase {
         let int: UInt64 = 0x05
         let buffer = XyoBuffer(data: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05])
         let got = buffer.getUInt64(offset: 0)
-   
+
         XCTAssertEqual(got, int)
     }
 
     func testSubByteArray () {
         let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
-        
+
         XCTAssertEqual([0x02, 0x03], subBuffer.toByteArray())
     }
 
     func testSubSize () {
         let buffer = XyoBuffer(data: [0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07])
         let subBuffer = XyoBuffer(data: buffer, allowedOffset: 2, lastOffset: 4)
-        
+
         XCTAssertEqual(2, subBuffer.getSize())
     }
 
