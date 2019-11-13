@@ -193,7 +193,7 @@ open class XyoIterableStructure: XyoObjectStructure {
 
     public static func encodeUntypedIterableObject (schema: XyoObjectSchema,
                                                     values: [XyoObjectStructure]) -> XyoBuffer {
-        if (schema.getIsTypedIterable()) {
+        if schema.getIsTypedIterable() {
             fatalError("Schema is not untyped.")
         }
 
