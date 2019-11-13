@@ -26,6 +26,6 @@ public struct XyoAdvertisePacket {
             throw XyoObjectError.OUTOFINDEX
         }
         
-        return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
+        return XyoBuffer(data: data).copyRangeOf(from: 1, toEnd: sizeOfChoice + 1).toByteArray()
     }
 }

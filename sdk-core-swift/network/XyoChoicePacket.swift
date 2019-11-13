@@ -26,7 +26,7 @@ public struct XyoChoicePacket {
             throw XyoObjectError.OUTOFINDEX
         }
         
-        return XyoBuffer(data: data).copyRangeOf(from: 1, to: sizeOfChoice + 1).toByteArray()
+        return XyoBuffer(data: data).copyRangeOf(from: 1, toEnd: sizeOfChoice + 1).toByteArray()
     }
     
     func getResponse () throws -> [UInt8] {
@@ -40,7 +40,7 @@ public struct XyoChoicePacket {
             throw XyoObjectError.OUTOFINDEX
         }
         
-        return XyoBuffer(data: data).copyRangeOf(from: sizeOfChoice + 1, to: data.count).toByteArray()
+        return XyoBuffer(data: data).copyRangeOf(from: sizeOfChoice + 1, toEnd: data.count).toByteArray()
     }
     
     private func getSizeOfChoice () -> Int {
