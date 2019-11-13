@@ -11,33 +11,33 @@ import Foundation
 open class XyoObjectStructure {
     private let typedSchema: XyoObjectSchema?
     var value: XyoBuffer
-    
+
     public init (value: XyoBuffer) {
         self.typedSchema = nil
         self.value = value
     }
-    
+
     public init (value: XyoBuffer, schema: XyoObjectSchema) {
         self.typedSchema = schema
         self.value = XyoBuffer().put(schema: schema).put(buffer: value)
     }
-    
+
     public func getBuffer () -> XyoBuffer {
         return value
     }
-    
+
     public func getSchema () throws -> XyoObjectSchema {
         return typedSchema ?? value.getSchema(offset: 0)
     }
-    
+
     public func getValueCopy () throws -> XyoBuffer {
         let startIndex = 2 + (try getSchema()).getSizeIdentifier().rawValue + value.allowedOffset
         let endIndex = startIndex + (try getSize()) - (try getSchema()).getSizeIdentifier().rawValue
         try checkIndex(index: endIndex -  value.allowedOffset)
-        
+
         return XyoBuffer(data: value, allowedOffset: startIndex, lastOffset: endIndex)
     }
-    
+
     public func getSize () throws -> Int {
         let sizeOfSize = Int(try getSchema().getSizeIdentifier().rawValue)
         try checkIndex(index: sizeOfSize + 2)
