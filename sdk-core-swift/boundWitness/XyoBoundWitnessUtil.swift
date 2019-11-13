@@ -35,10 +35,10 @@ public struct XyoBoundWitnessUtil {
         
         let it = try typedWitness.getNewIterator()
         
-        while (try it.hasNext()) {
+        while try it.hasNext() {
             let item = try it.next()
             
-            if (try item.getSchema().id != id) {
+            if try item.getSchema().id != id {
                 newWitnessContents.append(item)
             }
         }
@@ -80,8 +80,8 @@ public struct XyoBoundWitnessUtil {
         
         let it = try keyset.getNewIterator()
         
-        while (try it.hasNext()) {
-            if (try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray()) {
+        while try it.hasNext() {
+            if try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray() {
                 return true
             }
         }

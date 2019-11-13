@@ -11,7 +11,7 @@ import Foundation
 open class XyoBoundWitness : XyoIterableStructure {
     
     public func getIsCompleted () throws -> Bool {
-        if (try self.get(objectId: XyoSchemas.WITNESS.id).count > 0) {
+        if try self.get(objectId: XyoSchemas.WITNESS.id).count > 0 {
             return try self.get(objectId: XyoSchemas.FETTER.id).count == (try self.get(objectId: XyoSchemas.WITNESS.id).count)
         }
         
@@ -36,7 +36,7 @@ open class XyoBoundWitness : XyoIterableStructure {
     }
     
     public func addToLedger (item : XyoObjectStructure) throws {
-        if (try getIsCompleted()) {
+        if try getIsCompleted() {
             throw XyoError.BW_IS_COMPLETED
         }
         
@@ -63,7 +63,7 @@ open class XyoBoundWitness : XyoIterableStructure {
             return nil
         }
         
-        if (numberOfParties <= partyIndex) {
+        if numberOfParties <= partyIndex {
             return nil
         }
         
@@ -76,7 +76,7 @@ open class XyoBoundWitness : XyoIterableStructure {
             return nil
         }
         
-        if (numberOfParties <= partyIndex) {
+        if numberOfParties <= partyIndex {
             return nil
         }
         
