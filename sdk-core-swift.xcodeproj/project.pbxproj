@@ -156,7 +156,6 @@
 		468C9A89237C7E4D00335C3C /* XyoBufferTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoBufferTest.swift; sourceTree = "<group>"; };
 		468C9A8A237C7E4D00335C3C /* XyoObjectIteratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoObjectIteratorTest.swift; sourceTree = "<group>"; };
 		468C9A8B237C7E4D00335C3C /* XyoUInt8ToHexStringTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XyoUInt8ToHexStringTest.swift; sourceTree = "<group>"; };
-		468C9A8C237C7E4D00335C3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		468C9AEA237C973E00335C3C /* XyoBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XyoBuffer.swift; sourceTree = "<group>"; };
 		468C9AEB237C973E00335C3C /* XyoBase58.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XyoBase58.swift; sourceTree = "<group>"; };
 		468C9AEC237C973E00335C3C /* XyoByteUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XyoByteUtil.swift; sourceTree = "<group>"; };
@@ -393,7 +392,6 @@
 				468C9A89237C7E4D00335C3C /* XyoBufferTest.swift */,
 				468C9A8A237C7E4D00335C3C /* XyoObjectIteratorTest.swift */,
 				468C9A8B237C7E4D00335C3C /* XyoUInt8ToHexStringTest.swift */,
-				468C9A8C237C7E4D00335C3C /* Info.plist */,
 			);
 			path = "sdk-objectmodel-swiftTests";
 			sourceTree = "<group>";

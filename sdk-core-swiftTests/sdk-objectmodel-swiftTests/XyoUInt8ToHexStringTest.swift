@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
 
 class XyoUInt8ToHexStringTest: XCTestCase {
 

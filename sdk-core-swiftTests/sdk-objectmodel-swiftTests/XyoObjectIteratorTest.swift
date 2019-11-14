@@ -8,7 +8,6 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
 
 class XyoObjectIteratorTest: XCTestCase {
     let itemOneSchema = XyoObjectSchema.create(id: 0x55,
