@@ -22,7 +22,7 @@ before_script:
 script:
   - pod deintegrate
   - pod install
-  - xcodebuild clean -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test
+  - xcodebuild clean -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test | xcpretty
 
 after_script:
   - slather coverage -x --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj
