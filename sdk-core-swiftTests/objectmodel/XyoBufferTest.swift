@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
+@testable import sdk_core_swift
 
 class XyoBufferTest: XCTestCase {
 
@@ -128,4 +128,5 @@ class XyoBufferTest: XCTestCase {
         XCTAssertEqual(subSchema.id, 3)
         XCTAssertEqual(subSchema.encodingCatalogue, 2)
     }
+
 }

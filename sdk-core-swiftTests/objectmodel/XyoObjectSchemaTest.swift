@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
+@testable import sdk_core_swift
 
 class XyoObjectSchemaTest: XCTestCase {
 
@@ -67,8 +67,10 @@ class XyoObjectSchemaTest: XCTestCase {
     }
 
     func testCreateCaseOne() {
-        let schema = XyoObjectSchema.create(
-            id: 0xff, isIterable: true, isTypedIterable: false, sizeIdentifier: XyoObjectSize.TWO)
+        let schema = XyoObjectSchema.create(id: 0xff,
+                                            isIterable: true,
+                                            isTypedIterable: false,
+                                            sizeIdentifier: XyoObjectSize.TWO)
 
         XCTAssertEqual(0xff, schema.id)
         XCTAssertEqual(true, schema.getIsIterable())
@@ -77,8 +79,10 @@ class XyoObjectSchemaTest: XCTestCase {
     }
 
     func testCreateCaseTwo() {
-        let schema = XyoObjectSchema.create(
-            id: 0xff, isIterable: false, isTypedIterable: false, sizeIdentifier: XyoObjectSize.ONE)
+        let schema = XyoObjectSchema.create(id: 0xff,
+                                            isIterable: false,
+                                            isTypedIterable: false,
+                                            sizeIdentifier: XyoObjectSize.ONE)
 
         XCTAssertEqual(0xff, schema.id)
         XCTAssertEqual(false, schema.getIsIterable())
@@ -87,8 +91,10 @@ class XyoObjectSchemaTest: XCTestCase {
     }
 
     func testCreateCaseThree() {
-        let schema = XyoObjectSchema.create(
-            id: 0xff, isIterable: true, isTypedIterable: true, sizeIdentifier: XyoObjectSize.EIGHT)
+        let schema = XyoObjectSchema.create(id: 0xff,
+                                            isIterable: true,
+                                            isTypedIterable: true,
+                                            sizeIdentifier: XyoObjectSize.EIGHT)
 
         XCTAssertEqual(0xff, schema.id)
         XCTAssertEqual(true, schema.getIsIterable())
@@ -97,8 +103,10 @@ class XyoObjectSchemaTest: XCTestCase {
     }
 
     func testCreateCaseFour() {
-        let schema = XyoObjectSchema.create(
-            id: 0xff, isIterable: false, isTypedIterable: true, sizeIdentifier: XyoObjectSize.FOUR)
+        let schema = XyoObjectSchema.create(id: 0xff,
+                                            isIterable: false,
+                                            isTypedIterable: true,
+                                            sizeIdentifier: XyoObjectSize.FOUR)
 
         XCTAssertEqual(0xff, schema.id)
         XCTAssertEqual(false, schema.getIsIterable())

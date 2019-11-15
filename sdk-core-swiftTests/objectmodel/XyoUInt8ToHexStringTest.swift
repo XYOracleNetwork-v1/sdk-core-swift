@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
+@testable import sdk_core_swift
 
 class XyoUInt8ToHexStringTest: XCTestCase {
 
@@ -29,4 +29,5 @@ class XyoUInt8ToHexStringTest: XCTestCase {
 
         XCTAssertEqual(bytes.toHexString(), "0x12345678ABCDEF")
     }
+
 }

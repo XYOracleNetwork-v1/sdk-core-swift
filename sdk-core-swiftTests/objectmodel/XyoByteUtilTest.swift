@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-@testable import sdk_objectmodel_swift
+@testable import sdk_core_swift
 
 class XyoByteUtiltest: XCTestCase {
 
@@ -45,4 +45,5 @@ class XyoByteUtiltest: XCTestCase {
         XCTAssertEqual(XyoObjectSize.EIGHT, XyoByteUtil.getBestSize(size: Int(UInt32.max)))
         XCTAssertEqual(XyoObjectSize.EIGHT, XyoByteUtil.getBestSize(size: Int(UInt32.max) * Int(UInt32(4))))
     }
+
 }

@@ -20,8 +20,9 @@ before_script:
     ./cc-test-reporter before-build 
 
 script:
+  - pod deintegrate
   - pod install
-  - xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=12.2,name\=iPhone\ X build test | xcpretty
+  - xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test clean -UseModernBuildSystem=NO | xcpretty
 
 after_script:
   - slather coverage -x --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj
