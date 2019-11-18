@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// A repository to facilitate the storage of origin chain state related items. It is optional to implement a caching
 /// mechanism behind this repo, but it is highly recomended. This repo does not need to persist any data until the

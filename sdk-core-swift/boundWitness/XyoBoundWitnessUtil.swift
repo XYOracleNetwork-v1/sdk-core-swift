@@ -7,15 +7,14 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 public struct XyoBoundWitnessUtil {
     
     public static func removeIdFromUnsignedPayload (id: UInt8, boundWitness : XyoIterableStructure) throws -> XyoBoundWitness {
         var newBoundWitnessLedger : [XyoObjectStructure] = []
         
-        let fetters = try boundWitness.get(id: XyoSchemas.FETTER.id)
-        let witnesses = try boundWitness.get(id: XyoSchemas.WITNESS.id)
+        let fetters = try boundWitness.get(objectId: XyoSchemas.FETTER.id)
+        let witnesses = try boundWitness.get(objectId: XyoSchemas.WITNESS.id)
         
         newBoundWitnessLedger.append(contentsOf: fetters)
         
@@ -31,15 +30,15 @@ public struct XyoBoundWitnessUtil {
         var newWitnessContents : [XyoObjectStructure] = []
         
         guard let typedWitness = witness as? XyoIterableStructure else {
-            throw XyoObjectError.NOT_ITERABLE
+            throw XyoObjectError.NOTITERABLE
         }
         
         let it = try typedWitness.getNewIterator()
         
-        while (try it.hasNext()) {
+        while try it.hasNext() {
             let item = try it.next()
             
-            if (try item.getSchema().id != id) {
+            if try item.getSchema().id != id {
                 newWitnessContents.append(item)
             }
         }
@@ -63,7 +62,7 @@ public struct XyoBoundWitnessUtil {
     }
     
     private static func checkPartyForPublicKey (fetter : XyoIterableStructure, publicKey : XyoObjectStructure) throws -> Bool {
-        for keySet in (try fetter.get(id: XyoSchemas.KEY_SET.id)) {
+        for keySet in (try fetter.get(objectId: XyoSchemas.KEY_SET.id)) {
             guard let typedKeyset = keySet as? XyoIterableStructure else {
                 return false
             }
@@ -81,8 +80,8 @@ public struct XyoBoundWitnessUtil {
         
         let it = try keyset.getNewIterator()
         
-        while (try it.hasNext()) {
-            if (try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray()) {
+        while try it.hasNext() {
+            if try it.next().getBuffer().toByteArray() == publicKey.getBuffer().toByteArray() {
                 return true
             }
         }

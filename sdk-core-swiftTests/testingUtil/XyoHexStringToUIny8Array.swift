@@ -1,8 +1,8 @@
 //
-//  XyoHexStringToUInt8Array.swift
-//  sdk-core-swiftTests
+//  XyoHexStringToUIny8Array.swift
+//  sdk-objectmodel-swiftTests
 //
-//  Created by Carter Harrison on 1/22/19.
+//  Created by Carter Harrison on 1/23/19.
 //  Copyright © 2019 XYO Network. All rights reserved.
 //
 

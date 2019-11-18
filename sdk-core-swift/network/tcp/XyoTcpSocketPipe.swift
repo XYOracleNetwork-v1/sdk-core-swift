@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 public class XyoTcpSocketPipe: XyoNetworkPipe {
     private let socket : XyoTcpSocket

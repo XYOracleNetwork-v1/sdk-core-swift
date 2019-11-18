@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 /// A struct to help with the orgin related utilities of an origin chain. These functions are concepts related
 /// to origin blocks, not bound witnesses.
@@ -18,14 +17,14 @@ public struct XyoOriginBoundWitnessUtil {
     /// - Parameter boundWitness:  The bound witness to extract the bridged blocks from.
     /// - Returns: The bridged blocks of the first party that has it, if any.
     public static func getBridgedBlocks (boundWitness : XyoBoundWitness) throws -> XyoIterableStructure? {
-        let witnesses = try boundWitness.get(id: XyoSchemas.WITNESS.id)
+        let witnesses = try boundWitness.get(objectId: XyoSchemas.WITNESS.id)
         
         for witness in witnesses {
             guard let typedWitness = witness as? XyoIterableStructure else {
                 throw XyoError.MUST_BE_FETTER_OR_WITNESS
             }
             
-            let blockset = try typedWitness.get(id: XyoSchemas.BRIDGE_BLOCK_SET.id)
+            let blockset = try typedWitness.get(objectId: XyoSchemas.BRIDGE_BLOCK_SET.id)
 
             for item in blockset {
                 return item as? XyoIterableStructure

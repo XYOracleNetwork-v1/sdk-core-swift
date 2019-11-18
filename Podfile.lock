@@ -1,20 +1,16 @@
 PODS:
-  - sdk-objectmodel-swift (3.0.0)
   - secp256k1.swift (0.1.4)
 
 DEPENDENCIES:
-  - sdk-objectmodel-swift (~> 3.0)
   - secp256k1.swift
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - sdk-objectmodel-swift
+  trunk:
     - secp256k1.swift
 
 SPEC CHECKSUMS:
-  sdk-objectmodel-swift: 4f80ae7001734127c850d47ec453727a6c26867a
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
 
-PODFILE CHECKSUM: 441838da99decfe2868a9936bce7f09621d6255c
+PODFILE CHECKSUM: a3b631c35eac25fa70a77573029be238ea9b7fde
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

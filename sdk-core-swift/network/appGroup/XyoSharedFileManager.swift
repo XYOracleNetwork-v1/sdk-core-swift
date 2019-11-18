@@ -61,12 +61,15 @@ internal extension XyoSharedFileManager {
 
         var error: NSError?
         self.opQueue.addOperation { [weak self] in
-            guard let strong = self else { return }
+          guard
+            let strong = self,
+            let encoded = message.encoded
+          else { return }
 
             // Create the message with the data and write to the file
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
-                let dictData = NSKeyedArchiver.archivedData(withRootObject: message.encoded)
-                try? dictData.write(to: url)
+              let dictData = try? NSKeyedArchiver.archivedData(withRootObject: encoded, requiringSecureCoding: true)
+                try? dictData?.write(to: url)
                 callback?(nil)
             }
 
@@ -86,8 +89,9 @@ internal extension XyoSharedFileManager {
     // Unpacks the file change and returns the message data, ensuring the sender is not the same
     func validateRead() {
         guard
-            let containerData = NSKeyedUnarchiver.unarchiveObject(withFile: self.url.path) as? Data,
-            let message = Message.decode(containerData),
+            let fileData = try? Data(contentsOf: self.url),
+            let unarchivedData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(fileData) as? Data,
+            let message = Message.decode(unarchivedData),
             message.identifier != self.identifier else { return }
 
         self.readCallback?(message.data, message.identifier)

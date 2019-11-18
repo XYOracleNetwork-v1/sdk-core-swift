@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import sdk_objectmodel_swift
 
 class XyoBridgingOption: XyoBoundWitnessOption {
     private var blocksInTransit = [XyoBridgeQueueItem]()

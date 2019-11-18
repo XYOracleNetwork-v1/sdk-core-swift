@@ -1,6 +1,6 @@
-[logo]: https://cdn.xy.company/img/brand/XY_Logo_GitHub.png
+[logo]: https://cdn.xy.company/img/brand/XYO_full_colored.png
 
-[![logo]](https://xy.company)
+[![logo]](https://xyo.network)
 
 # sdk-core-swift
 
@@ -10,20 +10,16 @@
 ## Table of Contents
 
 -   [Title](#sdk-core-swift)
--   [Description](#description)
--   [Long Description](#long-description)
--   [XYO Origin Block Protocol](#xyo-origin-block-protocol)
 -   [Getting Started](#getting-started)
--   [Install](#install)
--   [Building and Testing with Gradle](#building-and-testing-with-gradle)
 -   [Origin Chain](#origin-chain)
 -   [Bound Witness](#bound-witness)
 -   [Node Listener](#node-listener)
--   [Testing](#testing)
+-   [TCP Node](#tcp-node)
 -   [Maintainers](#maintainers)
--   [Contributing](#contributing)
 -   [License](#license)
 -   [Credits](#credits)
+
+**NOTE** The latest version of this SDK includes the objectmodel as previously imported from `sdk-objectmodel-swift`.
 
 This `README.md` document is an overview of the common methods that you may need when integrating the XYO Core SDK into your project. 
 
@@ -36,8 +32,6 @@ The library has heavily abstracted modules so that all operations will work with
 The XYO protocol for creating origin-blocks is specified in the [XYO Yellow Paper](https://docs.xyo.network/XYO-Yellow-Paper.pdf). In it, it describes the behavior of how a node on the XYO network should create Bound Witnesses. Note, the behavior is not coupled with any particular technology constraints around transport layers, cryptographic algorithms, or hashing algorithms.
 
 ## Getting Started
-
-## Install
 
 ### CocoaPods
 
@@ -267,7 +261,16 @@ for i in 0..9 {
 }
 ```
 
-## License
-See the [LICENSE.md](LICENSE) file for license details.
+## Maintainers
 
-Made with 🔥and ❄️ by [XY - The Persistent Company](https://www.xy.company)
+- Carter Harrison
+- Arie Trouw
+- Kevin Weiler
+
+## License
+
+See the [LICENSE](LICENSE) file for license details.
+
+## Credits 
+
+Made with 🔥and ❄️ by [XYO](https://www.xyo.network)
