@@ -71,11 +71,19 @@ internal extension XyoSharedFileManager {
             // Create the message with the data and write to the file
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
                 if #available(iOS 11.0, *) {
-                    let dictData = try? NSKeyedArchiver.archivedData(withRootObject: encoded, requiringSecureCoding: true)
+                    let dictData = try? NSKeyedArchiver.archivedData(
+                        withRootObject: encoded,
+                        requiringSecureCoding: true
+                    )
                     try? dictData?.write(to: url)
                     callback?(nil)
                 } else {
-                    callback?(NSError(domain: "XyoSharedFileManager", code: XyoSharedFileManager.notSupportedError, userInfo: nil))
+                    let err = NSError(
+                        domain: "XyoSharedFileManager",
+                        code: XyoSharedFileManager.notSupportedError,
+                        userInfo: nil
+                    )
+                    callback?(err)
                     // Fallback on earlier versions
                 }
 
