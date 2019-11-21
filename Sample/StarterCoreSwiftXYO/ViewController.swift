@@ -26,6 +26,14 @@ class ViewController: UIViewController {
         
         return button
     }()
+    
+    private lazy var addMoreHeuristicsButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.roundedRect)
+        
+        button.setTitle("Add Heuristics", for: UIControl.State.normal)
+        
+        return button
+    }()
 
     private lazy var doBoundWitness: UILabel = {
         let text = UILabel()
@@ -69,6 +77,7 @@ class ViewController: UIViewController {
         node.addListener(key: "main", listener: self)
         node.addHeuristic(key: "gps", getter: self)
         locationManager.startUpdatingLocation()
+        heuristicsButton()
         layoutButton()
         layout()
     }
@@ -88,14 +97,15 @@ class ViewController: UIViewController {
         doBoundWitness.translatesAutoresizingMaskIntoConstraints = false
         
         doLocation.translatesAutoresizingMaskIntoConstraints = false
-        
+                
         doBoundWitness.bottomAnchor.constraint(equalTo: doBoundWitnessButton.topAnchor, constant: -80).isActive = true
         doBoundWitness.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         doBoundWitness.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -80).isActive = true
         
         doLocation.bottomAnchor.constraint(equalTo: doBoundWitnessButton.topAnchor, constant: 100).isActive = true
         doLocation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    
+        doLocation.bottomAnchor.constraint(equalTo: addMoreHeuristicsButton.topAnchor, constant: -80).isActive = true
+        
     }
     
     private func layoutButton () {
@@ -108,9 +118,25 @@ class ViewController: UIViewController {
         doBoundWitnessButton.addGestureRecognizer(click)
     }
     
+    private func heuristicsButton () {
+        view.addSubview(addMoreHeuristicsButton)
+        addMoreHeuristicsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        addMoreHeuristicsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let click = UITapGestureRecognizer(target: self, action: #selector(addHeuristicClick(_:)))
+        addMoreHeuristicsButton.addGestureRecognizer(click)
+        
+    }
+    
     @objc func onButtonClick (_ sender: UITapGestureRecognizer) {
         print("doing bound witness")
         try? node.selfSignOriginChain()
+    }
+    
+    @objc func addHeuristicClick (_ sender: UITapGestureRecognizer) {
+        print("is this working?")
+        performSegue(withIdentifier: "heuristicsScreen", sender: self)
     }
 }
 
@@ -151,6 +177,5 @@ extension ViewController : XyoHeuristicGetter {
         var value = value
         return withUnsafeBytes(of: &value) { Array($0) }.reversed()
     }
-    
     
 }

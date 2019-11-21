@@ -14,6 +14,7 @@
 		465C5557230B43770048FBE1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 465C5556230B43770048FBE1 /* Assets.xcassets */; };
 		465C555A230B43770048FBE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 465C5558230B43770048FBE1 /* LaunchScreen.storyboard */; };
 		465C5565230B43770048FBE1 /* StarterCoreSwiftXYOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465C5564230B43770048FBE1 /* StarterCoreSwiftXYOTests.swift */; };
+		4673A3E62385D28D00D5EC39 /* HeuristicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4673A3E52385D28D00D5EC39 /* HeuristicsView.swift */; };
 		4EE53CEDE9475D75B7D52BB8 /* Pods_StarterCoreSwiftXYOTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CBBA072B2AA87597D11265 /* Pods_StarterCoreSwiftXYOTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		465C5560230B43770048FBE1 /* StarterCoreSwiftXYOTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StarterCoreSwiftXYOTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		465C5564230B43770048FBE1 /* StarterCoreSwiftXYOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterCoreSwiftXYOTests.swift; sourceTree = "<group>"; };
 		465C5566230B43770048FBE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4673A3E52385D28D00D5EC39 /* HeuristicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeuristicsView.swift; sourceTree = "<group>"; };
 		52DBC6F052C3BDDEA236D7CF /* Pods-StarterCoreSwiftXYO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarterCoreSwiftXYO.debug.xcconfig"; path = "Target Support Files/Pods-StarterCoreSwiftXYO/Pods-StarterCoreSwiftXYO.debug.xcconfig"; sourceTree = "<group>"; };
 		734E12BEA85E4ADBB771242E /* Pods-StarterCoreSwiftXYOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarterCoreSwiftXYOTests.release.xcconfig"; path = "Target Support Files/Pods-StarterCoreSwiftXYOTests/Pods-StarterCoreSwiftXYOTests.release.xcconfig"; sourceTree = "<group>"; };
 		C2CBBA072B2AA87597D11265 /* Pods_StarterCoreSwiftXYOTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StarterCoreSwiftXYOTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 				465C5556230B43770048FBE1 /* Assets.xcassets */,
 				465C5558230B43770048FBE1 /* LaunchScreen.storyboard */,
 				465C555B230B43770048FBE1 /* Info.plist */,
+				4673A3E52385D28D00D5EC39 /* HeuristicsView.swift */,
 			);
 			path = StarterCoreSwiftXYO;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			files = (
 				465C5552230B43760048FBE1 /* ViewController.swift in Sources */,
 				465C5550230B43760048FBE1 /* AppDelegate.swift in Sources */,
+				4673A3E62385D28D00D5EC39 /* HeuristicsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
