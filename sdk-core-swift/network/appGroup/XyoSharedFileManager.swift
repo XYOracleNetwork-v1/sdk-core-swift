@@ -10,6 +10,8 @@ import Foundation
 
 public class XyoSharedFileManager {
 
+    static let notSupportedError = 0x03
+
     internal typealias WriteCallback = (NSError?) -> Void
     internal typealias ReadCallback = ([UInt8]?, String) -> ()
 
@@ -68,9 +70,23 @@ internal extension XyoSharedFileManager {
 
             // Create the message with the data and write to the file
             strong.fileCoordinator.coordinate(writingItemAt: strong.url, options: .forReplacing, error: &error) { url in
-              let dictData = try? NSKeyedArchiver.archivedData(withRootObject: encoded, requiringSecureCoding: true)
-                try? dictData?.write(to: url)
-                callback?(nil)
+                if #available(iOS 11.0, *) {
+                    let dictData = try? NSKeyedArchiver.archivedData(
+                        withRootObject: encoded,
+                        requiringSecureCoding: true
+                    )
+                    try? dictData?.write(to: url)
+                    callback?(nil)
+                } else {
+                    let err = NSError(
+                        domain: "XyoSharedFileManager",
+                        code: XyoSharedFileManager.notSupportedError,
+                        userInfo: nil
+                    )
+                    callback?(err)
+                    // Fallback on earlier versions
+                }
+
             }
 
             if error != nil { callback?(error) }
