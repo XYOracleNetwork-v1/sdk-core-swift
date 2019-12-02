@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: swift build -v
+      run: 
+        - pod deintegrate
+        - pod install
+        - xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test clean -UseModernBuildSystem=NO | xcpretty
     - name: Run tests
       run: swift test -v
