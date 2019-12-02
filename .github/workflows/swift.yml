@@ -16,8 +16,6 @@ jobs:
       run: | 
         pod deintagrate
         pod install
-        xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination ${{ destination}} build test clean -UseModernBuildSystem=NO | xcpretty
-      env: 
-        destination: platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11
+        xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test clean -UseModernBuildSystem=NO | xcpretty
     - name: Run tests
       run: swift test -v
