@@ -16,5 +16,3 @@ jobs:
       run: | 
         pod deintegrate
         pod install
-    - name: Run tests
-      run: swift test -v
