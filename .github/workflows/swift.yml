@@ -16,6 +16,6 @@ jobs:
       run: | 
         pod deintegrate
         pod install
-        xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11 build test clean -UseModernBuildSystem=NO | xcpretty
+        xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ platform:iOS Simulator, id:8A3E9176-C648-465E-891F-D3D15B0BF4C7, OS:13.1, name:iPhone 11 build test clean -UseModernBuildSystem=NO | xcpretty
     - name: Run tests
       run: swift test -v
