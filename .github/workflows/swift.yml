@@ -6,10 +6,18 @@ jobs:
   build:
 
     runs-on: macOS-latest
+    strategy:
+      matrix: 
+        destination: ['']
 
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run:  xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination platform\=iOS\ build test clean -UseModernBuildSystem=NO 
+      run: | 
+        pod deintagrate
+        pod install
+        xcodebuild -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination ${{ destination}} build test clean -UseModernBuildSystem=NO | xcpretty
+      env: 
+        destination: platform\=iOS\ Simulator,OS\=13.2,name\=iPhone\ 11
     - name: Run tests
       run: swift test -v
