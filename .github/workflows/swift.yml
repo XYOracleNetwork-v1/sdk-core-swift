@@ -18,7 +18,6 @@ jobs:
         pod deintegrate
         pod install
         xcrun simctl delete all
-        xcrun simctl install
         xcodebuild clean test -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination "${destination}" -UseModernBuildSystem=NO | xcpretty
       env: 
         destination: ${{ matrix.destination }}
