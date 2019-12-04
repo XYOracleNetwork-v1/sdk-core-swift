@@ -18,6 +18,7 @@ jobs:
         pod deintegrate
         pod install
         xcrun simctl delete all
+        xcrun simctl create iphone 11 com.apple.CoreSimulator.SimDeviceType.iPhone-11
         xcodebuild clean test -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination "${destination}" -UseModernBuildSystem=NO | xcpretty
       env: 
         destination: ${{ matrix.destination }}
