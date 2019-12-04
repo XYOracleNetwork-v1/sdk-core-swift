@@ -9,7 +9,7 @@ jobs:
     runs-on: macOS-latest
     strategy: 
       matrix:
-        destination: ['platform=iOS Simulator,iOS=13.1,name=iPhone X']
+        destination: ['platform=iOS Simulator,iOS=13.1,name=iPhone11']
 
     steps:
     - uses: actions/checkout@v1
@@ -17,9 +17,8 @@ jobs:
       run: | 
         pod deintegrate
         pod install
-        xcrun simctl list devicetypes
         xcrun simctl delete all
-        xcrun simctl create iphone11 com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-1
+        xcrun simctl create iphone11 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-1
         xcodebuild clean test -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination "${destination}" -UseModernBuildSystem=NO | xcpretty
       env: 
         destination: ${{ matrix.destination }}
