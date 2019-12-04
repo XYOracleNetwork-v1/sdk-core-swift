@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: macOS-latest
-    runs-on: iOS-13-1
     strategy: 
       matrix:
         destination: ['platform=iOS Simulator,iOS=13.1,name=iPhone11']
