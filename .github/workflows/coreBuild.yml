@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: set up pod, slather and xcpretty
       run: |
+        gem install cocoapods --pr
         pod repo update
         gem install slather
         gem install xcpretty
