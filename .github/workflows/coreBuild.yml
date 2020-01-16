@@ -18,7 +18,7 @@ jobs:
           pod deintegrate
     - name: Build
       run: | 
-        xcrun simctl create iPhone11 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13
+        xcrun simctl create iPhone11 com.apple.CoreSimulator.SimDeviceType.iPhone11 com.apple.CoreSimulator.SimRuntime.iOS-13-3
         pod install
         xcodebuild clean test -workspace sdk-core-swift.xcworkspace -scheme sdk-core-swift -destination "${destination}" -UseModernBuildSystem=NO | xcpretty
       env: 
