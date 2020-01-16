@@ -16,6 +16,8 @@ jobs:
     - name: Build
       run: | 
         pod deintegrate
+        xcrun simctl shutdown all
+        xcrun simctl erase all
         xcrun simctl delete all
         xcrun simctl create iPhone11 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-3
         pod install
