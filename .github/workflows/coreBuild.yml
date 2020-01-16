@@ -19,7 +19,6 @@ jobs:
     - name: Build
       env: 
         destination: ${{ matrix.destination }}
-        DEVELOPER_DIR: /Applications/Xcode_11.3.1.app/Contents/Developer
       run: | 
         xcrun simctl create iPhone11 com.apple.CoreSimulator.SimDeviceType.iPhone-11 com.apple.CoreSimulator.SimRuntime.iOS-13-3
         pod install
