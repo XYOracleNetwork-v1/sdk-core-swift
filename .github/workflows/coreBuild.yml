@@ -41,6 +41,3 @@ jobs:
       run: |
         slather coverage -x --scheme sdk-core-swift --workspace sdk-core-swift.xcworkspace sdk-core-swift.xcodeproj
         ./cc-test-reporter after-build
-        brew tap codacy/tap
-        brew install codacy-analysis-cli
-        codacy-analysis-cli analyze
