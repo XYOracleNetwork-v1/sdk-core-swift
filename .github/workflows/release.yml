@@ -15,4 +15,6 @@ jobs:
       - name: publish to cocoapod register
         env: 
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.TRUNK_TOKEN }}
-        run: pod trunk push sdk-core-swift.podspec
+        run: |
+          pod trunk me
+          pod trunk push sdk-core-swift.podspec
