@@ -1,4 +1,4 @@
-name: Release and Publish
+name: Release
 
 on: 
   push:
@@ -17,4 +17,5 @@ jobs:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.TRUNK_TOKEN }}
         run: |
           pod trunk me
+          pod lib lint
           pod trunk push sdk-core-swift.podspec
