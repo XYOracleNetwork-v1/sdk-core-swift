@@ -29,7 +29,7 @@ DESC
   s.author           = { 'Carter Harrison' => 'carter@xyo.network' }
   s.source           = { :git => 'https://github.com/XYOracleNetwork/sdk-core-swift.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'sdk-core-swift/**/*.{swift}'
   s.swift_version = '5.0'
