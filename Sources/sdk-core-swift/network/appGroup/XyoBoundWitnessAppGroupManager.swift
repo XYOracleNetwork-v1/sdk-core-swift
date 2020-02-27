@@ -13,7 +13,9 @@ public protocol XyoBoundWitnessAppGroupManagerDelegate: class {
 
 public class XyoBoundWitnessAppGroupManager {
 
-    public typealias BoundWitnessHandler = (XyoNetworkHandler, XyoProcedureCatalog, @escaping (XyoBoundWitness?, XyoError?) -> ()) -> Void
+    public typealias BoundWitnessHandler = (
+        XyoNetworkHandler, 
+        XyoProcedureCatalog, @escaping (XyoBoundWitness?, XyoError?) -> Void) -> Void
 
     private var asServer: Bool = false
 
@@ -40,7 +42,8 @@ public class XyoBoundWitnessAppGroupManager {
                 return []
             }
 
-            if (interestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)])) {
+            if interestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) 
+                != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]) {
                 return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
             }
 
@@ -80,8 +83,9 @@ public class XyoBoundWitnessAppGroupManager {
         // Start the transfer
         guard let pipe = self.manager?.prepareConnection(identifier: String(identifier)) else { return }
         pipe.setFirstWrite { [weak self] in
-            self?.relayNode?.boundWitness(handler: XyoNetworkHandler(pipe: pipe), procedureCatalogue: AppPipeCatalogue()) { _, _ in
-                // TODO propogate this, throw or return in callback?
+            self?.relayNode?.boundWitness(
+                handler: XyoNetworkHandler(pipe: pipe), 
+                procedureCatalogue: AppPipeCatalogue()) { _, _ in
             }
         }
     }
