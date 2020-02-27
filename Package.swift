@@ -15,12 +15,14 @@ let package = Package(
             targets: ["sdk-core-swift"])
     ],
     dependencies: [
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.0")
     ],
     targets: [
         .target(
             name: "sdk-core-swift",
-            dependencies: ["secp256k1"])
+            dependencies: ["secp256k1"]),
         .testTarget(
             name: "sdk-core-swiftTests",
             dependencies: ["sdk-core-swift"])
