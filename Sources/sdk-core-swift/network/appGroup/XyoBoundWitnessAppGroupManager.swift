@@ -14,7 +14,7 @@ public protocol XyoBoundWitnessAppGroupManagerDelegate: class {
 public class XyoBoundWitnessAppGroupManager {
 
     public typealias BoundWitnessHandler = (
-        XyoNetworkHandler, 
+        XyoNetworkHandler,
         XyoProcedureCatalog, @escaping (XyoBoundWitness?, XyoError?) -> Void) -> Void
 
     private var asServer: Bool = false
@@ -42,7 +42,7 @@ public class XyoBoundWitnessAppGroupManager {
                 return []
             }
 
-            if interestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS) 
+            if interestedFlags & UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)
                 != 0 && canDo(bytes: [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]) {
                 return [UInt8(XyoProcedureCatalogFlags.BOUND_WITNESS)]
             }
@@ -84,7 +84,7 @@ public class XyoBoundWitnessAppGroupManager {
         guard let pipe = self.manager?.prepareConnection(identifier: String(identifier)) else { return }
         pipe.setFirstWrite { [weak self] in
             self?.relayNode?.boundWitness(
-                handler: XyoNetworkHandler(pipe: pipe), 
+                handler: XyoNetworkHandler(pipe: pipe),
                 procedureCatalogue: AppPipeCatalogue()) { _, _ in
             }
         }
