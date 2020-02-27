@@ -5,7 +5,7 @@
 //  Created by Darren Sutherland on 6/6/19.
 //
 
-import Foundation
+import UIKit
 
 public protocol XyoBoundWitnessAppGroupManagerDelegate: class {
     func complete()
