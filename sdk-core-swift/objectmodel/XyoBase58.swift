@@ -17,8 +17,8 @@ struct XyoBase58 {
         var zerosCount = 0
         var length = 0
 
-        for byte in bytes {
-            if byte != 0 { break }
+        for b in bytes {
+            if b != 0 { break }
             zerosCount += 1
         }
 
@@ -27,27 +27,27 @@ struct XyoBase58 {
         let size = bytes.count * 138 / 100 + 1
 
         var base58: [UInt8] = Array(repeating: 0, count: size)
-        for byte in bytes {
-            var carry = Int(byte)
-            var index = 0
+        for b in bytes {
+            var carry = Int(b)
+            var i = 0
 
-            for byteIndex in 0...base58.count-1 where carry != 0 || index < length {
-                carry += 256 * Int(base58[base58.count - byteIndex - 1])
-                base58[base58.count - byteIndex - 1] = UInt8(carry % 58)
+            for j in 0...base58.count-1 where carry != 0 || i < length {
+                carry += 256 * Int(base58[base58.count - j - 1])
+                base58[base58.count - j - 1] = UInt8(carry % 58)
                 carry /= 58
-                index += 1
+                i += 1
             }
 
             assert(carry == 0)
 
-            length = index
+            length = i
         }
 
         // skip leading zeros
         var zerosToRemove = 0
         var str = ""
-        for num in base58 {
-            if num != 0 { break }
+        for b in base58 {
+            if b != 0 { break }
             zerosToRemove += 1
         }
         base58.removeFirst(zerosToRemove)
@@ -57,9 +57,8 @@ struct XyoBase58 {
             zerosCount -= 1
         }
 
-        for num in base58 {
-            let offset = String.Index(utf16Offset: Int(num), in: base58Alphabet)
-            str = "\(base58Alphabet[offset])"
+        for b in base58 {
+          str = "\(str)\(String.Index(utf16Offset: Int(b), in:base58Alphabet))"
         }
 
         return str
