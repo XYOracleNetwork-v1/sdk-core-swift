@@ -44,7 +44,7 @@ open class XyoBoundWitness : XyoIterableStructure {
     }
     
     internal func getSigningData () throws -> [UInt8] {
-        return try getValueCopy().copyRangeOf(from: 0, toEnd: getWitnessFetterBoundry()).toByteArray()
+        return try getValueCopy().copyRangeOf(from: 0, to: getWitnessFetterBoundry()).toByteArray()
     }
     
     public func getNumberOfParties () throws -> Int? {
