@@ -54,7 +54,7 @@ platform :ios, '11.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'sdk-core-swift', '3.1.3'
+    pod 'sdk-core-swift', '3.1.4'
 end
 ```
 

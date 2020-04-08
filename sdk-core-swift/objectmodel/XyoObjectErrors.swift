@@ -9,11 +9,11 @@
 import Foundation
 
 public enum XyoObjectError: Error {
-    case SIZEZERO
-    case NOTITERABLE
-    case OUTOFINDEX
-    case NOTUNTYPED
-    case NOTTYPED
-    case NOELEMENTS
-    case WRONGTYPE
+    case SIZE_ZERO
+    case NOT_ITERABLE
+    case OUT_OF_INDEX
+    case NOT_UNTYPED
+    case NOT_TYPED
+    case NO_ELEMENTS
+    case WRONG_TYPE
 }
