@@ -46,7 +46,7 @@ open class XyoObjectStructure {
     
     internal func checkIndex (index : Int) throws {
         if (index > value.getSize()) {
-            throw XyoObjectError.OUT_OF_INDEX
+            throw XyoObjectError.OUTOFINDEX
         }
     }
     

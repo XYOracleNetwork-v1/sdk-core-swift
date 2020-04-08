@@ -41,7 +41,7 @@ open class XyoIterableStructure: XyoObjectStructure {
             i += 1
         }
         
-        throw XyoObjectError.OUT_OF_INDEX
+        throw XyoObjectError.OUTOFINDEX
     }
     
     public func get (id : UInt8) throws -> [XyoObjectStructure] {
@@ -73,7 +73,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let sizeOfObject = readSizeOfObject(sizeIdentifier : schemaOfItem.getSizeIdentifier(), offset: offset + 2)
         
         if (sizeOfObject == 0) {
-            throw XyoObjectError.SIZE_ZERO
+            throw XyoObjectError.SIZEZERO
         }
         
         let start = offset + value.allowedOffset
@@ -94,7 +94,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let sizeOfObject = readSizeOfObject(sizeIdentifier : schemaOfItem.getSizeIdentifier(), offset: offset)
         
         if (sizeOfObject == 0) {
-            throw XyoObjectError.SIZE_ZERO
+            throw XyoObjectError.SIZEZERO
         }
         
         let start = offset + value.allowedOffset
@@ -119,7 +119,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         let totalSize = readSizeOfObject(sizeIdentifier: setHeader.getSizeIdentifier(), offset: 2)
         
         if (!setHeader.getIsIterable()) {
-            throw XyoObjectError.NOT_ITERABLE
+            throw XyoObjectError.NOTITERABLE
         }
         
         if (setHeader.getIsTypedIterable() && totalSize != setHeader.getSizeIdentifier().rawValue) {
@@ -143,7 +143,7 @@ open class XyoIterableStructure: XyoObjectStructure {
                 return
             }
             
-            throw XyoObjectError.WRONG_TYPE
+            throw XyoObjectError.WRONGTYPE
         }
         
         buffer.put(buffer: element.getBuffer())
@@ -209,7 +209,7 @@ open class XyoIterableStructure: XyoObjectStructure {
         }
         
         if (values.isEmpty) {
-            throw XyoObjectError.NO_ELEMENTS
+            throw XyoObjectError.NOELEMENTS
         }
         
         let buffer = XyoBuffer()
