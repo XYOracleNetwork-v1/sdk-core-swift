@@ -1,4 +1,4 @@
-platform :ios, '13.2'
+platform :ios, '13.4'
 
 target 'sdk-core-swift' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
