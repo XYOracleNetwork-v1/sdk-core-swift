@@ -26,7 +26,7 @@ DESC
 
   s.homepage         = 'https://github.com/XYOracleNetwork/sdk-core-swift'
   s.license          = { :type => 'LGPL3', :file => 'LICENSE' }
-  s.author           = { 'Carter Harrison' => 'carter@xyo.network' }
+  s.authors           = { 'XY - The Persistent Company' => 'developers@xyo.network' }
   s.source           = { :git => 'https://github.com/XYOracleNetwork/sdk-core-swift.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '11.0'
