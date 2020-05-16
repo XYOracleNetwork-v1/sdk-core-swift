@@ -25,5 +25,5 @@ jobs:
           COCOAPODS_TRUNK_TOKEN: ${{ secrets.TRUNK_TOKEN }}
         run: |
           pod trunk me
-          pod lib lint
+          pod lib lint --allow-warnings
           pod trunk push sdk-xyo-swift.podspec
